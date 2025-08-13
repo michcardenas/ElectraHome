@@ -38,6 +38,8 @@ Route::post('/order/process', [ShopController::class, 'processOrder'])->name('or
 Route::get('/payment/gateway/{order}', [App\Http\Controllers\ShopController::class, 'paymentGateway'])->name('payment.gateway');
 Route::post('/payment/process/{order}', [App\Http\Controllers\ShopController::class, 'processPayment'])->name('payment.process');
 Route::get('/payment/success/{order}', [App\Http\Controllers\ShopController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/contacto', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contacto', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::post('/cart',           [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart',            [CartController::class, 'index'])->name('cart.index');

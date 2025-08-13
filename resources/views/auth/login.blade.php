@@ -12,23 +12,23 @@
                         <!-- Left Column - Image/Branding -->
                         <div class="col-lg-6 login-image-section">
                             <div class="login-brand">
-                                <img src="{{ asset('images/logo.png') }}" alt="Meatology Logo" class="brand-logo">
-                                <h2 class="brand-title">Welcome Back</h2>
+                                <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo" class="brand-logo">
+                                <h2 class="brand-title">Bienvenido de Nuevo</h2>
                                 <p class="brand-subtitle">
-                                    Premium grass-fed beef from Uruguay. Experience the finest quality meat, ethically sourced and delivered with care.
+                                    Electrodomésticos de calidad premium Oster. Descubre equipos duraderos, eficientes y diseñados para hacer tu vida más fácil en la cocina.
                                 </p>
                                 <div class="brand-features">
                                     <div class="feature-item">
                                         <i class="fas fa-check-circle"></i>
-                                        <span>100% Grass-Fed</span>
+                                        <span>Garantía Oficial</span>
                                     </div>
                                     <div class="feature-item">
                                         <i class="fas fa-check-circle"></i>
-                                        <span>Certified Humane®</span>
+                                        <span>Servicio Técnico</span>
                                     </div>
                                     <div class="feature-item">
                                         <i class="fas fa-check-circle"></i>
-                                        <span>Sustainable Farming</span>
+                                        <span>Calidad Certificada</span>
                                     </div>
                                 </div>
                             </div>
@@ -38,8 +38,8 @@
                         <div class="col-lg-6 login-form-section">
                             <div class="login-form-container">
                                 <div class="form-header">
-                                    <h3>Sign In</h3>
-                                    <p>Access your account to manage orders and preferences</p>
+                                    <h3>Iniciar Sesión</h3>
+                                    <p>Accede a tu cuenta para gestionar pedidos y preferencias</p>
                                 </div>
 
                                 <!-- Session Status -->
@@ -62,14 +62,14 @@
                                     <!-- Email Address -->
                                     <div class="form-group">
                                         <label for="email" class="form-label">
-                                            <i class="fas fa-envelope me-2"></i>Email Address
+                                            <i class="fas fa-envelope me-2"></i>Correo Electrónico
                                         </label>
                                         <input id="email" 
                                                type="email" 
                                                name="email" 
                                                value="{{ old('email') }}" 
                                                class="form-control @error('email') is-invalid @enderror" 
-                                               placeholder="Enter your email address"
+                                               placeholder="Ingresa tu correo electrónico"
                                                required 
                                                autofocus 
                                                autocomplete="username">
@@ -81,14 +81,14 @@
                                     <!-- Password -->
                                     <div class="form-group">
                                         <label for="password" class="form-label">
-                                            <i class="fas fa-lock me-2"></i>Password
+                                            <i class="fas fa-lock me-2"></i>Contraseña
                                         </label>
                                         <div class="password-input">
                                             <input id="password" 
                                                    type="password" 
                                                    name="password" 
                                                    class="form-control @error('password') is-invalid @enderror" 
-                                                   placeholder="Enter your password"
+                                                   placeholder="Ingresa tu contraseña"
                                                    required 
                                                    autocomplete="current-password">
                                             <button type="button" class="password-toggle" onclick="togglePassword()">
@@ -105,25 +105,25 @@
                                         <div class="remember-me">
                                             <input type="checkbox" id="remember_me" name="remember" class="form-check-input">
                                             <label for="remember_me" class="form-check-label">
-                                                Remember me
+                                                Recordarme
                                             </label>
                                         </div>
                                         @if (Route::has('password.request'))
                                             <a href="{{ route('password.request') }}" class="forgot-password">
-                                                Forgot password?
+                                                ¿Olvidaste tu contraseña?
                                             </a>
                                         @endif
                                     </div>
 
                                     <!-- Submit Button -->
                                     <button type="submit" class="login-btn">
-                                        <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
                                     </button>
 
                                     <!-- Register Link -->
                                     <div class="register-link">
-                                        <p>Don't have an account? 
-                                            <a href="{{ route('register') }}">Create one here</a>
+                                        <p>¿No tienes una cuenta? 
+                                            <a href="{{ route('register') }}">Créala aquí</a>
                                         </p>
                                     </div>
                                 </form>
@@ -138,7 +138,7 @@
 
 <style>
 .login-page {
-    background: linear-gradient(135deg, #f8f9fa 0%, rgba(1, 25, 4, 0.05) 100%);
+    background: linear-gradient(135deg, #FCFAF1 0%, rgba(16, 24, 32, 0.05) 100%);
     min-height: 100vh;
     padding: 40px 0;
     font-family: 'Inter', sans-serif;
@@ -154,7 +154,7 @@
 }
 
 .login-image-section {
-    background: linear-gradient(135deg, #011904 0%, #022a07 100%);
+    background: linear-gradient(135deg, #101820 0%, #1a252f 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -171,7 +171,7 @@
     right: -50%;
     width: 200%;
     height: 200%;
-    background: url('{{ asset("images/carrusel1.png") }}') center/cover;
+    background: url('{{ asset("images/logo.png") }}') center/cover;
     opacity: 0.1;
     transform: rotate(-15deg);
 }
@@ -216,7 +216,7 @@
 }
 
 .feature-item i {
-    color: #c41e3a;
+    color: #00A9E0;
     font-size: 1.2rem;
 }
 
@@ -239,7 +239,7 @@
 .form-header h3 {
     font-size: 2.2rem;
     font-weight: 800;
-    color: #011904;
+    color: #101820;
     margin-bottom: 15px;
 }
 
@@ -254,7 +254,7 @@
 }
 
 .login-form .form-label {
-    color: #011904;
+    color: #101820;
     font-weight: 600;
     margin-bottom: 10px;
     font-size: 0.95rem;
@@ -268,12 +268,12 @@
     padding: 15px 20px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: #f8f9fa;
+    background: #FCFAF1;
 }
 
 .login-form .form-control:focus {
-    border-color: #011904;
-    box-shadow: 0 0 0 0.2rem rgba(1, 25, 4, 0.25);
+    border-color: #00A9E0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 169, 224, 0.25);
     background: white;
 }
 
@@ -294,7 +294,7 @@
 }
 
 .password-toggle:hover {
-    color: #011904;
+    color: #00A9E0;
 }
 
 .form-options {
@@ -315,13 +315,13 @@
 .form-check-input {
     width: 18px;
     height: 18px;
-    border: 2px solid #011904;
+    border: 2px solid #00A9E0;
     border-radius: 4px;
 }
 
 .form-check-input:checked {
-    background-color: #011904;
-    border-color: #011904;
+    background-color: #00A9E0;
+    border-color: #00A9E0;
 }
 
 .form-check-label {
@@ -331,7 +331,7 @@
 }
 
 .forgot-password {
-    color: #c41e3a;
+    color: #00CFB4;
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
@@ -339,13 +339,13 @@
 }
 
 .forgot-password:hover {
-    color: #e74c3c;
+    color: #00A9E0;
     text-decoration: underline;
 }
 
 .login-btn {
     width: 100%;
-    background: linear-gradient(135deg, #011904 0%, #022a07 100%);
+    background: linear-gradient(135deg, #00A9E0 0%, #00CFB4 100%);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -355,14 +355,14 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(1, 25, 4, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 169, 224, 0.3);
     margin-bottom: 25px;
 }
 
 .login-btn:hover {
-    background: linear-gradient(135deg, #022a07 0%, #033309 100%);
+    background: linear-gradient(135deg, #00CFB4 0%, #00A9E0 100%);
     transform: translateY(-2px);
-    box-shadow: 0 12px 35px rgba(1, 25, 4, 0.4);
+    box-shadow: 0 12px 35px rgba(0, 169, 224, 0.4);
 }
 
 .register-link {
@@ -376,21 +376,21 @@
 }
 
 .register-link a {
-    color: #c41e3a;
+    color: #00A9E0;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .register-link a:hover {
-    color: #e74c3c;
+    color: #00CFB4;
     text-decoration: underline;
 }
 
 .alert-success {
-    background: rgba(40, 167, 69, 0.1);
-    border: 2px solid rgba(40, 167, 69, 0.3);
-    color: #28a745;
+    background: rgba(0, 207, 180, 0.1);
+    border: 2px solid rgba(0, 207, 180, 0.3);
+    color: #00CFB4;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 25px;
@@ -480,7 +480,6 @@
     }
 }
 </style>
-
 <script>
 function togglePassword() {
     const passwordInput = document.getElementById('password');

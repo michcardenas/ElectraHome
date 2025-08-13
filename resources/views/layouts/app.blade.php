@@ -20,13 +20,14 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <style>
-/* Navigation Responsive Styles */
+<style>
+/* Navigation Responsive Styles - VERSIÓN PROFESIONAL */
 nav {
-    background-color: #013105;
+    background: linear-gradient(135deg, #101820 0%, #1a252f 100%);
     padding: 12px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid #00A9E0;
     position: relative;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
@@ -46,13 +47,15 @@ nav {
 
 .logo img {
     height: 75px;
+    filter: brightness(0) invert(1);
 }
 
 .logo span {
     font-size: 1.2rem;
     letter-spacing: 2px;
-    font-weight: 500;
-    color: #e0d9c0;
+    font-weight: 600;
+    color: #FCFAF1;
+    text-shadow: none;
 }
 
 /* Desktop Navigation */
@@ -66,16 +69,35 @@ nav {
 }
 
 .nav-links a {
-    color: #e0d9c0;
+    color: #00A9E0;
     text-decoration: none;
     font-size: 0.95rem;
+    font-weight: 500;
     position: relative;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: none;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: #f4f1e7;
+    color: #00CFB4;
+    transform: translateY(-1px);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #00A9E0;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
 }
 
 .nav-icons {
@@ -85,24 +107,28 @@ nav {
 }
 
 .nav-icons i {
-    color: #e0d9c0;
+    color: #FCFAF1;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: none;
 }
 
 .nav-icons i:hover {
-    color: #f4f1e7;
+    color: #00CFB4;
+    transform: scale(1.1);
 }
 
 .nav-icons a {
-    color: #e0d9c0;
+    color: #FCFAF1;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: none;
 }
 
 .nav-icons a:hover {
-    color: #f4f1e7;
+    color: #00CFB4;
+    transform: translateY(-1px);
 }
 
 /* Mobile Menu Toggle */
@@ -110,15 +136,17 @@ nav {
     display: none;
     background: none;
     border: none;
-    color: #e0d9c0;
+    color: #FCFAF1;
     font-size: 1.5rem;
     cursor: pointer;
     padding: 5px;
     z-index: 1001;
+    transition: all 0.3s ease;
 }
 
 .mobile-menu-toggle:hover {
-    color: #f4f1e7;
+    color: #00CFB4;
+    transform: scale(1.1);
 }
 
 /* Mobile Navigation */
@@ -129,8 +157,8 @@ nav {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(1, 25, 4, 0.98);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(16, 24, 32, 0.97) 0%, rgba(26, 37, 47, 0.97) 100%);
+    backdrop-filter: blur(15px);
     z-index: 999;
     padding-top: 80px;
 }
@@ -160,22 +188,26 @@ nav {
 }
 
 .mobile-nav-links a {
-    color: #e0d9c0;
+    color: #FCFAF1;
     text-decoration: none;
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    padding: 10px 20px;
+    padding: 15px 25px;
     border-radius: 8px;
+    border: 2px solid transparent;
+    text-shadow: none;
 }
 
 .mobile-nav-links a:hover,
 .mobile-nav-links a.active {
-    color: #f4f1e7;
-    background: rgba(224, 217, 192, 0.1);
-    transform: translateY(-2px);
+    color: #101820;
+    background: #FCFAF1;
+    border-color: #00A9E0;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 .mobile-nav-icons {
@@ -188,15 +220,16 @@ nav {
 
 .mobile-nav-icons a,
 .mobile-nav-icons .dropdown {
-    color: #e0d9c0;
+    color: #FCFAF1;
     font-size: 1.3rem;
     text-decoration: none;
     transition: all 0.3s ease;
     padding: 15px;
     border-radius: 50%;
-    background: rgba(224, 217, 192, 0.1);
-    width: 50px;
-    height: 50px;
+    background: rgba(252, 250, 241, 0.1);
+    border: 2px solid rgba(252, 250, 241, 0.2);
+    width: 55px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -204,9 +237,11 @@ nav {
 
 .mobile-nav-icons a:hover,
 .mobile-nav-icons .dropdown:hover {
-    color: #f4f1e7;
-    background: rgba(224, 217, 192, 0.2);
-    transform: scale(1.1);
+    color: #101820;
+    background: #FCFAF1;
+    border-color: #00A9E0;
+    transform: scale(1.15);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Dropdown Styles */
@@ -221,41 +256,56 @@ nav {
 }
 
 .dropdown-menu {
-    background: white;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0,0,0,.15);
-    min-width: 180px;
-    padding: 10px 0;
-    margin-top: 8px;
+    background: #FCFAF1;
+    border: 2px solid #00A9E0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    padding: 15px 0;
+    margin-top: 10px;
 }
 
 .dropdown-item {
-    padding: 8px 20px;
+    padding: 12px 25px;
     font-size: 0.9rem;
-    color: #333;
+    color: #101820;
+    font-weight: 500;
     transition: all 0.3s ease;
+    border-left: 3px solid transparent;
 }
 
 .dropdown-item:hover {
-    background: #f8f9fa;
-    color: #011904;
+    background: linear-gradient(90deg, #00A9E0, #00CFB4);
+    color: #FCFAF1;
+    border-left-color: #101820;
     transform: translateX(5px);
 }
 
 .dropdown-divider {
-    margin: 8px 0;
-    border-color: rgba(0,0,0,.1);
+    margin: 10px 0;
+    border-color: rgba(0, 169, 224, 0.2);
 }
 
 /* Footer Styles */
 footer {
-    background: linear-gradient(135deg, #011904 0%, #022a07 100%) !important;
-    border-top: 3px solid rgb(7, 52, 13);
+    background: linear-gradient(135deg, #101820 0%, #1a252f 100%) !important;
+    border-top: 3px solid #00A9E0;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00A9E0, #00CFB4, #00A9E0);
 }
 
 .footer-logo img {
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    filter: brightness(0) invert(1);
 }
 
 .footer-logo:hover img {
@@ -268,21 +318,25 @@ footer {
 }
 
 .social-link {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(252, 250, 241, 0.8);
     transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 169, 224, 0.2);
+    margin: 0 5px;
+    border: 2px solid transparent;
 }
 
 .social-link:hover {
-    color: #fff;
-    background: rgba(64, 120, 79, 0.8);
-    transform: translateY(-2px);
+    color: #101820;
+    background: #00A9E0;
+    border-color: #FCFAF1;
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 169, 224, 0.3);
 }
 
 .footer-links {
@@ -290,36 +344,39 @@ footer {
 }
 
 .footer-links li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .footer-link {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(252, 250, 241, 0.8);
     text-decoration: none;
     font-size: 0.9rem;
+    font-weight: 400;
     transition: all 0.3s ease;
     position: relative;
+    padding-left: 0;
 }
 
 .footer-link:hover {
-    color: #fff;
-    padding-left: 5px;
+    color: #00A9E0;
+    padding-left: 12px;
+    font-weight: 500;
 }
 
 .footer-link::before {
     content: '';
     position: absolute;
-    left: -10px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     width: 0;
     height: 2px;
-    background: #c41e3a;
+    background: linear-gradient(90deg, #00A9E0, #00CFB4);
     transition: width 0.3s ease;
 }
 
 .footer-link:hover::before {
-    width: 6px;
+    width: 8px;
 }
 
 .newsletter-form {
@@ -327,63 +384,70 @@ footer {
 }
 
 .newsletter-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(252, 250, 241, 0.1);
+    border: 2px solid rgba(0, 169, 224, 0.3);
     border-radius: 25px 0 0 25px;
-    color: white;
-    padding: 12px 20px;
+    color: #FCFAF1;
+    padding: 14px 22px;
     font-size: 0.9rem;
+    transition: all 0.3s ease;
 }
 
 .newsletter-input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(252, 250, 241, 0.6);
 }
 
 .newsletter-input:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: none;
-    color: white;
+    background: rgba(252, 250, 241, 0.15);
+    border-color: #00A9E0;
+    box-shadow: 0 0 0 3px rgba(0, 169, 224, 0.2);
+    color: #FCFAF1;
 }
 
 .newsletter-btn {
-    background: #c41e3a;
-    border: 2px solid #c41e3a;
+    background: linear-gradient(135deg, #00A9E0, #00CFB4);
+    border: 2px solid #00A9E0;
     border-radius: 0 25px 25px 0;
-    color: white;
-    padding: 12px 20px;
+    color: #FCFAF1;
+    padding: 14px 22px;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .newsletter-btn:hover {
-    background: #e74c3c;
-    border-color: #e74c3c;
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #00CFB4, #00A9E0);
+    border-color: #00CFB4;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 169, 224, 0.3);
 }
 
 .contact-info .footer-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(252, 250, 241, 0.9);
     text-decoration: none;
 }
 
 .contact-info .footer-link:hover {
-    color: #c41e3a;
+    color: #00A9E0;
     padding-left: 0;
 }
 
 .certification-badge {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 169, 224, 0.2);
+    border: 1px solid rgba(0, 169, 224, 0.3);
     border-radius: 15px;
-    padding: 5px 12px;
+    padding: 8px 16px;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: #FCFAF1;
     display: inline-block;
     transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .certification-badge:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #00A9E0, #00CFB4);
+    border-color: #FCFAF1;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 169, 224, 0.3);
 }
 
 /* Responsive Media Queries */
@@ -419,7 +483,7 @@ footer {
     }
     
     .logo img {
-        height: 35px;
+        height: 45px;
     }
     
     /* Footer responsive */
@@ -435,7 +499,8 @@ footer {
     
     .certification-badge {
         display: block;
-        margin: 5px 0;
+        margin: 8px auto;
+        max-width: 200px;
     }
     
     .newsletter-input,
@@ -455,7 +520,7 @@ footer {
     }
     
     .logo img {
-        height: 30px;
+        height: 35px;
     }
     
     .nav-icons {
@@ -483,52 +548,57 @@ footer {
 @media (max-width: 480px) {
     .mobile-nav-links a {
         font-size: 1.1rem;
+        padding: 12px 20px;
     }
     
     .mobile-nav-icons a,
     .mobile-nav-icons .dropdown {
-        width: 45px;
-        height: 45px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
     }
 }
-/* ===== SUBMENU STYLES - AGREGADO ===== */
+
+/* ===== SUBMENU STYLES - PROFESIONALES ===== */
 .nav-item {
     position: relative;
     display: inline-block;
 }
 
 .nav-item > a {
-    color: #e0d9c0;
+    color: #FCFAF1;
     text-decoration: none;
     font-size: 0.95rem;
-    transition: color 0.3s ease;
+    font-weight: 500;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 5px;
+    text-shadow: none;
 }
 
 .nav-item:hover > a {
-    color: #f4f1e7;
+    color: #00CFB4;
+    transform: translateY(-1px);
 }
 
-/* Primer nivel del submenu (países) */
+/* Primer nivel del submenu */
 .submenu {
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100% + 15px);
     left: 50%;
     transform: translateX(-50%);
-    background: #013105;
-    border: 1px solid rgba(224, 217, 192, 0.3);
+    background: linear-gradient(135deg, #FCFAF1 0%, #F8F6ED 100%);
+    border: 2px solid #00A9E0;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    min-width: 220px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    min-width: 240px;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(-10px);
-    transition: all 0.3s ease;
+    transform: translateX(-50%) translateY(-15px);
+    transition: all 0.4s ease;
     z-index: 1000;
-    padding: 8px 0;
+    padding: 10px 0;
 }
 
 .nav-item:hover .submenu {
@@ -537,15 +607,15 @@ footer {
     transform: translateX(-50%) translateY(0);
 }
 
-/* Items de países */
-.country-item {
+/* Items de categorías */
+.category-item {
     position: relative;
 }
 
-.country-item > a {
+.category-item > a {
     display: block;
-    padding: 12px 20px;
-    color: #e0d9c0;
+    padding: 14px 25px;
+    color: #101820;
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
@@ -553,41 +623,30 @@ footer {
     font-size: 14px;
 }
 
-.country-item:hover > a {
-    background: rgba(224, 217, 192, 0.1);
-    color: #f4f1e7;
-    border-left-color: #c41e3a;
+.category-item:hover > a {
+    background: linear-gradient(90deg, rgba(0, 169, 224, 0.1), rgba(0, 207, 180, 0.1));
+    color: #101820;
+    border-left-color: #00A9E0;
+    padding-left: 30px;
+    font-weight: 600;
 }
 
-/* Flecha indicadora */
-.country-item > a::after {
-    content: '▶';
-    float: right;
-    font-size: 10px;
-    color: rgba(224, 217, 192, 0.6);
-    transition: color 0.3s ease;
-}
-
-.country-item:hover > a::after {
-    color: #f4f1e7;
-}
-
-/* Segundo nivel del submenu (categorías) */
+/* Segundo nivel del submenu (si lo necesitas) */
 .categories-submenu {
     position: absolute;
     top: 0;
-    left: calc(100% + 8px);
-    background: #013105;
-    border: 1px solid rgba(224, 217, 192, 0.3);
+    left: calc(100% + 10px);
+    background: linear-gradient(135deg, #FCFAF1 0%, #F8F6ED 100%);
+    border: 2px solid #00A9E0;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    min-width: 250px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-10px);
-    transition: all 0.3s ease;
+    transform: translateX(-15px);
+    transition: all 0.4s ease;
     z-index: 1001;
-    padding: 15px 0;
+    padding: 20px 0;
 }
 
 .country-item:hover .categories-submenu {
@@ -596,31 +655,27 @@ footer {
     transform: translateX(0);
 }
 
-/* Header del país en el submenu de categorías */
+/* Header del submenu de categorías */
 .categories-header {
-    padding: 0 20px 12px;
-    border-bottom: 2px solid #c41e3a;
-    margin-bottom: 12px;
+    padding: 0 25px 15px;
+    border-bottom: 3px solid #00A9E0;
+    margin-bottom: 15px;
 }
 
 .categories-header h4 {
     margin: 0;
-    color: #c41e3a;
-    font-size: 14px;
+    color: #00A9E0;
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
-/* Items de categorías */
-.category-item {
-    padding: 1px 0;
-}
-
+/* Items de categorías del segundo nivel */
 .category-item a {
     display: block;
-    padding: 10px 20px;
-    color: rgba(224, 217, 192, 0.8);
+    padding: 12px 25px;
+    color: rgba(16, 24, 32, 0.8);
     text-decoration: none;
     font-size: 13px;
     transition: all 0.3s ease;
@@ -628,20 +683,22 @@ footer {
 }
 
 .category-item a:hover {
-    background: rgba(224, 217, 192, 0.1);
-    color: #f4f1e7;
-    border-left-color: #c41e3a;
-    padding-left: 25px;
+    background: linear-gradient(90deg, rgba(0, 169, 224, 0.15), rgba(0, 207, 180, 0.15));
+    color: #101820;
+    border-left-color: #00A9E0;
+    padding-left: 32px;
+    font-weight: 600;
 }
 
-/* Mobile submenu adaptado a tu estilo */
+/* Mobile submenu */
 .mobile-submenu {
     display: none;
-    background: rgba(224, 217, 192, 0.1);
-    padding: 15px 20px;
-    margin-top: 10px;
+    background: rgba(252, 250, 241, 0.1);
+    border: 1px solid rgba(0, 169, 224, 0.3);
+    padding: 20px 25px;
+    margin-top: 15px;
     border-radius: 8px;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .mobile-submenu.active {
@@ -650,17 +707,18 @@ footer {
 
 .mobile-nav .categories-submenu {
     display: none;
-    margin-left: 20px;
-    margin-top: 10px;
-    background: rgba(224, 217, 192, 0.05);
-    border-radius: 5px;
-    padding: 10px;
+    margin-left: 25px;
+    margin-top: 15px;
+    background: rgba(252, 250, 241, 0.1);
+    border: 1px solid rgba(0, 169, 224, 0.2);
+    border-radius: 8px;
+    padding: 15px;
 }
 
 /* Responsive para el submenu */
 @media (max-width: 768px) {
     .submenu {
-        min-width: 250px;
+        min-width: 280px;
         left: 0;
         transform: translateX(0);
     }
@@ -669,266 +727,306 @@ footer {
         transform: translateX(0) translateY(0);
     }
 }
+
 /* ===== FIN SUBMENU STYLES ===== */
+
+/* Badge del carrito actualizado */
+.badge {
+    background: linear-gradient(135deg, #00A9E0, #00CFB4) !important;
+    color: #FCFAF1 !important;
+    border: 1px solid rgba(252, 250, 241, 0.3);
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+}
+
+/* Efectos hover mejorados para enlaces principales */
+.nav-links a,
+.mobile-nav-links a {
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::before,
+.mobile-nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 169, 224, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-links a:hover::before,
+.mobile-nav-links a:hover::before {
+    left: 100%;
+}
 </style>
 
     @vite(['resources/js/app.js'])
 </head>
 <body>
-    <nav>
-        <div class="navbar-container">
-            <div class="logo">
-                <img src="{{ asset('images/logo.png') }}" alt="Meatology Logo">
-            </div>
-
-            <!-- Desktop Navigation -->
-            <div class="nav-links">
-  <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
-
-  {{-- NAV ITEM CON SUBMENU --}}
-  <div class="nav-item">
-    <a href="#" class="has-submenu">
-      Products <i class="fas fa-chevron-down" style="font-size: .75rem;"></i>
-    </a>
-
-   <div class="submenu">
-  @forelse(($categories ?? collect())->unique(fn($c) => mb_strtolower(trim($c->name))) as $category)
-    <div class="category-item">
-      <a href="{{ route('shop.index', ['category' => $category->id]) }}">
-        {{ $category->name }}
-      </a>
-    </div>
-  @empty
-    <div class="category-item">
-      <a href="{{ route('shop.index') }}">All products</a>
-    </div>
-  @endforelse
-</div>
-
-  </div>
-
-  <a href="{{ route('about') }}">About Us</a>
-  <a href="{{ route('login') }}">Insiders</a>
-  <a href="{{ route('recipes') }}">Recipes</a>
-  <a href="{{ route('partner.chefs') }}" class="{{ request()->routeIs('partner.chefs') ? 'active' : '' }}">Partner Chefs</a>
-</div>
-
-
-            <!-- Desktop Icons -->
-            <div class="nav-icons">
-                @auth
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Mi cuenta">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                <i class="fas fa-user me-2"></i>Mi Cuenta
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('cart.index') }}">
-                                <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}" 
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                    
-                    <!-- Formulario oculto para logout -->
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
-                @else
-                <a href="{{ route('login') }}" title="Iniciar sesión">
-                    <i class="fas fa-user-circle"></i>
-                </a>
-                @endauth
-                
-                <a class="nav-link" href="{{ route('cart.index') }}">
-                    🛒 <span class="badge bg-secondary">{{ Cart::count() }}</span>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars" id="menuIcon"></i>
-            </button>
+   <nav>
+    <div class="navbar-container">
+        <div class="logo">
+            <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo">
         </div>
 
-        <!-- Mobile Navigation -->
-        <div class="mobile-nav" id="mobileNav">
-            <div class="mobile-nav-links">
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('shop.index') }}">Products</a>
-                <a href="{{ route('about') }}">About Us</a>
-                <a href="{{ route('partner.chefs') }}" class="{{ request()->routeIs('partner.chefs') ? 'active' : '' }}">Partner Chefs</a>
+        <!-- Desktop Navigation -->
+        <div class="nav-links">
+            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Inicio</a>
+
+            {{-- NAV ITEM CON SUBMENU DE PRODUCTOS --}}
+            <div class="nav-item">
+                <a href="#" class="has-submenu">
+                    Productos <i class="fas fa-chevron-down" style="font-size: .75rem;"></i>
+                </a>
+
+                <div class="submenu">
+                    @forelse(($categories ?? collect())->unique(fn($c) => mb_strtolower(trim($c->name))) as $category)
+                        <div class="category-item">
+                            <a href="{{ route('shop.index', ['category' => $category->id]) }}">
+                                {{ $category->name }}
+                            </a>
+                        </div>
+                    @empty
+                        {{-- Categorías por defecto para electrodomésticos --}}
+                        <div class="category-item">
+                            <a href="{{ route('shop.index') }}">Todos los productos</a>
+                        </div>
+                        <div class="category-item">
+                            <a href="{{ route('shop.index', ['category' => 'licuadoras']) }}">Licuadoras</a>
+                        </div>
+                        <div class="category-item">
+                            <a href="{{ route('shop.index', ['category' => 'freidoras']) }}">Freidoras de Aire</a>
+                        </div>
+                        <div class="category-item">
+                            <a href="{{ route('shop.index', ['category' => 'sanducheras']) }}">Sanducheras</a>
+                        </div>
+                        <div class="category-item">
+                            <a href="{{ route('shop.index', ['category' => 'pequenos']) }}">Pequeños Electrodomésticos</a>
+                        </div>
+                    @endforelse
+                </div>
             </div>
 
-            <div class="mobile-nav-icons">
-                @auth
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Mi cuenta">
-                        <i class="fas fa-user-circle"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                <i class="fas fa-user me-2"></i>Mi Cuenta
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('cart.index') }}">
-                                <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}" 
-                               onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
-                                <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                    
-                    <!-- Formulario oculto para logout móvil -->
-                    <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
-                @else
-                <a href="{{ route('login') }}" title="Iniciar sesión">
+            <a href="{{ route('about') }}">Quiénes Somos</a>
+            <a href="{{ route('partner.chefs') }}" class="{{ request()->routeIs('partner.chefs') ? 'active' : '' }}">Contacto</a>
+            <a href="{{ route('recipes') }}">Servicios</a>
+        </div>
+
+        <!-- Desktop Icons -->
+        <div class="nav-icons">
+            @auth
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Mi cuenta">
                     <i class="fas fa-user-circle"></i>
                 </a>
-                @endauth
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('dashboard') }}">
+                            <i class="fas fa-user me-2"></i>Mi Cuenta
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('cart.index') }}">
+                            <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}" 
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
                 
-                <a href="{{ route('cart.index') }}">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="badge bg-secondary ms-1">{{ Cart::count() }}</span>
-                </a>
+                <!-- Formulario oculto para logout -->
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </div>
+            @else
+            <a href="{{ route('login') }}" title="Iniciar sesión">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            @endauth
+            
+            <a class="nav-link" href="{{ route('cart.index') }}" title="Carrito de compras">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="badge bg-primary">{{ Cart::count() }}</span>
+            </a>
         </div>
-    </nav>
 
-    <main class="py-1">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars" id="menuIcon"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-links">
+            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Inicio</a>
+            
+            {{-- Productos en móvil con submenu --}}
+            <div class="mobile-nav-item">
+                <a href="{{ route('shop.index') }}" onclick="toggleMobileSubmenu(event)">
+                    Productos <i class="fas fa-chevron-down ms-2"></i>
+                </a>
+                <div class="mobile-submenu" id="mobileProductsSubmenu">
+                    @forelse(($categories ?? collect())->unique(fn($c) => mb_strtolower(trim($c->name))) as $category)
+                        <a href="{{ route('shop.index', ['category' => $category->id]) }}">{{ $category->name }}</a>
+                    @empty
+                        <a href="{{ route('shop.index') }}">Todos los productos</a>
+                        <a href="{{ route('shop.index', ['category' => 'licuadoras']) }}">Licuadoras</a>
+                        <a href="{{ route('shop.index', ['category' => 'freidoras']) }}">Freidoras de Aire</a>
+                        <a href="{{ route('shop.index', ['category' => 'sanducheras']) }}">Sanducheras</a>
+                        <a href="{{ route('shop.index', ['category' => 'pequenos']) }}">Pequeños Electrodomésticos</a>
+                    @endforelse
+                </div>
+            </div>
+            
+            <a href="{{ route('about') }}">Quiénes Somos</a>
+            <a href="{{ route('partner.chefs') }}" class="{{ request()->routeIs('partner.chefs') ? 'active' : '' }}">Contacto</a>
+            <a href="{{ route('recipes') }}">Servicios</a>
+        </div>
+
+        <div class="mobile-nav-icons">
+            @auth
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Mi cuenta">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('dashboard') }}">
+                            <i class="fas fa-user me-2"></i>Mi Cuenta
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('cart.index') }}">
+                            <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}" 
+                           onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
+                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Formulario oculto para logout móvil -->
+                <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+            @else
+            <a href="{{ route('login') }}" title="Iniciar sesión">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            @endauth
+            
+            <a href="{{ route('cart.index') }}" title="Carrito de compras">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="badge bg-primary ms-1">{{ Cart::count() }}</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+    <main class="">
         @yield('content')
     </main>
 
     <!-- Footer -->
    <!-- Footer -->
 <!-- Footer -->
-<footer class="text-white pt-5 pb-4" style="background-color: #011904;">
+<footer class="text-white pt-5 pb-4">
     <div class="container">
         <div class="row">
             <!-- Logo & descripción -->
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4">
                 <div class="footer-logo mb-3">
-                    <img src="{{ asset('images/logo.png') }}" alt="Meatology Logo" style="height: 40px; filter: brightness(0) invert(1);">
+                    <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo" style="height: 50px;">
                 </div>
-                <h4 class="fw-bold text-uppercase mb-3">Meatology</h4>
-                <p class="text-white small">
-                    Premium grass-fed beef cuts, ethically sourced and delivered with care. Taste the tradition and quality from Uruguay to your table.
+                <h4 class="fw-bold mb-3">ElectraHome</h4>
+                <p class="text-white small mb-3">
+                    Tu tienda especializada en electrodomésticos de calidad. Ofrecemos las mejores marcas con garantía, servicio técnico especializado y atención personalizada.
                 </p>
-                <div class="social-links mt-3">
+                <div class="social-links">
                     <a href="#" class="social-link me-3" title="Facebook">
                         <i class="fab fa-facebook fa-lg"></i>
                     </a>
                     <a href="#" class="social-link me-3" title="Instagram">
                         <i class="fab fa-instagram fa-lg"></i>
                     </a>
-                    <a href="#" class="social-link me-3" title="Twitter">
-                        <i class="fab fa-twitter fa-lg"></i>
-                    </a>
-                    <a href="#" class="social-link" title="WhatsApp">
+                    <a href="#" class="social-link me-3" title="WhatsApp">
                         <i class="fab fa-whatsapp fa-lg"></i>
+                    </a>
+                    <a href="mailto:info@electrahome.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope fa-lg"></i>
                     </a>
                 </div>
             </div>
 
             <!-- Navigation Links -->
             <div class="col-lg-2 col-md-6 mb-4">
-                <h5 class="text-uppercase fw-semibold mb-3">Navigation</h5>
+                <h5 class="text-uppercase fw-semibold mb-3">Navegación</h5>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="{{ route('home') }}" class="footer-link">Home</a></li>
-                    <li><a href="{{ route('shop.index') }}" class="footer-link">Products</a></li>
-                    <li><a href="{{ route('about') }}" class="footer-link">About Us</a></li>
-                    <li><a href="{{ route('partner.chefs') }}" class="footer-link">Partner Chefs</a></li>
+                    <li><a href="{{ route('home') }}" class="footer-link">Inicio</a></li>
+                    <li><a href="{{ route('shop.index') }}" class="footer-link">Productos</a></li>
+                    <li><a href="{{ route('about') }}" class="footer-link">Quiénes Somos</a></li>
+                    <li><a href="{{ route('partner.chefs') }}" class="footer-link">Contacto</a></li>
+                    <li><a href="{{ route('recipes') }}" class="footer-link">Servicios</a></li>
                 </ul>
             </div>
 
-            <!-- NUEVA SECCIÓN: Políticas y Servicios -->
+            <!-- Categorías de Productos -->
             <div class="col-lg-2 col-md-6 mb-4">
-                <h5 class="text-uppercase fw-semibold mb-3">Policies</h5>
+                <h5 class="text-uppercase fw-semibold mb-3">Categorías</h5>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="{{ route('shipping.policy') }}" class="footer-link">Shipping Policy</a></li>
-                    <li><a href="{{ route('return.policy') }}" class="footer-link">Return Policy</a></li>
-                    <li><a href="{{ route('refund.policy') }}" class="footer-link">Refund Policy</a></li>
-                    <li><a href="{{ route('terms.conditions') }}" class="footer-link">Terms & Conditions</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'licuadoras']) }}" class="footer-link">Licuadoras</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'freidoras']) }}" class="footer-link">Freidoras de Aire</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'sanducheras']) }}" class="footer-link">Sanducheras</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'pequenos']) }}" class="footer-link">Pequeños Electrodomésticos</a></li>
                 </ul>
-                
-                <!-- Información de envío gratuito -->
-              
             </div>
 
-            <!-- Contact & Newsletter -->
-            <div class="col-lg-3 col-md-6 mb-4">
-                <h5 class="text-uppercase fw-semibold mb-3">Stay Updated</h5>
-                <p class="text-white small mb-3">
-                    Subscribe to our newsletter for exclusive offers, recipes, and updates from our farms.
-                </p>
-       
-                <!-- Contact Info -->
-                <div class="contact-info mt-4">
+            <!-- Contact Info -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-uppercase fw-semibold mb-3">Información de Contacto</h5>
+                
+                <div class="contact-info">
                     <p class="text-white small mb-2">
-                        <i class="fas fa-envelope me-2"></i>
-                        <a href="mailto:sales@meatology.us" class="footer-link">sales@meatology.us</a>
+                        <i class="fas fa-envelope me-2 text-info"></i>
+                        <a href="mailto:info@electrahome.com" class="footer-link">info@electrahome.com</a>
                     </p>
                     <p class="text-white small mb-2">
-                        <i class="fas fa-phone me-2"></i>
-                        <a href="tel:+13058420234" class="footer-link">+1 (305) 842-0234</a>
+                        <i class="fas fa-phone me-2 text-info"></i>
+                        <a href="tel:+584121234567" class="footer-link">+58 (412) 123-4567</a>
                     </p>
-                    <p class="text-white small mb-0">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        <span class="text-white">Based in Florida</span>
+                    <p class="text-white small mb-3">
+                        <i class="fas fa-map-marker-alt me-2 text-info"></i>
+                        <span class="text-white"></span>
                     </p>
                 </div>
-            </div>
 
-            <!-- NUEVA SECCIÓN: Delivery Areas -->
-            <div class="col-lg-2 col-md-6 mb-4">
-                <h5 class="text-uppercase fw-semibold mb-3">Delivery</h5>
-                <div class="delivery-zones">
-                    <div class="zone mb-3">
-                        <h6 class="text-white mb-2">
-                            <i class="fas fa-clock me-2 text-success"></i>
-                            Same Day Delivery
-                        </h6>
-                        <p class="text-white small mb-1">Palm Beach County</p>
-                        <p class="text-white small">Selected ZIP codes</p>
-                    </div>
-                    
-                    <div class="zone mb-3">
-                        <h6 class="text-white mb-2">
-                            <i class="fas fa-shipping-fast me-2 text-warning"></i>
-                            1-2 Days
-                        </h6>
-                        <p class="text-white small">Florida statewide</p>
-                    </div>
-                    
-                    <div class="zone">
-                        <h6 class="text-white mb-2">
-                            <i class="fas fa-plane me-2 text-info"></i>
-                            2-Day Air
-                        </h6>
-                        <p class="text-white small">All 50 States</p>
-                    </div>
+                <!-- Horarios de Atención -->
+                <div class="business-hours">
+                    <h6 class="text-white mb-2">
+                        <i class="fas fa-clock me-2 text-warning"></i>
+                        Horarios de Atención
+                    </h6>
+                    <p class="text-white small mb-1">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
+                    <p class="text-white small mb-1">Sábados: 8:00 AM - 4:00 PM</p>
+                    <p class="text-white small">Domingos: Cerrado</p>
                 </div>
             </div>
         </div>
@@ -940,22 +1038,22 @@ footer {
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="text-white small">
-                    &copy; {{ date('Y') }} Meatology. All rights reserved.
+                    &copy; {{ date('Y') }} ElectraHome. Todos los derechos reservados.
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="footer-certifications text-md-end">
                     <span class="certification-badge me-2">
-                        <i class="fas fa-certificate text-success me-1"></i>
-                        <small>Certified Humane®</small>
+                        <i class="fas fa-shield-check me-1"></i>
+                        <small>Garantía Oficial</small>
                     </span>
                     <span class="certification-badge me-2">
-                        <i class="fas fa-leaf text-success me-1"></i>
-                        <small>100% Grass-Fed</small>
+                        <i class="fas fa-tools me-1"></i>
+                        <small>Servicio Técnico</small>
                     </span>
                     <span class="certification-badge">
-                        <i class="fas fa-shield-alt text-primary me-1"></i>
-                        <small>Quality Guaranteed</small>
+                        <i class="fas fa-star me-1"></i>
+                        <small>Calidad Certificada</small>
                     </span>
                 </div>
             </div>

@@ -1,8 +1,8 @@
  body {
             margin: 0;
-            background-color: #011904;
+            background-color: linear-gradient(135deg, #101820 0%, #1a252f 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
+            color: black;
         }
         nav {
             background-color: #013105;
@@ -32,14 +32,14 @@
             gap: 30px;
         }
         .nav-links a {
-            color: #e0d9c0;
+            color: #00A9E0;
             text-decoration: none;
             font-size: 0.95rem;
             position: relative;
         }
         .nav-links a:hover,
         .nav-links a.active {
-            color: #f4f1e7;
+            color: #00A9E0;
         }
         .nav-icons {
             display: flex;
