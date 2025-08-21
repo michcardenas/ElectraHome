@@ -1,5 +1,39 @@
 @csrf
 
+<style>
+/* Fondo principal para evitar el blanco */
+body, .container, .container-fluid {
+    background: #101820 !important;
+    color: #FCFAF1;
+}
+
+/* Asegurar que el contenedor del formulario tenga fondo */
+.form-container, .main-content {
+    background: #1a252f;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #00A9E0;
+}
+
+/* Dark mode amigable dentro del editor */
+.ck-content {
+  background: #111 !important;
+  color: #e6e6e6 !important;
+}
+.ck.ck-editor__main>.ck-editor__editable {
+  border-color: #444 !important;
+}
+.ck.ck-toolbar {
+  background: #121212 !important;
+  border-color: #444 !important;
+}
+.ck.ck-button, .ck.ck-toolbar__separator {
+  filter: brightness(0.9);
+}
+</style>
+
+<div class="form-container">
+
 <div class="mb-4">
     <label class="form-label fw-bold text-light">Product Name *</label>
     <input type="text" name="name" class="form-control bg-dark text-light border-secondary"
@@ -22,7 +56,7 @@
     </div>
 
     <div class="col-md-4 mb-4">
-        <label class="form-label fw-bold text-light">Avg. Weight</label>
+        <label class="form-label fw-bold text-light">Info adicional tarjeta</label>
         <input type="text" name="avg_weight" class="form-control bg-dark text-light border-secondary"
                value="{{ old('avg_weight', $product->avg_weight ?? '') }}" placeholder="e.g. 7 Lbs or 3.2 Kg">
     </div>
@@ -292,20 +326,3 @@ function removePriceBlock(button) {
     button.closest('.row').remove();
 }
 </script>
-<style>
-/* Dark mode amigable dentro del editor */
-.ck-content {
-  background: #111 !important;
-  color: #e6e6e6 !important;
-}
-.ck.ck-editor__main>.ck-editor__editable {
-  border-color: #444 !important;
-}
-.ck.ck-toolbar {
-  background: #121212 !important;
-  border-color: #444 !important;
-}
-.ck.ck-button, .ck.ck-toolbar__separator {
-  filter: brightness(0.9);
-}
-</style>

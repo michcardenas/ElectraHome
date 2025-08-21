@@ -91,13 +91,15 @@
         }
 
         .nav-icons {
+            
             display: flex;
             align-items: center;
             gap: 18px;
         }
 
         .nav-icons i {
-            color: #FCFAF1;
+            
+            color: #00A9E0;
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -109,7 +111,7 @@
         }
 
         .nav-icons a {
-            color: #FCFAF1;
+            color: #00A9E0;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
@@ -282,7 +284,9 @@
     <nav>
         <div class="navbar-container">
             <div class="logo">
-                <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo">
+                 <a href="{{ route('home') }}" class="d-inline-block" aria-label="Ir al inicio">
+                        <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo" style="height: 70px;">
+                    </a>
             </div>
 
             <!-- Desktop Navigation -->
@@ -295,33 +299,31 @@
                 <a href="{{ route('wholesale') }}">Servicios</a>
 
                 @role('admin')
-<div class="dropdown admin-dropdown">
-    <a class="dropdown-toggle admin-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-tools me-2"></i>Panel Admin <i class="fas fa-chevron-down ms-1"></i>
-    </a>
-    <ul class="dropdown-menu admin-menu">
-        <li><a class="dropdown-item" href="{{ route('admin.products.index') }}">
-            <i class="fas fa-box me-2"></i>Admin Productos
-        </a></li>
-        <li><a class="dropdown-item" href="{{ route('categories.index') }}">
-            <i class="fas fa-folder me-2"></i>Admin Categorías
-        </a></li>
-        <li><a class="dropdown-item" href="{{ route('admin.countries.index') }}">
-            <i class="fas fa-globe me-2"></i>Gestionar Estados
-        </a></li>
-        <li><a class="dropdown-item" href="{{ route('admin.cities.index') }}">
-            <i class="fas fa-city me-2"></i>Gestionar Ciudades
-        </a></li>
-    </ul>
-</div>
-@endrole
+                <div class="dropdown admin-dropdown">
+                    <a class="dropdown-toggle admin-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-tools me-2"></i>Panel Admin <i class="fas fa-chevron-down ms-1"></i>
+                    </a>
+                    <ul class="dropdown-menu admin-menu">
+                        <li><a class="dropdown-item" href="{{ route('admin.products.index') }}">
+                            <i class="fas fa-box me-2"></i>Admin Productos
+                        </a></li>
+                        <li><a class="dropdown-item" href="{{ route('categories.index') }}">
+                            <i class="fas fa-folder me-2"></i>Admin Categorías
+                        </a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.countries.index') }}">
+                            <i class="fas fa-globe me-2"></i>Gestionar Paises
+                        </a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.cities.index') }}">
+                            <i class="fas fa-city me-2"></i>Gestionar Ciudades
+                        </a></li>
+                    </ul>
+                </div>
+                @endrole
             </div>
 
             <!-- Desktop Icons -->
             <div class="nav-icons">
-                <a href="#" title="Buscar">
-                    <i class="fas fa-search"></i>
-                </a>
+      
 
                 @auth
                 <div class="dropdown">
@@ -329,16 +331,7 @@
                         <i class="fas fa-user-circle"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                <i class="fas fa-user me-2"></i>Mi Cuenta
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('cart.index') }}">
-                                <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
-                            </a>
-                        </li>
+                      
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}" 
@@ -359,12 +352,6 @@
                 </a>
                 @endauth
 
-                <a href="{{ route('cart.index') }}" class="position-relative" title="Carrito de compras">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="badge position-absolute top-0 start-100 translate-middle">
-                        {{ Cart::count() }}
-                    </span>
-                </a>
             </div>
 
             <!-- Mobile Menu Toggle -->

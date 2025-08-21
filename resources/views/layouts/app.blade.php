@@ -771,9 +771,11 @@ footer::before {
 <body>
    <nav>
     <div class="navbar-container">
-        <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo">
-        </div>
+         <div class="footer-logo mb-3">
+                    <a href="{{ route('home') }}" class="d-inline-block" aria-label="Ir al inicio">
+                        <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo" style="height: 60px;">
+                    </a>
+                </div>
 
         <!-- Desktop Navigation -->
         <div class="nav-links">
@@ -820,46 +822,7 @@ footer::before {
 
         <!-- Desktop Icons -->
         <div class="nav-icons">
-            @auth
-            <div class="dropdown">
-                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Mi cuenta">
-                    <i class="fas fa-user-circle"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                            <i class="fas fa-user me-2"></i>Mi Cuenta
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('cart.index') }}">
-                            <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('logout') }}" 
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-                
-                <!-- Formulario oculto para logout -->
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-            @else
-            <a href="{{ route('login') }}" title="Iniciar sesión">
-                <i class="fas fa-user-circle"></i>
-            </a>
-            @endauth
-            
-            <a class="nav-link" href="{{ route('cart.index') }}" title="Carrito de compras">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="badge bg-primary">{{ Cart::count() }}</span>
-            </a>
+           
         </div>
 
         <!-- Mobile Menu Toggle -->
@@ -896,48 +859,7 @@ footer::before {
             <a href="{{ route('recipes') }}">Servicios</a>
         </div>
 
-        <div class="mobile-nav-icons">
-            @auth
-            <div class="dropdown">
-                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="Mi cuenta">
-                    <i class="fas fa-user-circle"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                            <i class="fas fa-user me-2"></i>Mi Cuenta
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('cart.index') }}">
-                            <i class="fas fa-shopping-cart me-2"></i>Mi Carrito
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('logout') }}" 
-                           onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
-                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-                        </a>
-                    </li>
-                </ul>
-                
-                <!-- Formulario oculto para logout móvil -->
-                <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-            @else
-            <a href="{{ route('login') }}" title="Iniciar sesión">
-                <i class="fas fa-user-circle"></i>
-            </a>
-            @endauth
-            
-            <a href="{{ route('cart.index') }}" title="Carrito de compras">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="badge bg-primary ms-1">{{ Cart::count() }}</span>
-            </a>
-        </div>
+    
     </div>
 </nav>
 
