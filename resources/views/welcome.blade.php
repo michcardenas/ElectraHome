@@ -321,6 +321,43 @@
         .hero-content h1 {
             animation: fadeInUp 1.5s ease-out;
         }
+        .hero-images .hero-image {
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Fallback sin medios */
+.hero-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a252f 0%, #101820 100%);
+}
+
+/* Controles del carousel personalizados */
+.hero-images .carousel-control-prev,
+.hero-images .carousel-control-next {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.hero-images .carousel-control-prev:hover,
+.hero-images .carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* Transiciones suaves */
+.carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .carousel-item {
+        transition: none;
+    }
+}
         
         /* Responsivo mejorado */
         @media (max-width: 768px) {
@@ -390,71 +427,119 @@
         
     </style>
 
-<!-- Hero Section -->
+{{-- Reemplaza tu vista welcome.blade.php con este código --}}
+
+{{-- SECCIÓN HERO - Completamente dinámica --}}
+@if(isset($sectionsData['hero']) && $sectionsData['hero'])
 <section id="inicio" class="hero-video-section">
-    <!-- Video de fondo -->
-    <video class="hero-video" autoplay muted loop playsinline>
-        <source src="{{ asset('videos/electrodomesticos.mp4') }}" type="video/mp4">
-        <!-- Imagen de fallback si el video no carga -->
-        Tu navegador no soporta videos. 
-    </video>
+    @php $heroSection = $sectionsData['hero']; @endphp
+    
+    {{-- Video dinámico o imágenes de fondo --}}
+    @if($heroSection->getVideosArray())
+        {{-- Video de fondo dinámico --}}
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="{{ Storage::url($heroSection->getVideosArray()[0]) }}" type="video/mp4">
+            <source src="{{ Storage::url($heroSection->getVideosArray()[0]) }}" type="video/webm">
+            Tu navegador no soporta videos.
+        </video>
+    @elseif($heroSection->getImagesArray())
+        {{-- Slider de imágenes si no hay video --}}
+        <div id="heroImageSlider" class="carousel slide hero-images" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach($heroSection->getImagesArray() as $index => $image)
+                <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    <img src="{{ Storage::url($image) }}" class="d-block w-100 hero-image" 
+                         alt="Hero Image {{ $index + 1 }}">
+                </div>
+                @endforeach
+            </div>
+            @if(count($heroSection->getImagesArray()) > 1)
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroImageSlider" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroImageSlider" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+            @endif
+        </div>
+    @else
+        {{-- Fallback: fondo de color si no hay medios --}}
+        <div class="hero-fallback"></div>
+    @endif
     
     <!-- Overlay -->
     <div class="hero-overlay"></div>
     
-    <!-- Contenido principal -->
+    <!-- Contenido principal dinámico -->
     <div class="hero-content container">
         <div class="row">
             <div class="col-lg-8 ps-lg-5">
-                <h1>ELECTRODOMÉSTICOS DE CALIDAD PREMIUM</h1>
-                <p class="lead mb-4">Descubre la mejor selección de electrodomésticos Oster con garantía oficial. Equipos duraderos, eficientes y diseñados para hacer tu vida más fácil en la cocina.</p>
+                <h1>{{ $heroSection->title ?? 'ELECTRODOMÉSTICOS DE CALIDAD PREMIUM' }}</h1>
+                <p class="lead mb-4">
+                    {{ $heroSection->content ?? 'Descubre la mejor selección de electrodomésticos con garantía oficial.' }}
+                </p>
                 <a href="{{ route('shop.index') }}" class="btn btn-primary btn-lg">Ver Productos</a>
             </div>
         </div>
     </div>
 </section>
+@else
+{{-- Fallback si no hay sección hero --}}
+<section id="inicio" class="hero-video-section">
+    <div class="hero-fallback"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+        <div class="row">
+            <div class="col-lg-8 ps-lg-5">
+                <h1>ELECTRODOMÉSTICOS DE CALIDAD PREMIUM</h1>
+                <p class="lead mb-4">Descubre la mejor selección de electrodomésticos con garantía oficial.</p>
+                <a href="{{ route('shop.index') }}" class="btn btn-primary btn-lg">Ver Productos</a>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 
-<!-- Sección de Productos Destacados -->
+{{-- SECCIÓN PRODUCTOS DESTACADOS - Dinámica --}}
+@if(isset($sectionsData['featured']) && $sectionsData['featured'])
+@php $featuredSection = $sectionsData['featured']; @endphp
 <section class="py-5 featured-section">
     <div class="container">
-        <!-- Encabezado -->
+        <!-- Encabezado dinámico -->
         <div class="row mb-5 text-center text-white">
             <div class="col">
                 <span class="section-badge px-3 py-1 rounded-pill">🔥 Selección del Mes</span>
-                <h2 class="section-title text-white mt-3">Productos Destacados del Mes</h2>
+                <h2 class="section-title text-white mt-3">
+                    {{ $featuredSection->title ?? 'Productos Destacados del Mes' }}
+                </h2>
                 <p class="section-description text-light">
-                    Electrodomésticos exclusivos seleccionados especialmente para tu hogar.
+                    {{ $featuredSection->content ?? 'Electrodomésticos exclusivos seleccionados especialmente para tu hogar.' }}
                 </p>
                 <div class="section-divider mx-auto" style="height: 4px; width: 80px;"></div>
             </div>
         </div>
 
-        <!-- Productos -->
+        <!-- Productos (mantiene la lógica existente) -->
         <div class="row g-4 mb-5">
             @foreach($featuredProducts->take(6) as $index => $product)
             <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                 <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden" style="background-color: #fdfdfd;">
                     
                     <div class="position-relative">
-                        <!-- Imagen del producto -->
                         <img src="{{ $product->images->first()?->image ? Storage::url($product->images->first()->image) : asset('images/placeholder.jpg') }}"
                              class="card-img-top" alt="{{ $product->name }}"
                              style="height: 320px; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
                     </div>
 
-                    <!-- Contenido -->
                     <div class="card-body p-4">
                         <h4 class="card-title fw-bold text-dark mb-2" style="font-family: 'Georgia', serif;">
                             {{ $product->name }}
                         </h4>
-
                         <p class="card-text text-muted">{{ Str::limit($product->description, 120) }}</p>
 
                         <div class="d-flex justify-content-between align-items-center mt-4">
                             <div>
-                                @php
-                                    $totalPrice = ($product->price ?? 0) + ($product->interest ?? 0);
-                                @endphp
+                                @php $totalPrice = ($product->price ?? 0) + ($product->interest ?? 0); @endphp
                                 <span class="h5 text-success fw-bold">${{ number_format($totalPrice, 0, ',', '.') }}</span>
                                 <small class="text-muted">c/u</small>
 
@@ -468,12 +553,11 @@
                             </div>
                         </div>
 
-                        <!-- Formulario para agregar al carrito -->
                         <form action="{{ route('cart.add') }}" method="POST" class="mt-3">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <div class="d-flex gap-2">
-                              <a href="{{ route('product.show', $product) }}" class="btn btn-outline-dark btn-sm rounded-pill flex-fill">
+                                <a href="{{ route('product.show', $product) }}" class="btn btn-outline-dark btn-sm rounded-pill flex-fill">
                                     <i class="fas fa-eye"></i> Ver
                                 </a>
                                 <button type="submit" class="btn btn-buy btn-sm rounded-pill flex-fill" {{ $product->stock <= 0 ? 'disabled' : '' }}>
@@ -486,27 +570,42 @@
             </div>
             @endforeach
         </div>
+    </div>
 </section>
+@endif
 
-<!-- Call to Action: View All Products -->
+{{-- SECCIÓN CALL TO ACTION - Dinámica --}}
+@if(isset($sectionsData['cta']) && $sectionsData['cta'])
+@php $ctaSection = $sectionsData['cta']; @endphp
 <section class="py-5 text-white text-center cta-section">
     <div class="container">
-        <h2 class="mb-4 fw-bold">¿Quieres explorar toda nuestra selección?</h2>
-        <p class="lead text-light">Descubre todos nuestros electrodomésticos premium y encuentra la opción perfecta para tu hogar.</p>
+        <h2 class="mb-4 fw-bold">
+            {{ $ctaSection->title ?? '¿Quieres explorar toda nuestra selección?' }}
+        </h2>
+        <p class="lead text-light">
+            {{ $ctaSection->content ?? 'Descubre todos nuestros electrodomésticos premium y encuentra la opción perfecta para tu hogar.' }}
+        </p>
         <a href="{{ route('shop.index') }}" class="btn btn-lg btn-light fw-semibold mt-3 shadow-sm">
             <i class="fas fa-store me-2"></i> Ver Todos los Productos
         </a>
     </div>
 </section>
+@endif
 
-<!-- Category Showcase -->
+{{-- SECCIÓN CATEGORÍAS - Dinámica --}}
+@if(isset($sectionsData['categories']) && $sectionsData['categories'])
+@php $categoriesSection = $sectionsData['categories']; @endphp
 <section class="py-5 category-section">
     <div class="container">
         <div class="row text-center mb-5 text-white">
             <div class="col">
                 <span class="section-badge px-3 py-1 rounded-pill">🧾 Categorías</span>
-                <h2 class="section-title text-white mt-3">Explorar por Categoría</h2>
-                <p class="section-description text-light">Selecciona el electrodoméstico perfecto según tus necesidades y preferencias.</p>
+                <h2 class="section-title text-white mt-3">
+                    {{ $categoriesSection->title ?? 'Explorar por Categoría' }}
+                </h2>
+                <p class="section-description text-light">
+                    {{ $categoriesSection->content ?? 'Selecciona el electrodoméstico perfecto según tus necesidades y preferencias.' }}
+                </p>
                 <div class="section-divider mx-auto" style="height: 4px; width: 80px;"></div>
             </div>
         </div>
@@ -532,4 +631,5 @@
         </div>
     </div>
 </section>
+@endif
 @endsection
