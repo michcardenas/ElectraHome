@@ -128,8 +128,8 @@ public function updateSection(Request $request, $pageId, $sectionId)
     \Log::info('Section found: ' . $section->name);
     
     // Verificar que la sección pertenece a la página
-    if ($section->page_id !== $page->id) {
-        \Log::error('Section does not belong to page. Section page_id: ' . $section->page_id . ', Page id: ' . $page->id);
+   if ($section->page_id != $page->id) {
+    \Log::error('Section does not belong to page. Section page_id: ' . $section->page_id . ', Page id: ' . $page->id);
         abort(404, 'Sección no encontrada en esta página');
     }
 
