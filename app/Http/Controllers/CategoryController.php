@@ -27,10 +27,9 @@ class CategoryController extends Controller
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
             'image'       => 'nullable|image|max:2048',
-            'country'     => 'nullable|string|max:100',
         ]);
 
-        $data = $request->only('name', 'description', 'country');
+        $data = $request->only('name', 'description');
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('categories', 'public');
