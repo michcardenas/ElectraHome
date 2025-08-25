@@ -115,6 +115,7 @@ Route::prefix('admin')->group(function () {
     
     // Eliminar imágenes (funciona para todas las páginas)
     Route::delete('pages/{page}/image', [App\Http\Controllers\Admin\PageController::class, 'deleteImage'])->name('admin.pages.delete-image');
+
     Route::delete('pages/{page}/sections/{section}/images', [App\Http\Controllers\Admin\PageController::class, 'deleteSectionImage'])
     ->name('admin.pages.sections.delete-image');
 });
@@ -158,5 +159,17 @@ Route::prefix('admin/pages')->name('admin.pages.')->group(function () {
     Route::get('/{page}/sections', [App\Http\Controllers\Admin\PageController::class, 'manageSections'])->name('sections');
     Route::put('/{page}/sections/{section}', [App\Http\Controllers\Admin\PageController::class, 'updateSection'])->name('sections.update');
     Route::delete('/{page}/sections/{section}/images', [App\Http\Controllers\Admin\PageController::class, 'deleteSectionImage'])->name('sections.delete-image');
+});
+
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Vista de edición
+    Route::get('/paginas/contacto', [PageController::class, 'editContacto'])
+        ->name('pages.contacto.edit');
+
+    // Guardar cambios
+    Route::post('/paginas/contacto', [PageController::class, 'updateContacto'])
+        ->name('pages.contacto.update');
 });
 require __DIR__.'/auth.php';

@@ -1,10 +1,34 @@
+{{-- Reemplaza tu vista about.blade.php con este código --}}
 @extends('layouts.app')
 
 @section('title', 'Acerca de Nosotros - ElectraHome')
 
 @section('content')
 <div class="about-page">
-    <!-- Hero Section -->
+    {{-- HERO SECTION - Dinámico --}}
+    @if(isset($sectionsData['hero']) && $sectionsData['hero'])
+    @php $heroSection = $sectionsData['hero']; @endphp
+    <section class="about-hero">
+        <div class="hero-background">
+            {{-- Imagen de fondo dinámica o logo por defecto --}}
+            @if($heroSection->getImagesArray())
+                <img src="{{ Storage::url($heroSection->getImagesArray()[0]) }}" alt="ElectraHome" class="hero-bg-image">
+            @else
+                <img src="{{ asset('images/logo.png') }}" alt="ElectraHome" class="hero-bg-image">
+            @endif
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="hero-title">{{ $heroSection->title ?? 'Acerca de ElectraHome' }}</h1>
+                    <p class="hero-subtitle">{{ $heroSection->content ?? 'Tradición en Electrodomésticos de Calidad' }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    @else
+    {{-- Fallback si no hay sección hero --}}
     <section class="about-hero">
         <div class="hero-background">
             <img src="{{ asset('images/logo.png') }}" alt="ElectraHome" class="hero-bg-image">
@@ -19,153 +43,249 @@
             </div>
         </div>
     </section>
+    @endif
 
     <!-- Main Content -->
     <section class="about-content">
         <div class="container">
-            <!-- Legacy Section -->
+
+            {{-- LEGACY SECTION - Tradición y Calidad --}}
+            @if(isset($sectionsData['legacy']) && $sectionsData['legacy'])
+            @php $legacySection = $sectionsData['legacy']; @endphp
             <div class="content-section">
                 <div class="row align-items-center mb-5">
                     <div class="col-lg-6 mb-4 mb-lg-0">
                         <div class="content-text">
-                            <h2 class="section-title">Tradición en Electrodomésticos de Calidad</h2>
-                            <p class="section-description">
-                                En ElectraHome, cada electrodoméstico que ofrecemos representa años de innovación y compromiso 
-                                con la calidad. Nos especializamos en productos <strong>Oster</strong>, una marca reconocida 
-                                mundialmente por su durabilidad, eficiencia y diseño superior.
-                            </p>
-                            <p class="section-description">
-                                Desde licuadoras de alta potencia hasta freidoras de aire revolucionarias, cada producto 
-                                está diseñado para hacer tu vida más fácil y eficiente en la cocina.
-                            </p>
-                            <blockquote class="company-quote">
-                                "Imagínate una cocina donde cada electrodoméstico funciona a la perfección, donde la calidad 
-                                se encuentra con la innovación. No solo vendemos productos, ofrecemos soluciones que 
-                                transforman tu experiencia culinaria diaria."
-                            </blockquote>
+                            <h2 class="section-title">{{ $legacySection->title ?? 'Tradición en Electrodomésticos de Calidad' }}</h2>
+                            
+                            {{-- Párrafos dinámicos --}}
+                            @if($legacySection->getCustomData('paragraph_1'))
+                                <p class="section-description">{{ $legacySection->getCustomData('paragraph_1') }}</p>
+                            @else
+                                <p class="section-description">
+                                    En ElectraHome, cada electrodoméstico que ofrecemos representa años de innovación y compromiso 
+                                    con la calidad. Nos especializamos en productos <strong>Oster</strong>, una marca reconocida 
+                                    mundialmente por su durabilidad, eficiencia y diseño superior.
+                                </p>
+                            @endif
+
+                            @if($legacySection->getCustomData('paragraph_2'))
+                                <p class="section-description">{{ $legacySection->getCustomData('paragraph_2') }}</p>
+                            @else
+                                <p class="section-description">
+                                    Desde licuadoras de alta potencia hasta freidoras de aire revolucionarias, cada producto 
+                                    está diseñado para hacer tu vida más fácil y eficiente en la cocina.
+                                </p>
+                            @endif
+
+                            {{-- Quote dinámico --}}
+                            @if($legacySection->getCustomData('quote'))
+                                <blockquote class="company-quote">
+                                    "{{ $legacySection->getCustomData('quote') }}"
+                                </blockquote>
+                            @else
+                                <blockquote class="company-quote">
+                                    "Imagínate una cocina donde cada electrodoméstico funciona a la perfección, donde la calidad 
+                                    se encuentra con la innovación. No solo vendemos productos, ofrecemos soluciones que 
+                                    transforman tu experiencia culinaria diaria."
+                                </blockquote>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="content-image">
-                            <img src="{{ asset('images/logo.png') }}" alt="Productos Oster de Calidad" class="section-img logo-placeholder">
+                            {{-- Imagen dinámica --}}
+                            @if($legacySection->getImagesArray())
+                                <img src="{{ Storage::url($legacySection->getImagesArray()[0]) }}" alt="{{ $legacySection->title }}" class="section-img">
+                            @else
+                                <img src="{{ asset('images/logo.png') }}" alt="Productos Oster de Calidad" class="section-img logo-placeholder">
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
-            <!-- Quality Section -->
+            {{-- QUALITY SECTION - Garantía y Servicio --}}
+            @if(isset($sectionsData['quality']) && $sectionsData['quality'])
+            @php $qualitySection = $sectionsData['quality']; @endphp
             <div class="content-section bg-light-blue">
                 <div class="row align-items-center mb-5">
                     <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
                         <div class="content-text">
-                            <h2 class="section-title">Garantía Oficial y Servicio Especializado</h2>
-                            <p class="section-description">
-                                Como distribuidores autorizados de Oster, ofrecemos garantía oficial en todos nuestros 
-                                productos. Nuestro equipo técnico especializado está capacitado directamente por la marca 
-                                para brindar el mejor servicio postventa de Venezuela.
-                            </p>
-                            <p class="section-description">
-                                Cada producto viene con manual en español, repuestos originales disponibles, y un servicio 
-                                técnico que entiende perfectamente las necesidades del mercado venezolano.
-                            </p>
+                            <h2 class="section-title">{{ $qualitySection->title ?? 'Garantía Oficial y Servicio Especializado' }}</h2>
+                            
+                            {{-- Párrafos dinámicos --}}
+                            @if($qualitySection->getCustomData('paragraph_1'))
+                                <p class="section-description">{{ $qualitySection->getCustomData('paragraph_1') }}</p>
+                            @else
+                                <p class="section-description">
+                                    Como distribuidores autorizados de Oster, ofrecemos garantía oficial en todos nuestros 
+                                    productos. Nuestro equipo técnico especializado está capacitado directamente por la marca 
+                                    para brindar el mejor servicio postventa de Venezuela.
+                                </p>
+                            @endif
+
+                            @if($qualitySection->getCustomData('paragraph_2'))
+                                <p class="section-description">{{ $qualitySection->getCustomData('paragraph_2') }}</p>
+                            @else
+                                <p class="section-description">
+                                    Cada producto viene con manual en español, repuestos originales disponibles, y un servicio 
+                                    técnico que entiende perfectamente las necesidades del mercado venezolano.
+                                </p>
+                            @endif
+
+                            {{-- Badges dinámicos --}}
                             <div class="quality-badges">
-                                <span class="badge-item">✓ Garantía Oficial</span>
-                                <span class="badge-item">✓ Servicio Técnico</span>
-                                <span class="badge-item">✓ Repuestos Originales</span>
-                                <span class="badge-item">✓ Soporte en Español</span>
+                                <span class="badge-item">✓ {{ $qualitySection->getCustomData('badge_1', 'Garantía Oficial') }}</span>
+                                <span class="badge-item">✓ {{ $qualitySection->getCustomData('badge_2', 'Servicio Técnico') }}</span>
+                                <span class="badge-item">✓ {{ $qualitySection->getCustomData('badge_3', 'Repuestos Originales') }}</span>
+                                <span class="badge-item">✓ {{ $qualitySection->getCustomData('badge_4', 'Soporte en Español') }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 order-lg-1">
                         <div class="content-image">
-                            <img src="{{ asset('images/logo.png') }}" alt="Servicio Técnico Especializado" class="section-img logo-placeholder">
+                            {{-- Imagen dinámica --}}
+                            @if($qualitySection->getImagesArray())
+                                <img src="{{ Storage::url($qualitySection->getImagesArray()[0]) }}" alt="{{ $qualitySection->title }}" class="section-img">
+                            @else
+                                <img src="{{ asset('images/logo.png') }}" alt="Servicio Técnico Especializado" class="section-img logo-placeholder">
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
-            <!-- Passion Section -->
+            {{-- PASSION SECTION - Pasión del Equipo --}}
+            @if(isset($sectionsData['passion']) && $sectionsData['passion'])
+            @php $passionSection = $sectionsData['passion']; @endphp
             <div class="content-section">
                 <div class="row align-items-center mb-5">
                     <div class="col-lg-6 mb-4 mb-lg-0">
                         <div class="content-text">
-                            <h2 class="section-title">La Pasión Detrás del Servicio</h2>
-                            <p class="section-description">
-                                Nuestro equipo no son solo vendedores; somos entusiastas de la cocina que entendemos 
-                                la importancia de tener herramientas confiables. Conocemos cada producto, cada 
-                                característica, y cada beneficio que puede aportar a tu hogar.
-                            </p>
-                            <p class="section-description">
-                                Esta pasión se traduce en un servicio personalizado que no solo te ayuda a encontrar 
-                                el producto perfecto, sino que te acompaña durante toda su vida útil.
-                            </p>
+                            <h2 class="section-title">{{ $passionSection->title ?? 'La Pasión Detrás del Servicio' }}</h2>
+                            
+                            {{-- Párrafos dinámicos --}}
+                            @if($passionSection->getCustomData('paragraph_1'))
+                                <p class="section-description">{{ $passionSection->getCustomData('paragraph_1') }}</p>
+                            @else
+                                <p class="section-description">
+                                    Nuestro equipo no son solo vendedores; somos entusiastas de la cocina que entendemos 
+                                    la importancia de tener herramientas confiables. Conocemos cada producto, cada 
+                                    característica, y cada beneficio que puede aportar a tu hogar.
+                                </p>
+                            @endif
+
+                            @if($passionSection->getCustomData('paragraph_2'))
+                                <p class="section-description">{{ $passionSection->getCustomData('paragraph_2') }}</p>
+                            @else
+                                <p class="section-description">
+                                    Esta pasión se traduce en un servicio personalizado que no solo te ayuda a encontrar 
+                                    el producto perfecto, sino que te acompaña durante toda su vida útil.
+                                </p>
+                            @endif
+
+                            {{-- Quote del equipo dinámico --}}
                             <div class="team-quote">
                                 <div class="quote-content">
-                                    <p>"No solo vendemos electrodomésticos, creamos experiencias culinarias excepcionales para cada familia venezolana."</p>
-                                    <cite>- Equipo ElectraHome, Aragua, Venezuela</cite>
+                                    <p>"{{ $passionSection->getCustomData('team_quote', 'No solo vendemos electrodomésticos, creamos experiencias culinarias excepcionales para cada familia venezolana.') }}"</p>
+                                    <cite>{{ $passionSection->getCustomData('quote_author', '- Equipo ElectraHome, Aragua, Venezuela') }}</cite>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="content-image">
-                            <img src="{{ asset('images/logo.png') }}" alt="Equipo ElectraHome" class="section-img logo-placeholder">
+                            {{-- Imagen dinámica --}}
+                            @if($passionSection->getImagesArray())
+                                <img src="{{ Storage::url($passionSection->getImagesArray()[0]) }}" alt="{{ $passionSection->title }}" class="section-img">
+                            @else
+                                <img src="{{ asset('images/logo.png') }}" alt="Equipo ElectraHome" class="section-img logo-placeholder">
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
-            <!-- Why It Matters Section -->
+            {{-- BENEFITS SECTION - Por Qué Elegir --}}
+            @if(isset($sectionsData['benefits']) && $sectionsData['benefits'])
+            @php $benefitsSection = $sectionsData['benefits']; @endphp
             <div class="content-section bg-dark-blue">
                 <div class="row justify-content-center">
                     <div class="col-lg-10 text-center">
-                        <h2 class="section-title text-white">Por Qué Elegir ElectraHome</h2>
-                        <p class="section-description text-white mb-4">
-                            Elegir ElectraHome significa elegir productos que duran, un servicio que te respalda, 
-                            y una experiencia de compra que supera tus expectativas. Nuestros electrodomésticos 
-                            Oster están diseñados para la vida moderna venezolana.
-                        </p>
-                        <p class="section-description text-white mb-5">
-                            Además, cada compra incluye capacitación gratuita sobre el uso del producto, recetas 
-                            exclusivas, y acceso a nuestra comunidad de usuarios donde compartimos tips y trucos culinarios.
-                        </p>
+                        <h2 class="section-title text-white">{{ $benefitsSection->title ?? 'Por Qué Elegir ElectraHome' }}</h2>
+                        
+                        {{-- Párrafos dinámicos --}}
+                        @if($benefitsSection->getCustomData('paragraph_1'))
+                            <p class="section-description text-white mb-4">{{ $benefitsSection->getCustomData('paragraph_1') }}</p>
+                        @else
+                            <p class="section-description text-white mb-4">
+                                Elegir ElectraHome significa elegir productos que duran, un servicio que te respalda, 
+                                y una experiencia de compra que supera tus expectativas. Nuestros electrodomésticos 
+                                Oster están diseñados para la vida moderna venezolana.
+                            </p>
+                        @endif
+
+                        @if($benefitsSection->getCustomData('paragraph_2'))
+                            <p class="section-description text-white mb-5">{{ $benefitsSection->getCustomData('paragraph_2') }}</p>
+                        @else
+                            <p class="section-description text-white mb-5">
+                                Además, cada compra incluye capacitación gratuita sobre el uso del producto, recetas 
+                                exclusivas, y acceso a nuestra comunidad de usuarios donde compartimos tips y trucos culinarios.
+                            </p>
+                        @endif
+
+                        {{-- Beneficios dinámicos --}}
                         <div class="benefits-grid">
                             <div class="benefit-item">
-                                <div class="benefit-icon">⚡</div>
-                                <h4>Mejor para Ti</h4>
-                                <p>Productos eficientes, duraderos y fáciles de usar</p>
+                                <div class="benefit-icon">{{ $benefitsSection->getCustomData('benefit_1_icon', '⚡') }}</div>
+                                <h4>{{ $benefitsSection->getCustomData('benefit_1_title', 'Mejor para Ti') }}</h4>
+                                <p>{{ $benefitsSection->getCustomData('benefit_1_desc', 'Productos eficientes, duraderos y fáciles de usar') }}</p>
                             </div>
                             <div class="benefit-item">
-                                <div class="benefit-icon">🛠️</div>
-                                <h4>Mejor Servicio</h4>
-                                <p>Garantía oficial y soporte técnico especializado</p>
+                                <div class="benefit-icon">{{ $benefitsSection->getCustomData('benefit_2_icon', '🛠️') }}</div>
+                                <h4>{{ $benefitsSection->getCustomData('benefit_2_title', 'Mejor Servicio') }}</h4>
+                                <p>{{ $benefitsSection->getCustomData('benefit_2_desc', 'Garantía oficial y soporte técnico especializado') }}</p>
                             </div>
                             <div class="benefit-item">
-                                <div class="benefit-icon">🏠</div>
-                                <h4>Mejor Hogar</h4>
-                                <p>Cocinas más eficientes y momentos familiares especiales</p>
+                                <div class="benefit-icon">{{ $benefitsSection->getCustomData('benefit_3_icon', '🏠') }}</div>
+                                <h4>{{ $benefitsSection->getCustomData('benefit_3_title', 'Mejor Hogar') }}</h4>
+                                <p>{{ $benefitsSection->getCustomData('benefit_3_desc', 'Cocinas más eficientes y momentos familiares especiales') }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
-            <!-- CTA Section -->
+            {{-- CTA SECTION - Llamada a la Acción --}}
+            @if(isset($sectionsData['cta']) && $sectionsData['cta'])
+            @php $ctaSection = $sectionsData['cta']; @endphp
             <div class="content-section">
                 <div class="row justify-content-center text-center">
                     <div class="col-lg-8">
-                        <h2 class="section-title">Únete a la Familia ElectraHome</h2>
+                        <h2 class="section-title">{{ $ctaSection->title ?? 'Únete a la Familia ElectraHome' }}</h2>
                         <p class="section-description mb-4">
-                            Te invitamos a ser parte de esta historia. Explora nuestra selección de electrodomésticos 
-                            Oster y descubre la diferencia que hace elegir calidad, servicio y compromiso.
+                            {{ $ctaSection->content ?? 'Te invitamos a ser parte de esta historia. Explora nuestra selección de electrodomésticos Oster y descubre la diferencia que hace elegir calidad, servicio y compromiso.' }}
                         </p>
                         <a href="{{ route('shop.index') }}" class="cta-button">
-                            Explorar Productos Ahora
+                            {{ $ctaSection->getCustomData('button_text', 'Explorar Productos Ahora') }}
                         </a>
-                        <p class="cta-question">¿Cuál es tu razón para elegir electrodomésticos de calidad?</p>
+                        
+                        {{-- Pregunta final dinámica --}}
+                        @if($ctaSection->getCustomData('final_question'))
+                            <p class="cta-question">{{ $ctaSection->getCustomData('final_question') }}</p>
+                        @else
+                            <p class="cta-question">¿Cuál es tu razón para elegir electrodomésticos de calidad?</p>
+                        @endif
                     </div>
                 </div>
             </div>
+            @endif
+
         </div>
     </section>
 </div>

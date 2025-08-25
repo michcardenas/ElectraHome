@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Page;
+use App\Models\Section;
+
 
 
 class HomeController extends Controller
@@ -46,13 +48,58 @@ public function index()
 }
 
     public function about()
-        {
-            return view('about');
-        }
-
-        public function partnerChefs()
 {
-    return view('partner-chefs');
+    // Obtener la página de quienes-somos con sus secciones activas y ordenadas
+    $page = Page::where('slug', 'quienes-somos')->with(['sections' => function($query) {
+        $query->where('is_active', true)->orderBy('order');
+    }])->first();
+
+    // Si no existe la página, usar datos por defecto
+    if (!$page) {
+        $sectionsData = [
+            'hero' => null,
+            'legacy' => null, 
+            'quality' => null,
+            'passion' => null,
+            'benefits' => null,
+            'cta' => null
+        ];
+    } else {
+        // Convertir las secciones en un array asociativo para fácil acceso
+        $sectionsData = [];
+        foreach($page->sections as $section) {
+            $sectionsData[$section->name] = $section;
+        }
+    }
+
+    return view('about', compact('sectionsData', 'page'));
+}
+
+ public function partnerChefs()
+{
+    // Obtener la página de contacto con sus secciones activas y ordenadas
+    $page = Page::where('slug', 'contacto')->with(['sections' => function($query) {
+        $query->where('is_active', true)->orderBy('order');
+    }])->first();
+
+    // Si no existe la página, usar datos por defecto
+    if (!$page) {
+        $sectionsData = [
+            'hero' => null,
+            'info' => null, 
+            'services' => null,
+            'contact_info' => null,
+            'form_header' => null
+        ];
+    } else {
+        // Convertir las secciones en un array asociativo para fácil acceso
+        $sectionsData = [];
+        foreach($page->sections as $section) {
+            $sectionsData[$section->name] = $section;
+        }
+    }
+
+    return view('partner-chefs', compact('sectionsData', 'page'));
 }
 
 public function submitPartnerChefs(Request $request)

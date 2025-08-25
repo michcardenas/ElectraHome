@@ -1,5 +1,5 @@
 <?php
-// app/Models/Section.php
+// Actualiza tu modelo app/Models/Section.php
 
 namespace App\Models;
 
@@ -14,12 +14,14 @@ class Section extends Model
         'content',
         'images',
         'videos',
+        'custom_data', // Nuevo campo para datos específicos
         'order',
         'is_active'
     ];
 
     protected $casts = [
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'custom_data' => 'array' // Cast automático a array
     ];
 
     // Relación con Page
@@ -28,33 +30,52 @@ class Section extends Model
         return $this->belongsTo(Page::class);
     }
 
-    // Obtener array de imágenes
+    // Métodos existentes para imágenes y videos
     public function getImagesArray()
     {
         if (empty($this->images)) return [];
         return explode(',', $this->images);
     }
 
-    // Obtener array de videos
     public function getVideosArray()
     {
         if (empty($this->videos)) return [];
         return explode(',', $this->videos);
     }
 
-    // Guardar array de imágenes como string
     public function setImagesArray($images)
     {
         $this->images = empty($images) ? null : implode(',', $images);
     }
 
-    // Guardar array de videos como string
     public function setVideosArray($videos)
     {
         $this->videos = empty($videos) ? null : implode(',', $videos);
     }
 
-    // Scope para obtener secciones activas ordenadas
+    // NUEVOS MÉTODOS para datos específicos
+    public function getCustomData($key = null, $default = null)
+    {
+        if (is_null($key)) {
+            return $this->custom_data ?? [];
+        }
+        
+        return $this->custom_data[$key] ?? $default;
+    }
+
+    public function setCustomData($key, $value)
+    {
+        $customData = $this->custom_data ?? [];
+        $customData[$key] = $value;
+        $this->custom_data = $customData;
+    }
+
+    public function setCustomDataArray($data)
+    {
+        $this->custom_data = $data;
+    }
+
+    // Scopes existentes
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

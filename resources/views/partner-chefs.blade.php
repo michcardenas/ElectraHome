@@ -4,21 +4,46 @@
 
 @section('content')
 <div class="contact-page">
-    <!-- Hero Section -->
-    <section class="contact-hero">
-        <div class="hero-background">
-            <img src="{{ asset('images/logo.png') }}" alt="Servicio Técnico ElectraHome" class="hero-bg-image">
-            <div class="hero-overlay"></div>
-        </div>
-        <div class="container">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-10">
-                    <h1 class="hero-title">Contáctanos</h1>
-                    <p class="hero-subtitle">Servicio técnico especializado en línea blanca y electrodomésticos en Quito</p>
+    
+    {{-- HERO SECTION - Dinámico --}}
+    @if(isset($sectionsData['hero']) && $sectionsData['hero'])
+        @php $heroSection = $sectionsData['hero']; @endphp
+        <section class="contact-hero">
+            <div class="hero-background">
+                {{-- Imagen de fondo dinámica o logo por defecto --}}
+                @if($heroSection->getImagesArray())
+                    <img src="{{ Storage::url($heroSection->getImagesArray()[0]) }}" alt="Servicio Técnico ElectraHome" class="hero-bg-image">
+                @else
+                    <img src="{{ asset('images/logo.png') }}" alt="Servicio Técnico ElectraHome" class="hero-bg-image">
+                @endif
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-10">
+                        <h1 class="hero-title">{{ $heroSection->title ?? 'Contáctanos' }}</h1>
+                        <p class="hero-subtitle">{{ $heroSection->content ?? 'Servicio técnico especializado en línea blanca y electrodomésticos' }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @else
+        {{-- Fallback si no hay sección hero --}}
+        <section class="contact-hero">
+            <div class="hero-background">
+                <img src="{{ asset('images/logo.png') }}" alt="Servicio Técnico ElectraHome" class="hero-bg-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-10">
+                        <h1 class="hero-title">Contáctanos</h1>
+                        <p class="hero-subtitle">Servicio técnico especializado en línea blanca y electrodomésticos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 
     <!-- Main Content -->
     <section class="contact-content">
@@ -27,88 +52,198 @@
                 <!-- Left Column - Information -->
                 <div class="col-lg-6 mb-5">
                     <div class="info-content">
-                        <h2 class="section-title">¿Necesitas ayuda con tus electrodomésticos?</h2>
-                        <p class="section-description">
-                            En ElectraHome somos especialistas en reparación, mantenimiento e instalación de línea blanca. 
-                            También vendemos y reparamos electrodomésticos Oster. Contáctanos y recibe atención personalizada 
-                            con técnicos certificados.
-                        </p>
                         
+                        {{-- INFO SECTION - Dinámico --}}
+                        @if(isset($sectionsData['info']) && $sectionsData['info'])
+                            @php $infoSection = $sectionsData['info']; @endphp
+                            <h2 class="section-title">{{ $infoSection->title ?? '¿Necesitas ayuda con tus electrodomésticos?' }}</h2>
+                            <p class="section-description">
+                                {{ $infoSection->content ?? 'En ElectraHome somos especialistas en reparación, mantenimiento e instalación de línea blanca.' }}
+                            </p>
+                        @else
+                            <h2 class="section-title">¿Necesitas ayuda con tus electrodomésticos?</h2>
+                            <p class="section-description">
+                                En ElectraHome somos especialistas en reparación, mantenimiento e instalación de línea blanca. 
+                                También vendemos y reparamos electrodomésticos Oster. Contáctanos y recibe atención personalizada 
+                                con técnicos certificados.
+                            </p>
+                        @endif
+                        
+                        {{-- SERVICES LIST - Dinámico --}}
                         <div class="services-list">
-                            <div class="service-item">
-                                <div class="service-icon">🔧</div>
-                                <div class="service-text">
-                                    <h4>Reparación Especializada</h4>
-                                    <p>Lavadoras, secadoras, refrigeradoras, cocinas, microondas y más</p>
+                            @if(isset($sectionsData['services']) && $sectionsData['services'])
+                                @php $servicesSection = $sectionsData['services']; @endphp
+                                
+                                {{-- Servicio 1 --}}
+                                <div class="service-item">
+                                    <div class="service-icon">{{ $servicesSection->getCustomData('service_1_icon', '🔧') }}</div>
+                                    <div class="service-text">
+                                        <h4>{{ $servicesSection->getCustomData('service_1_title', 'Reparación Especializada') }}</h4>
+                                        <p>{{ $servicesSection->getCustomData('service_1_desc', 'Lavadoras, secadoras, refrigeradoras, cocinas, microondas y más') }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="service-item">
-                                <div class="service-icon">🏠</div>
-                                <div class="service-text">
-                                    <h4>Servicio a Domicilio</h4>
-                                    <p>Atendemos en toda la ciudad de Quito con horarios flexibles</p>
+                                
+                                {{-- Servicio 2 --}}
+                                <div class="service-item">
+                                    <div class="service-icon">{{ $servicesSection->getCustomData('service_2_icon', '🏠') }}</div>
+                                    <div class="service-text">
+                                        <h4>{{ $servicesSection->getCustomData('service_2_title', 'Servicio a Domicilio') }}</h4>
+                                        <p>{{ $servicesSection->getCustomData('service_2_desc', 'Atendemos en toda la ciudad con horarios flexibles') }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="service-item">
-                                <div class="service-icon">⚡</div>
-                                <div class="service-text">
-                                    <h4>Electrodomésticos Oster</h4>
-                                    <p>Venta y reparación de licuadoras, freidoras de aire, extractores</p>
+                                
+                                {{-- Servicio 3 --}}
+                                <div class="service-item">
+                                    <div class="service-icon">{{ $servicesSection->getCustomData('service_3_icon', '⚡') }}</div>
+                                    <div class="service-text">
+                                        <h4>{{ $servicesSection->getCustomData('service_3_title', 'Electrodomésticos Oster') }}</h4>
+                                        <p>{{ $servicesSection->getCustomData('service_3_desc', 'Venta y reparación de licuadoras, freidoras de aire') }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="service-item">
-                                <div class="service-icon">✅</div>
-                                <div class="service-text">
-                                    <h4>Garantía y Calidad</h4>
-                                    <p>Todos nuestros trabajos incluyen garantía y repuestos originales</p>
+                                
+                                {{-- Servicio 4 --}}
+                                <div class="service-item">
+                                    <div class="service-icon">{{ $servicesSection->getCustomData('service_4_icon', '✅') }}</div>
+                                    <div class="service-text">
+                                        <h4>{{ $servicesSection->getCustomData('service_4_title', 'Garantía y Calidad') }}</h4>
+                                        <p>{{ $servicesSection->getCustomData('service_4_desc', 'Todos nuestros trabajos incluyen garantía y repuestos originales') }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                {{-- Fallback - servicios por defecto --}}
+                                <div class="service-item">
+                                    <div class="service-icon">🔧</div>
+                                    <div class="service-text">
+                                        <h4>Reparación Especializada</h4>
+                                        <p>Lavadoras, secadoras, refrigeradoras, cocinas, microondas y más</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-item">
+                                    <div class="service-icon">🏠</div>
+                                    <div class="service-text">
+                                        <h4>Servicio a Domicilio</h4>
+                                        <p>Atendemos en toda la ciudad de Quito con horarios flexibles</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-item">
+                                    <div class="service-icon">⚡</div>
+                                    <div class="service-text">
+                                        <h4>Electrodomésticos Oster</h4>
+                                        <p>Venta y reparación de licuadoras, freidoras de aire, extractores</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-item">
+                                    <div class="service-icon">✅</div>
+                                    <div class="service-text">
+                                        <h4>Garantía y Calidad</h4>
+                                        <p>Todos nuestros trabajos incluyen garantía y repuestos originales</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
 
-                        <!-- Contact Info Cards -->
+                        {{-- CONTACT INFO CARDS - Dinámico --}}
                         <div class="contact-info-cards mt-5">
-                            <div class="info-card">
-                                <div class="info-icon">
-                                    <i class="fab fa-whatsapp"></i>
+                            @if(isset($sectionsData['contact_info']) && $sectionsData['contact_info'])
+                                @php $contactInfoSection = $sectionsData['contact_info']; @endphp
+                                
+                                {{-- WhatsApp --}}
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>WhatsApp</h5>
+                                        <a href="{{ $contactInfoSection->getCustomData('whatsapp_link', 'https://wa.me/593987654321') }}" target="_blank">
+                                            {{ $contactInfoSection->getCustomData('whatsapp_number', '+593 98 765 4321') }}
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="info-details">
-                                    <h5>WhatsApp</h5>
-                                    <a href="https://wa.me/593987654321" target="_blank">+593 98 765 4321</a>
-                                </div>
-                            </div>
 
-                            <div class="info-card">
-                                <div class="info-icon">
-                                    <i class="fas fa-phone"></i>
+                                {{-- Teléfono --}}
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>Teléfono</h5>
+                                        <a href="{{ $contactInfoSection->getCustomData('phone_link', 'tel:+59322345678') }}">
+                                            {{ $contactInfoSection->getCustomData('phone_number', '+593 2 234 5678') }}
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="info-details">
-                                    <h5>Teléfono</h5>
-                                    <a href="tel:+59322345678">+593 2 234 5678</a>
-                                </div>
-                            </div>
 
-                            <div class="info-card">
-                                <div class="info-icon">
-                                    <i class="fas fa-envelope"></i>
+                                {{-- Email --}}
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>Email</h5>
+                                        <a href="{{ $contactInfoSection->getCustomData('email_link', 'mailto:info@electrahome.com') }}">
+                                            {{ $contactInfoSection->getCustomData('email', 'info@electrahome.com') }}
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="info-details">
-                                    <h5>Email</h5>
-                                    <a href="mailto:info@electrahome.com">info@electrahome.com</a>
-                                </div>
-                            </div>
 
-                            <div class="info-card">
-                                <div class="info-icon">
-                                    <i class="fas fa-clock"></i>
+                                {{-- Horarios --}}
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>Horarios</h5>
+                                        <span>
+                                            {{ $contactInfoSection->getCustomData('schedule_weekdays', 'Lun-Vie: 8:00-18:00') }}<br>
+                                            {{ $contactInfoSection->getCustomData('schedule_saturday', 'Sáb: 8:00-16:00') }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="info-details">
-                                    <h5>Horarios</h5>
-                                    <span>Lun-Vie: 8:00-18:00<br>Sáb: 8:00-16:00</span>
+                            @else
+                                {{-- Fallback - información por defecto --}}
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>WhatsApp</h5>
+                                        <a href="https://wa.me/593987654321" target="_blank">+593 98 765 4321</a>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>Teléfono</h5>
+                                        <a href="tel:+59322345678">+593 2 234 5678</a>
+                                    </div>
+                                </div>
+
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>Email</h5>
+                                        <a href="mailto:info@electrahome.com">info@electrahome.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="info-card">
+                                    <div class="info-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="info-details">
+                                        <h5>Horarios</h5>
+                                        <span>Lun-Vie: 8:00-18:00<br>Sáb: 8:00-16:00</span>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -116,10 +251,20 @@
                 <!-- Right Column - Form -->
                 <div class="col-lg-6">
                     <div class="contact-form-container">
-                        <div class="form-header">
-                            <h3>Solicita tu Servicio</h3>
-                            <p>¿Tienes problemas con algún electrodoméstico? Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas para agendar tu servicio técnico.</p>
-                        </div>
+                        
+                        {{-- FORM HEADER - Dinámico --}}
+                        @if(isset($sectionsData['form_header']) && $sectionsData['form_header'])
+                            @php $formHeaderSection = $sectionsData['form_header']; @endphp
+                            <div class="form-header">
+                                <h3>{{ $formHeaderSection->title ?? 'Solicita tu Servicio' }}</h3>
+                                <p>{{ $formHeaderSection->content ?? '¿Tienes problemas con algún electrodoméstico? Completa el formulario y nos pondremos en contacto contigo.' }}</p>
+                            </div>
+                        @else
+                            <div class="form-header">
+                                <h3>Solicita tu Servicio</h3>
+                                <p>¿Tienes problemas con algún electrodoméstico? Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas para agendar tu servicio técnico.</p>
+                            </div>
+                        @endif
                         
                         @if(session('success'))
                             <div class="alert alert-success">
@@ -128,6 +273,7 @@
                             </div>
                         @endif
                         
+                        {{-- FORMULARIO - Mantiene toda la funcionalidad existente --}}
                         <form action="{{ route('contact.submit') }}" method="POST" class="contact-form">
                             @csrf
                             
@@ -295,13 +441,25 @@
                                 Enviar Solicitud
                             </button>
 
-                            <div class="quick-contact mt-4">
-                                <p class="text-center text-white-50">¿Necesitas atención inmediata?</p>
-                                <a href="https://wa.me/593987654321" target="_blank" class="whatsapp-btn">
-                                    <i class="fab fa-whatsapp me-2"></i>
-                                    Escribir por WhatsApp
-                                </a>
-                            </div>
+                            {{-- Quick Contact dinámico --}}
+                            @if(isset($sectionsData['contact_info']) && $sectionsData['contact_info'])
+                                @php $contactInfoSection = $sectionsData['contact_info']; @endphp
+                                <div class="quick-contact mt-4">
+                                    <p class="text-center text-white-50">¿Necesitas atención inmediata?</p>
+                                    <a href="{{ $contactInfoSection->getCustomData('whatsapp_link', 'https://wa.me/593987654321') }}" target="_blank" class="whatsapp-btn">
+                                        <i class="fab fa-whatsapp me-2"></i>
+                                        Escribir por WhatsApp
+                                    </a>
+                                </div>
+                            @else
+                                <div class="quick-contact mt-4">
+                                    <p class="text-center text-white-50">¿Necesitas atención inmediata?</p>
+                                    <a href="https://wa.me/593987654321" target="_blank" class="whatsapp-btn">
+                                        <i class="fab fa-whatsapp me-2"></i>
+                                        Escribir por WhatsApp
+                                    </a>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
@@ -309,7 +467,6 @@
         </div>
     </section>
 </div>
-
 <style>
 .contact-page {
     font-family: 'Inter', sans-serif;

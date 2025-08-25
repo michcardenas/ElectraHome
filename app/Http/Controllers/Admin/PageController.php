@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use App\Models\Section;
+use Illuminate\Support\Facades\Log; 
 
 class PageController extends Controller
 {
@@ -112,89 +113,326 @@ class PageController extends Controller
         return view('admin.pages.sections', compact('page', 'sections'));
     }
 
-  public function updateSection(Request $request, $pageId, $sectionId)
+public function updateSection(Request $request, $pageId, $sectionId)
 {
+    // DEBUG: Ver qué datos llegan
+    \Log::info('=== UPDATE SECTION UNIVERSAL ===');
+    \Log::info('Page ID: ' . $pageId);
+    \Log::info('Section ID: ' . $sectionId);
+    \Log::info('Request Data: ', $request->all());
+    
     $page = Page::findOrFail($pageId);
     $section = Section::findOrFail($sectionId);
     
+    \Log::info('Page found: ' . $page->slug);
+    \Log::info('Section found: ' . $section->name);
+    
     // Verificar que la sección pertenece a la página
     if ($section->page_id !== $page->id) {
+        \Log::error('Section does not belong to page. Section page_id: ' . $section->page_id . ', Page id: ' . $page->id);
         abort(404, 'Sección no encontrada en esta página');
     }
 
-    // ✅ VALIDACIÓN COMPLETA incluyendo video e imágenes
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'content' => 'nullable|string',
-        'is_active' => 'nullable',
-        'media_type' => 'nullable|in:video,images',
-        'hero_video' => 'nullable|file|mimes:mp4,webm,mov|max:51200', // 50MB
-        'images.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048' // 2MB por imagen
-    ]);
+    \Log::info('Section ownership verified');
 
-    // ✅ Actualizar datos básicos
+    // Validación básica
+    try {
+        $request->validate([
+            'title' => 'string|max:255',
+            'content' => 'nullable|string',
+            'is_active' => 'nullable',
+            'images.*' => 'nullable|image|max:2048'
+        ]);
+        \Log::info('Validation passed');
+    } catch (\Exception $e) {
+        \Log::error('Validation failed: ' . $e->getMessage());
+        throw $e;
+    }
+
+    // Datos anteriores
+    \Log::info('Before update - Title: ' . $section->title);
+    \Log::info('Before update - Content: ' . $section->content);
+    
+    // Actualizar datos básicos
     $section->title = $request->title;
     $section->content = $request->content;
-    $section->is_active = $request->has('is_active');
+    $section->is_active = $request->has('is_active') ? true : false;
 
-    // ✅ PROCESAR MEDIA PARA SECCIÓN HERO
-    if ($section->name === 'hero') {
-        $mediaType = $request->input('media_type', 'images');
+    \Log::info('After assignment - Title: ' . $section->title);
+    \Log::info('After assignment - Content: ' . $section->content);
+    \Log::info('After assignment - Is Active: ' . ($section->is_active ? 'true' : 'false'));
 
-        if ($mediaType === 'video') {
-            // MANEJAR VIDEO
-            if ($request->hasFile('hero_video')) {
+    // ===== PROCESAR CAMPOS ESPECÍFICOS UNIVERSALMENTE =====
+    $customData = [];
+
+    switch ($section->name) {
+        // === SECCIONES PARA "QUIÉNES SOMOS" ===
+        case 'legacy':
+            $customData = [
+                'paragraph_1' => $request->input('paragraph_1'),
+                'paragraph_2' => $request->input('paragraph_2'),
+                'quote' => $request->input('quote')
+            ];
+            \Log::info('Legacy custom data: ', $customData);
+            break;
+
+        case 'quality':
+            $customData = [
+                'paragraph_1' => $request->input('paragraph_1'),
+                'paragraph_2' => $request->input('paragraph_2'),
+                'badge_1' => $request->input('badge_1'),
+                'badge_2' => $request->input('badge_2'),
+                'badge_3' => $request->input('badge_3'),
+                'badge_4' => $request->input('badge_4')
+            ];
+            \Log::info('Quality custom data: ', $customData);
+            break;
+
+        case 'passion':
+            $customData = [
+                'paragraph_1' => $request->input('paragraph_1'),
+                'paragraph_2' => $request->input('paragraph_2'),
+                'team_quote' => $request->input('team_quote'),
+                'quote_author' => $request->input('quote_author')
+            ];
+            \Log::info('Passion custom data: ', $customData);
+            break;
+
+        case 'benefits':
+            $customData = [
+                'paragraph_1' => $request->input('paragraph_1'),
+                'paragraph_2' => $request->input('paragraph_2'),
+                'benefit_1_icon' => $request->input('benefit_1_icon'),
+                'benefit_1_title' => $request->input('benefit_1_title'),
+                'benefit_1_desc' => $request->input('benefit_1_desc'),
+                'benefit_2_icon' => $request->input('benefit_2_icon'),
+                'benefit_2_title' => $request->input('benefit_2_title'),
+                'benefit_2_desc' => $request->input('benefit_2_desc'),
+                'benefit_3_icon' => $request->input('benefit_3_icon'),
+                'benefit_3_title' => $request->input('benefit_3_title'),
+                'benefit_3_desc' => $request->input('benefit_3_desc')
+            ];
+            \Log::info('Benefits custom data: ', $customData);
+            break;
+
+        case 'cta':
+            $customData = [
+                'button_text' => $request->input('button_text'),
+                'final_question' => $request->input('final_question')
+            ];
+            \Log::info('CTA custom data: ', $customData);
+            break;
+
+        // === SECCIONES PARA "CONTACTO" ===
+        case 'services':
+            $customData = [
+                'service_1_icon' => $request->input('service_1_icon'),
+                'service_1_title' => $request->input('service_1_title'),
+                'service_1_desc' => $request->input('service_1_desc'),
+                'service_2_icon' => $request->input('service_2_icon'),
+                'service_2_title' => $request->input('service_2_title'),
+                'service_2_desc' => $request->input('service_2_desc'),
+                'service_3_icon' => $request->input('service_3_icon'),
+                'service_3_title' => $request->input('service_3_title'),
+                'service_3_desc' => $request->input('service_3_desc'),
+                'service_4_icon' => $request->input('service_4_icon'),
+                'service_4_title' => $request->input('service_4_title'),
+                'service_4_desc' => $request->input('service_4_desc')
+            ];
+            \Log::info('Services custom data: ', $customData);
+            break;
+
+        case 'contact_info':
+            $customData = [
+                'whatsapp_number' => $request->input('whatsapp_number'),
+                'whatsapp_link' => $request->input('whatsapp_link'),
+                'phone_number' => $request->input('phone_number'),
+                'phone_link' => $request->input('phone_link'),
+                'email' => $request->input('email'),
+                'email_link' => $request->input('email_link'),
+                'schedule_weekdays' => $request->input('schedule_weekdays'),
+                'schedule_saturday' => $request->input('schedule_saturday')
+            ];
+            \Log::info('Contact info custom data: ', $customData);
+            break;
+
+        // === SECCIONES PARA "SERVICIOS" (futuras) ===
+        case 'service_list':
+            $customData = [
+                'service_list_data' => $request->input('service_list_data')
+            ];
+            \Log::info('Service list custom data: ', $customData);
+            break;
+
+        // === SECCIONES GENÉRICAS (HERO, INFO, etc.) ===
+        case 'hero':
+        case 'info':
+        case 'form_header':
+            // Estas secciones solo usan title y content, no necesitan custom_data
+            \Log::info($section->name . ' section - using only title and content');
+            break;
+
+        // === SECCIONES FUTURAS ===
+        default:
+            \Log::info('Unknown section type: ' . $section->name . ' - no custom data processing');
+            break;
+    }
+
+    // Guardar custom data si hay
+    if (!empty($customData)) {
+        \Log::info('Setting custom data...');
+        
+        // Verificar si el método existe
+        if (method_exists($section, 'setCustomDataArray')) {
+            $section->setCustomDataArray($customData);
+            \Log::info('Custom data set via setCustomDataArray');
+        } else {
+            // Fallback manual
+            $section->custom_data = $customData;
+            \Log::info('Custom data set directly to custom_data field');
+        }
+        
+        \Log::info('Custom data after setting: ', $section->custom_data ?? []);
+    }
+
+    // Procesar imágenes Y VIDEOS
+    if ($request->hasFile('images') || $request->hasFile('hero_video')) {
+        \Log::info('Processing media files...');
+        
+        if ($section->name === 'hero') {
+            // ===== LÓGICA ESPECIAL PARA HERO: VIDEO O IMÁGENES =====
+            
+            // Procesar video de hero (solo para página inicio)
+            if ($request->hasFile('hero_video') && $request->input('media_type') === 'video') {
+                \Log::info('Processing hero video...');
+                
                 // Eliminar video anterior si existe
                 $currentVideos = $section->getVideosArray();
                 if (!empty($currentVideos)) {
                     foreach ($currentVideos as $oldVideo) {
                         \Storage::disk('public')->delete($oldVideo);
+                        \Log::info('Deleted old video: ' . $oldVideo);
                     }
+                }
+
+                // Eliminar imágenes si había (porque ahora usa video)
+                $currentImages = $section->getImagesArray();
+                if (!empty($currentImages)) {
+                    foreach ($currentImages as $oldImage) {
+                        \Storage::disk('public')->delete($oldImage);
+                        \Log::info('Deleted old image: ' . $oldImage);
+                    }
+                    $section->setImagesArray([]);
                 }
 
                 // Guardar nuevo video
                 $videoPath = $request->file('hero_video')->store('sections/videos', 'public');
                 $section->setVideosArray([$videoPath]);
-
-                // Limpiar imágenes si había (porque ahora usa video)
-                $currentImages = $section->getImagesArray();
-                if (!empty($currentImages)) {
-                    foreach ($currentImages as $oldImage) {
-                        \Storage::disk('public')->delete($oldImage);
-                    }
-                    $section->setImagesArray([]);
-                }
+                \Log::info('Hero video saved: ' . $videoPath);
             }
-        } else {
-            // MANEJAR IMÁGENES
-            if ($request->hasFile('images')) {
+            // Procesar imágenes de hero (si no hay video o media_type es images)
+            elseif ($request->hasFile('images') && $request->input('media_type') !== 'video') {
+                \Log::info('Processing hero images...');
+                
                 // Eliminar video si existía (porque ahora usa imágenes)
                 $currentVideos = $section->getVideosArray();
                 if (!empty($currentVideos)) {
                     foreach ($currentVideos as $oldVideo) {
                         \Storage::disk('public')->delete($oldVideo);
+                        \Log::info('Deleted old video: ' . $oldVideo);
                     }
                     $section->setVideosArray([]);
                 }
 
-                // Agregar nuevas imágenes a las existentes
+                // Hero: reemplazar imagen existente (solo 1)
                 $currentImages = $section->getImagesArray();
+                if (!empty($currentImages)) {
+                    foreach ($currentImages as $oldImage) {
+                        \Storage::disk('public')->delete($oldImage);
+                    }
+                }
+                $imagePath = $request->file('images')[0]->store('sections/images', 'public');
+                $section->setImagesArray([$imagePath]);
+                \Log::info('Hero image saved: ' . $imagePath);
+            }
+            
+        } else {
+            // ===== OTRAS SECCIONES: SOLO IMÁGENES NORMALES =====
+            if ($request->hasFile('images')) {
+                \Log::info('Processing regular images for section: ' . $section->name);
                 
+                // Agregar a las imágenes existentes
+                $currentImages = $section->getImagesArray();
                 foreach ($request->file('images') as $image) {
                     $imagePath = $image->store('sections/images', 'public');
                     $currentImages[] = $imagePath;
                 }
-                
                 $section->setImagesArray($currentImages);
+                \Log::info('Images added to section');
             }
         }
     }
 
-    // ✅ GUARDAR CAMBIOS
-    $section->save();
+    // Intentar guardar
+    try {
+        $result = $section->save();
+        \Log::info('Section save result: ' . ($result ? 'SUCCESS' : 'FAILED'));
+        
+        // Verificar que se guardó
+        $section->refresh();
+        \Log::info('After save - Title: ' . $section->title);
+        \Log::info('After save - Content: ' . $section->content);
+        \Log::info('After save - Custom Data: ', $section->custom_data ?? []);
+        
+    } catch (\Exception $e) {
+        \Log::error('Save failed: ' . $e->getMessage());
+        \Log::error('Exception trace: ' . $e->getTraceAsString());
+        
+        return redirect()->back()
+            ->with('error', 'Error al guardar: ' . $e->getMessage())
+            ->withInput();
+    }
 
-    return redirect()->route('admin.pages.edit-inicio')
-        ->with('success', "Sección '{$section->name}' actualizada correctamente");
+    \Log::info('=== END DEBUG ===');
+
+    // ===== REDIRECT UNIVERSAL - FUNCIONA CON CUALQUIER PÁGINA =====
+    $redirectRoute = $this->getPageEditRoute($page->slug);
+    
+    \Log::info('Redirecting to: ' . $redirectRoute . ' (Page slug: ' . $page->slug . ')');
+
+    return redirect()->route($redirectRoute)
+        ->with('success', "Sección '{$section->title}' actualizada correctamente");
+}
+
+// ===== MÉTODO HELPER PARA REDIRECT UNIVERSAL =====
+private function getPageEditRoute($pageSlug)
+{
+    // Mapeo de slugs a rutas de edición
+    $routeMap = [
+        'inicio' => 'admin.pages.edit-inicio',
+        'quienes-somos' => 'admin.pages.edit-quienes-somos', 
+        'contacto' => 'admin.pages.edit-contacto',
+        'servicios' => 'admin.pages.edit-servicios',
+        'productos' => 'admin.pages.edit-productos',
+        'blog' => 'admin.pages.edit-blog',
+        // Fácil agregar más páginas aquí...
+    ];
+
+    // Si existe la ruta específica, usarla
+    if (isset($routeMap[$pageSlug])) {
+        return $routeMap[$pageSlug];
+    }
+
+    // Fallback 1: Intentar generar automáticamente
+    $autoRoute = 'admin.pages.edit-' . $pageSlug;
+    if (\Route::has($autoRoute)) {
+        \Log::info('Using auto-generated route: ' . $autoRoute);
+        return $autoRoute;
+    }
+
+    // Fallback 2: Ir al index general
+    \Log::warning('No specific edit route found for page: ' . $pageSlug . ', redirecting to index');
+    return 'admin.pages.index';
 }
 
     // Método para eliminar video de Hero
@@ -299,6 +537,72 @@ public function updateQuienesSomos(Request $request)
     return $this->updatePage($request, $page, 'admin.pages.edit-quienes-somos');
 }
 
+//Contacto
 
-
+public function editContacto()
+{
+    $page = Page::where('slug', 'contacto')->with(['sections' => function($query) {
+        $query->orderBy('order');
+    }])->first();
+    
+    // Si no existe la página, crearla con secciones por defecto
+    if (!$page) {
+        $page = Page::create([
+            'slug' => 'contacto',
+            'title' => 'Contacto',
+            'content' => 'Página de contacto de ElectraHome'
+        ]);
+        
+        // Crear secciones por defecto para contacto
+        $sectionsData = [
+            [
+                'name' => 'hero', 
+                'title' => 'Contáctanos', 
+                'content' => 'Servicio técnico especializado en línea blanca y electrodomésticos en Quito', 
+                'order' => 1
+            ],
+            [
+                'name' => 'info', 
+                'title' => '¿Necesitas ayuda con tus electrodomésticos?', 
+                'content' => 'En ElectraHome somos especialistas en reparación, mantenimiento e instalación de línea blanca...', 
+                'order' => 2
+            ],
+            [
+                'name' => 'services', 
+                'title' => 'Nuestros Servicios', 
+                'content' => 'Servicios especializados para tu hogar', 
+                'order' => 3
+            ],
+            [
+                'name' => 'contact_info', 
+                'title' => 'Información de Contacto', 
+                'content' => 'Datos de contacto y horarios', 
+                'order' => 4
+            ],
+            [
+                'name' => 'form_config', 
+                'title' => 'Configuración del Formulario', 
+                'content' => 'Configuración del formulario de contacto', 
+                'order' => 5
+            ]
+        ];
+        
+        foreach ($sectionsData as $sectionData) {
+            $page->sections()->create([
+                'name' => $sectionData['name'],
+                'title' => $sectionData['title'],
+                'content' => $sectionData['content'],
+                'order' => $sectionData['order'],
+                'is_active' => true
+            ]);
+        }
+    }
+    
+    return view('admin.pages.edit-contacto', compact('page'));
+}
+public function updateContacto(Request $request)
+{
+    $page = Page::where('slug', 'contacto')->firstOrFail();
+    return $this->updatePage($request, $page, 'admin.pages.edit-contacto');
+}
 }
