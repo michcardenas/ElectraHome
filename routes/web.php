@@ -19,7 +19,7 @@ Route::view('/about',   'about')->name('about');
 Route::view('/insiders','insiders')->name('insiders');//
 
 
-Route::view('/recipes', 'recipes')->name('recipes');
+Route::get('/recipes', [App\Http\Controllers\Admin\PageController::class, 'servicios'])->name('recipes');
 //los de dentro de recipes
 Route::get('/wholesale', [WholesaleController::class, 'index'])->name('wholesale.form');
 Route::post('/wholesale', [WholesaleController::class, 'submit'])->name('wholesale.submit');

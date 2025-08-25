@@ -605,4 +605,238 @@ public function updateContacto(Request $request)
     $page = Page::where('slug', 'contacto')->firstOrFail();
     return $this->updatePage($request, $page, 'admin.pages.edit-contacto');
 }
+
+
+public function editServicios()
+{
+    $page = Page::where('slug', 'servicios')->with(['sections' => function($query) {
+        $query->orderBy('order');
+    }])->first();
+    
+    // Si no existe la página, crearla con secciones por defecto
+    if (!$page) {
+        $page = Page::create([
+            'slug' => 'servicios',
+            'title' => 'Servicios',
+            'content' => 'Página de servicios de ElectraHome'
+        ]);
+        
+        // Crear secciones por defecto para servicios
+        $sectionsData = [
+            [
+                'name' => 'hero', 
+                'title' => 'Nuestros Servicios', 
+                'content' => 'Servicios especializados en electrodomésticos y línea blanca', 
+                'order' => 1
+            ],
+            [
+                'name' => 'intro', 
+                'title' => 'Expertos en Electrodomésticos', 
+                'content' => 'Con años de experiencia en el sector, ofrecemos servicios integrales...', 
+                'order' => 2
+            ],
+            [
+                'name' => 'services_list', 
+                'title' => 'Servicios Disponibles', 
+                'content' => 'Amplia gama de servicios para tus electrodomésticos', 
+                'order' => 3
+            ],
+            [
+                'name' => 'process', 
+                'title' => 'Nuestro Proceso de Trabajo', 
+                'content' => 'Metodología probada para garantizar resultados', 
+                'order' => 4
+            ],
+            [
+                'name' => 'why_choose', 
+                'title' => 'Por Qué Elegir ElectraHome', 
+                'content' => 'Razones que nos convierten en tu mejor opción', 
+                'order' => 5
+            ],
+            [
+                'name' => 'cta', 
+                'title' => 'Solicita tu Servicio Hoy', 
+                'content' => '¿Listo para reparar tu electrodoméstico? Contáctanos ahora', 
+                'order' => 6
+            ]
+        ];
+
+        foreach ($sectionsData as $sectionData) {
+            try {
+                $section = $page->sections()->create([
+                    'name' => $sectionData['name'],
+                    'title' => $sectionData['title'],
+                    'content' => $sectionData['content'],
+                    'order' => $sectionData['order'],
+                    'is_active' => true
+                ]);
+                
+                \Log::info("Sección {$sectionData['name']} creada para servicios con ID: {$section->id}");
+            } catch (\Exception $e) {
+                \Log::error("Error creando sección {$sectionData['name']} para servicios: " . $e->getMessage());
+            }
+        }
+        
+        // Recargar la página con las secciones
+        $page = $page->fresh(['sections']);
+    }
+
+    // Obtener la página con sus secciones ordenadas
+    $page = Page::where('slug', 'servicios')->with(['sections' => function($query) {
+        $query->orderBy('order');
+    }])->first();
+
+    return view('admin.pages.edit-servicios', compact('page'));
+}
+
+public function updateServicios(Request $request)
+{
+    $page = Page::where('slug', 'servicios')->firstOrFail();
+    return $this->updatePage($request, $page, 'admin.pages.edit-servicios');
+}
+
+
+public function servicios()
+{
+    // Obtener la página de servicios con sus secciones activas
+    $page = Page::where('slug', 'servicios')->with(['sections' => function($query) {
+        $query->where('is_active', true)->orderBy('order');
+    }])->first();
+    
+    // Si no existe la página, crear estructura básica
+    if (!$page) {
+        $page = Page::create([
+            'slug' => 'servicios',
+            'title' => 'Nuestros Servicios',
+            'content' => 'Página de servicios de ElectraHome'
+        ]);
+        
+        // Crear secciones por defecto
+        $this->createDefaultServicesSection($page);
+        
+        // Recargar con secciones
+        $page->load(['sections' => function($query) {
+            $query->where('is_active', true)->orderBy('order');
+        }]);
+    }
+    
+    // Convertir secciones a array asociativo para fácil acceso
+    $sectionsData = [];
+    foreach($page->sections as $section) {
+        $sectionsData[$section->name] = $section;
+    }
+    
+    return view('recipes', compact('sectionsData', 'page'));
+}
+
+/**
+ * Crear secciones por defecto para servicios
+ */
+private function createDefaultServicesSection($page)
+{
+    $sections = [
+        [
+            'name' => 'hero',
+            'title' => 'Nuestros Servicios',
+            'content' => 'Servicios especializados en electrodomésticos',
+            'order' => 1,
+            'is_active' => true
+        ],
+        [
+            'name' => 'intro', 
+            'title' => 'Expertos en Electrodomésticos',
+            'content' => 'Con más de 10 años de experiencia, ofrecemos servicios de reparación y mantenimiento de electrodomésticos con la más alta calidad.',
+            'order' => 2,
+            'is_active' => true
+        ],
+        [
+            'name' => 'services_list',
+            'title' => 'Servicios Disponibles',
+            'content' => 'Ofrecemos una amplia gama de servicios especializados',
+            'custom_data' => json_encode([
+                'service_1_icon' => '🔧',
+                'service_1_title' => 'Reparación de Lavadoras',
+                'service_1_desc' => 'Diagnóstico y reparación de todo tipo de lavadoras',
+                'service_2_icon' => '❄️',
+                'service_2_title' => 'Reparación de Refrigeradoras',
+                'service_2_desc' => 'Servicio técnico especializado en refrigeración',
+                'service_3_icon' => '🍳',
+                'service_3_title' => 'Reparación de Cocinas',
+                'service_3_desc' => 'Mantenimiento y reparación de cocinas eléctricas y gas',
+                'service_4_icon' => '🌀',
+                'service_4_title' => 'Reparación de Secadoras',
+                'service_4_desc' => 'Servicio completo para secadoras de ropa',
+                'service_5_icon' => '⚡',
+                'service_5_title' => 'Electrodomésticos Oster',
+                'service_5_desc' => 'Reparación especializada en productos Oster',
+                'service_6_icon' => '🏠',
+                'service_6_title' => 'Servicio a Domicilio',
+                'service_6_desc' => 'Atendemos en tu hogar u oficina'
+            ]),
+            'order' => 3,
+            'is_active' => true
+        ],
+        [
+            'name' => 'process',
+            'title' => 'Nuestro Proceso de Trabajo',
+            'content' => 'Seguimos un proceso sistemático para garantizar el mejor servicio',
+            'custom_data' => json_encode([
+                'step_1_number' => '1',
+                'step_1_title' => 'Diagnóstico',
+                'step_1_desc' => 'Evaluamos el problema y identificamos la solución',
+                'step_2_number' => '2',
+                'step_2_title' => 'Presupuesto',
+                'step_2_desc' => 'Te damos un presupuesto claro y sin sorpresas',
+                'step_3_number' => '3',
+                'step_3_title' => 'Reparación',
+                'step_3_desc' => 'Realizamos la reparación con repuestos originales',
+                'step_4_number' => '4',
+                'step_4_title' => 'Garantía',
+                'step_4_desc' => 'Tu electrodoméstico queda con garantía de servicio'
+            ]),
+            'order' => 4,
+            'is_active' => true
+        ],
+        [
+            'name' => 'why_choose',
+            'title' => 'Por Qué Elegir ElectraHome',
+            'content' => 'Razones por las cuales somos tu mejor opción',
+            'custom_data' => json_encode([
+                'reason_1_icon' => '⭐',
+                'reason_1_title' => 'Experiencia Comprobada',
+                'reason_1_desc' => 'Más de 10 años reparando electrodomésticos',
+                'reason_2_icon' => '🛡️',
+                'reason_2_title' => 'Garantía Completa',
+                'reason_2_desc' => 'Todos nuestros trabajos incluyen garantía',
+                'reason_3_icon' => '⚡',
+                'reason_3_title' => 'Servicio Rápido',
+                'reason_3_desc' => 'Atención inmediata y respuesta en 24h',
+                'reason_4_icon' => '💰',
+                'reason_4_title' => 'Precios Justos',
+                'reason_4_desc' => 'Presupuestos transparentes sin costos ocultos'
+            ]),
+            'order' => 5,
+            'is_active' => true
+        ],
+        [
+            'name' => 'cta',
+            'title' => 'Solicita tu Servicio Hoy',
+            'content' => '¿Necesitas reparar tu electrodoméstico? Contáctanos ahora y recibe atención personalizada. Nuestros expertos están listos para ayudarte.',
+            'custom_data' => json_encode([
+                'button_primary_text' => 'Contactar Ahora',
+                'button_secondary_text' => 'Ver Más Servicios'
+            ]),
+            'order' => 6,
+            'is_active' => true
+        ]
+    ];
+    
+    foreach($sections as $sectionData) {
+        $page->sections()->create($sectionData);
+    }
+}
+
+
+
+
 }
