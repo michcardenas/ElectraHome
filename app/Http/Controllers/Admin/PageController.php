@@ -467,7 +467,7 @@ private function getPageEditRoute($pageSlug)
         $section = Section::findOrFail($sectionId);
         
         // Verificar que la sección pertenece a la página
-        if ($section->page_id !== $page->id) {
+if ($section->page_id != $page->id) {
             return response()->json(['success' => false, 'message' => 'Sección no válida'], 404);
         }
 
