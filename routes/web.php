@@ -23,7 +23,7 @@ Route::get('/recipes', [App\Http\Controllers\Admin\PageController::class, 'servi
 //los de dentro de recipes
 Route::get('/wholesale', [WholesaleController::class, 'index'])->name('wholesale.form');
 Route::post('/wholesale', [WholesaleController::class, 'submit'])->name('wholesale.submit');
-
+Route::put('/admin/pages/{page}/sections/{section}', [App\Http\Controllers\Admin\PageController::class, 'updateSection'])->name('admin.pages.sections.update');
 Route::view('/chefs',   'chefs')->name('chefs');
 Route::view('/wholesale','wholesale')->name('wholesale');
 Route::get('/admin/seo/{page}/edit', [App\Http\Controllers\Admin\SeoController::class, 'edit'])->name('admin.seo.edit');
@@ -158,7 +158,7 @@ Route::prefix('admin/pages')->name('admin.pages.')->group(function () {
     
     // NUEVAS RUTAS PARA SECCIONES
     Route::get('/{page}/sections', [App\Http\Controllers\Admin\PageController::class, 'manageSections'])->name('sections');
-    Route::put('/{page}/sections/{section}', [App\Http\Controllers\Admin\PageController::class, 'updateSection'])->name('sections.update');
+    // Route::put('/{page}/sections/{section}', [App\Http\Controllers\Admin\PageController::class, 'updateSection'])->name('sections.update');
     Route::delete('/{page}/sections/{section}/images', [App\Http\Controllers\Admin\PageController::class, 'deleteSectionImage'])->name('sections.delete-image');
 });
 
