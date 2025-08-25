@@ -26,7 +26,8 @@ Route::post('/wholesale', [WholesaleController::class, 'submit'])->name('wholesa
 
 Route::view('/chefs',   'chefs')->name('chefs');
 Route::view('/wholesale','wholesale')->name('wholesale');
-
+Route::get('/admin/seo/{page}/edit', [App\Http\Controllers\Admin\SeoController::class, 'edit'])->name('admin.seo.edit');
+Route::put('/admin/seo/{page}', [App\Http\Controllers\Admin\SeoController::class, 'update'])->name('admin.seo.update');
 /* ---------- Catálogo y carrito ---------- */
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::delete('/admin/products/images/{id}', [App\Http\Controllers\Admin\ProductImageController::class, 'destroy'])->name('admin.products.images.destroy');

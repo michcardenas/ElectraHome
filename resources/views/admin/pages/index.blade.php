@@ -9,6 +9,7 @@
     .table th, .table td { color: #FCFAF1 !important; border-color: rgba(0, 169, 224, 0.3) !important; }
     .table-light th { background-color: #1a252f !important; color: #00A9E0 !important; }
     .btn-warning { background-color: #f7a831; border-color: #f7a831; color: #101820; }
+    .btn-info { background-color: #00A9E0; border-color: #00A9E0; color: #101820; }
     h2 { color: #00A9E0 !important; }
     .alert-success { background-color: rgba(0, 169, 224, 0.2); color: #FCFAF1; border: 1px solid #00A9E0; }
 </style>
@@ -50,28 +51,28 @@
                             @switch($page->slug)
                                 @case('inicio')
                                     <a href="{{ route('admin.pages.edit-inicio') }}" 
-                                       class="btn btn-sm btn-warning">
+                                       class="btn btn-sm btn-warning me-1">
                                         <i class="fas fa-edit"></i> Editar Inicio
                                     </a>
                                     @break
                                 
                                 @case('quienes-somos')
                                     <a href="{{ route('admin.pages.edit-quienes-somos') }}" 
-                                       class="btn btn-sm btn-warning">
+                                       class="btn btn-sm btn-warning me-1">
                                         <i class="fas fa-edit"></i> Editar Quiénes Somos
                                     </a>
                                     @break
                                 
                                 @case('servicios')
                                     <a href="{{ route('admin.pages.edit-servicios') }}" 
-                                       class="btn btn-sm btn-warning">
+                                       class="btn btn-sm btn-warning me-1">
                                         <i class="fas fa-edit"></i> Editar Servicios
                                     </a>
                                     @break
                                 
                                 @case('contacto')
                                     <a href="{{ route('admin.pages.edit-contacto') }}" 
-                                       class="btn btn-sm btn-warning">
+                                       class="btn btn-sm btn-warning me-1">
                                         <i class="fas fa-edit"></i> Editar Contacto
                                     </a>
                                     @break
@@ -79,6 +80,11 @@
                                 @default
                                     <span class="text-muted">No disponible</span>
                             @endswitch
+                            
+                            <a href="{{ route('admin.seo.edit', $page->id) }}" 
+                               class="btn btn-sm btn-info">
+                                <i class="fas fa-search"></i> SEO
+                            </a>
                         </td>
                     </tr>
                 @empty
@@ -95,6 +101,7 @@
                 <li><strong>Página:</strong> Identificador único (slug)</li>
                 <li><strong>Sección:</strong> Campo opcional para identificar secciones específicas</li>
                 <li><strong>Cada página tiene su propia vista de edición personalizada</strong></li>
+                <li><strong>SEO:</strong> Configura meta tags, Open Graph y Schema.org para cada página</li>
             </ul>
         </div>
     </div>
