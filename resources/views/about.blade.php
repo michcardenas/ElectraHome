@@ -12,7 +12,7 @@
         <div class="hero-background">
             {{-- Imagen de fondo dinámica o logo por defecto --}}
             @if($heroSection->getImagesArray())
-                <img src="{{ Storage::url($heroSection->getImagesArray()[0]) }}" alt="ElectraHome" class="hero-bg-image">
+                <img src="{{ asset('storage/' . $heroSection->getImagesArray()[0]) }}" alt="ElectraHome" class="hero-bg-image">
             @else
                 <img src="{{ asset('images/logo.png') }}" alt="ElectraHome" class="hero-bg-image">
             @endif
@@ -96,7 +96,7 @@
                         <div class="content-image">
                             {{-- Imagen dinámica --}}
                             @if($legacySection->getImagesArray())
-                                <img src="{{ Storage::url($legacySection->getImagesArray()[0]) }}" alt="{{ $legacySection->title }}" class="section-img">
+                                <img src="{{ asset('storage/' . $legacySection->getImagesArray()[0]) }}" alt="{{ $legacySection->title }}" class="section-img">
                             @else
                                 <img src="{{ asset('images/logo.png') }}" alt="Productos Oster de Calidad" class="section-img logo-placeholder">
                             @endif
@@ -148,7 +148,7 @@
                         <div class="content-image">
                             {{-- Imagen dinámica --}}
                             @if($qualitySection->getImagesArray())
-                                <img src="{{ Storage::url($qualitySection->getImagesArray()[0]) }}" alt="{{ $qualitySection->title }}" class="section-img">
+                                <img src="{{ asset('storage/' . $qualitySection->getImagesArray()[0]) }}" alt="{{ $qualitySection->title }}" class="section-img">
                             @else
                                 <img src="{{ asset('images/logo.png') }}" alt="Servicio Técnico Especializado" class="section-img logo-placeholder">
                             @endif
@@ -200,7 +200,7 @@
                         <div class="content-image">
                             {{-- Imagen dinámica --}}
                             @if($passionSection->getImagesArray())
-                                <img src="{{ Storage::url($passionSection->getImagesArray()[0]) }}" alt="{{ $passionSection->title }}" class="section-img">
+                                <img src="{{ asset('storage/' . $passionSection->getImagesArray()[0]) }}" alt="{{ $passionSection->title }}" class="section-img">
                             @else
                                 <img src="{{ asset('images/logo.png') }}" alt="Equipo ElectraHome" class="section-img logo-placeholder">
                             @endif
@@ -289,6 +289,8 @@
         </div>
     </section>
 </div>
+
+
 
 <style>
 .about-page {
