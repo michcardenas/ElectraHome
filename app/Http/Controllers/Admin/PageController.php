@@ -215,14 +215,6 @@ public function updateSection(Request $request, $pageId, $sectionId)
             \Log::info('Benefits custom data: ', $customData);
             break;
 
-        case 'cta':
-            $customData = [
-                'button_text' => $request->input('button_text'),
-                'final_question' => $request->input('final_question')
-            ];
-            \Log::info('CTA custom data: ', $customData);
-            break;
-
         // === SECCIONES PARA "CONTACTO" ===
         case 'services':
             $customData = [
@@ -256,7 +248,146 @@ public function updateSection(Request $request, $pageId, $sectionId)
             \Log::info('Contact info custom data: ', $customData);
             break;
 
-        // === SECCIONES PARA "SERVICIOS" (futuras) ===
+        // === SECCIONES PARA "SERVICIOS" ===
+        case 'intro':
+            $customData = [
+                // Servicios principales (3 tarjetas)
+                'repair_icon' => $request->input('repair_icon'),
+                'repair_title' => $request->input('repair_title'),
+                'repair_description' => $request->input('repair_description'),
+                'repair_check_icon' => $request->input('repair_check_icon'),
+                'repair_feature_1' => $request->input('repair_feature_1'),
+                'repair_feature_2' => $request->input('repair_feature_2'),
+                'repair_feature_3' => $request->input('repair_feature_3'),
+                
+                'maintenance_icon' => $request->input('maintenance_icon'),
+                'maintenance_title' => $request->input('maintenance_title'),
+                'maintenance_description' => $request->input('maintenance_description'),
+                'maintenance_check_icon' => $request->input('maintenance_check_icon'),
+                'maintenance_feature_1' => $request->input('maintenance_feature_1'),
+                'maintenance_feature_2' => $request->input('maintenance_feature_2'),
+                'maintenance_feature_3' => $request->input('maintenance_feature_3'),
+                
+                'installation_icon' => $request->input('installation_icon'),
+                'installation_title' => $request->input('installation_title'),
+                'installation_description' => $request->input('installation_description'),
+                'installation_check_icon' => $request->input('installation_check_icon'),
+                'installation_feature_1' => $request->input('installation_feature_1'),
+                'installation_feature_2' => $request->input('installation_feature_2'),
+                'installation_feature_3' => $request->input('installation_feature_3')
+            ];
+            \Log::info('Intro services custom data: ', $customData);
+            break;
+
+        case 'services_list':
+            $customData = [
+                // Categorías de electrodomésticos
+                'service_1_icon' => $request->input('service_1_icon'),
+                'service_1_title' => $request->input('service_1_title'),
+                'service_1_desc' => $request->input('service_1_desc'),
+                'service_2_icon' => $request->input('service_2_icon'),
+                'service_2_title' => $request->input('service_2_title'),
+                'service_2_desc' => $request->input('service_2_desc'),
+                'service_3_icon' => $request->input('service_3_icon'),
+                'service_3_title' => $request->input('service_3_title'),
+                'service_3_desc' => $request->input('service_3_desc'),
+                'image_alt' => $request->input('image_alt')
+            ];
+            \Log::info('Services list custom data: ', $customData);
+            break;
+
+        case 'process':
+            $customData = [
+                // 4 pasos del proceso
+                'step_1_number' => $request->input('step_1_number'),
+                'step_1_icon' => $request->input('step_1_icon'),
+                'step_1_title' => $request->input('step_1_title'),
+                'step_1_desc' => $request->input('step_1_desc'),
+                'step_2_number' => $request->input('step_2_number'),
+                'step_2_icon' => $request->input('step_2_icon'),
+                'step_2_title' => $request->input('step_2_title'),
+                'step_2_desc' => $request->input('step_2_desc'),
+                'step_3_number' => $request->input('step_3_number'),
+                'step_3_icon' => $request->input('step_3_icon'),
+                'step_3_title' => $request->input('step_3_title'),
+                'step_3_desc' => $request->input('step_3_desc'),
+                'step_4_number' => $request->input('step_4_number'),
+                'step_4_icon' => $request->input('step_4_icon'),
+                'step_4_title' => $request->input('step_4_title'),
+                'step_4_desc' => $request->input('step_4_desc')
+            ];
+            \Log::info('Process custom data: ', $customData);
+            break;
+
+        case 'oster_section':
+            $customData = [
+                // Servicios Oster
+                'oster_service_1_icon' => $request->input('oster_service_1_icon'),
+                'oster_service_1_title' => $request->input('oster_service_1_title'),
+                'oster_service_1_desc' => $request->input('oster_service_1_desc'),
+                'oster_service_2_icon' => $request->input('oster_service_2_icon'),
+                'oster_service_2_title' => $request->input('oster_service_2_title'),
+                'oster_service_2_desc' => $request->input('oster_service_2_desc'),
+                'oster_service_3_icon' => $request->input('oster_service_3_icon'),
+                'oster_service_3_title' => $request->input('oster_service_3_title'),
+                'oster_service_3_desc' => $request->input('oster_service_3_desc'),
+                // Botón
+                'button_icon' => $request->input('button_icon'),
+                'button_text' => $request->input('button_text'),
+                'button_url' => $request->input('button_url'),
+                'image_alt' => $request->input('image_alt')
+            ];
+            \Log::info('Oster section custom data: ', $customData);
+            break;
+
+        case 'coverage_section':
+            $customData = [
+                // Iconos y zonas
+                'zone_icon' => $request->input('zone_icon'),
+                'zone_1_title' => $request->input('zone_1_title'),
+                'zone_1_areas' => $request->input('zone_1_areas'),
+                'zone_2_title' => $request->input('zone_2_title'),
+                'zone_2_areas' => $request->input('zone_2_areas'),
+                'zone_3_title' => $request->input('zone_3_title'),
+                'zone_3_areas' => $request->input('zone_3_areas'),
+                'zone_4_title' => $request->input('zone_4_title'),
+                'zone_4_areas' => $request->input('zone_4_areas'),
+                'zone_5_title' => $request->input('zone_5_title'),
+                'zone_5_areas' => $request->input('zone_5_areas'),
+                'zone_6_title' => $request->input('zone_6_title'),
+                'zone_6_areas' => $request->input('zone_6_areas')
+            ];
+            \Log::info('Coverage section custom data: ', $customData);
+            break;
+
+        case 'cta':
+            // Detectar si es CTA de servicios o de otras páginas
+            if ($request->has('whatsapp_icon') || $request->has('button_primary_text') || $request->has('business_hours')) {
+                // CTA de página servicios (más complejo)
+                $customData = [
+                    'button_primary_text' => $request->input('button_primary_text'),
+                    'button_secondary_text' => $request->input('button_secondary_text'),
+                    'whatsapp_icon' => $request->input('whatsapp_icon'),
+                    'whatsapp_url' => $request->input('whatsapp_url'),
+                    'contact_icon' => $request->input('contact_icon'),
+                    'contact_url' => $request->input('contact_url'),
+                    'schedule_icon' => $request->input('schedule_icon'),
+                    'business_hours' => $request->input('business_hours'),
+                    'phone_icon' => $request->input('phone_icon'),
+                    'phone_number' => $request->input('phone_number')
+                ];
+                \Log::info('Services CTA custom data: ', $customData);
+            } else {
+                // CTA de otras páginas (simple)
+                $customData = [
+                    'button_text' => $request->input('button_text'),
+                    'final_question' => $request->input('final_question')
+                ];
+                \Log::info('Simple CTA custom data: ', $customData);
+            }
+            break;
+
+        // === SECCIONES FUTURAS O GENÉRICAS ===
         case 'service_list':
             $customData = [
                 'service_list_data' => $request->input('service_list_data')
@@ -266,6 +397,13 @@ public function updateSection(Request $request, $pageId, $sectionId)
 
         // === SECCIONES GENÉRICAS (HERO, INFO, etc.) ===
         case 'hero':
+            // Hero puede tener image_alt para SEO
+            $customData = [
+                'image_alt' => $request->input('image_alt')
+            ];
+            \Log::info('Hero section custom data: ', $customData);
+            break;
+
         case 'info':
         case 'form_header':
             // Estas secciones solo usan title y content, no necesitan custom_data
