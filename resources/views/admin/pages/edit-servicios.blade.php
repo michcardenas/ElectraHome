@@ -72,7 +72,7 @@
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Subtítulo</label>
                                     <input type="text" name="content" class="form-control" 
-                                           value="{{ $section->content ?: 'Servicios especializados en electrodomésticos' }}" required>
+                                           value="{{ $section->content ?: 'Servicio técnico especializado en línea blanca y electrodomésticos Oster en Quito' }}" required>
                                 </div>
                             </div>
                         </div>
@@ -110,40 +110,246 @@
                 </div>
             </div>
 
-            {{-- SECCIÓN INTRO - Introducción --}}
+            {{-- SECCIÓN INTRO - Introducción + Servicios Principales --}}
             @elseif($section->name === 'intro')
             <div class="section-card">
                 <div class="section-header">
-                    <h4><i class="fas fa-info-circle me-2"></i> Introducción <span class="badge badge-intro ms-2">Intro</span></h4>
+                    <h4><i class="fas fa-info-circle me-2"></i> Introducción + Servicios Principales <span class="badge badge-intro ms-2">Intro</span></h4>
                 </div>
                 <div class="section-body">
                     <form action="{{ route('admin.pages.sections.update', [$page->id, $section->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf @method('PUT')
 
                         <div class="field-group">
-                            <h6><i class="fas fa-heading"></i> Título</h6>
-                            <input type="text" name="title" class="form-control mb-3" 
-                                   value="{{ $section->title ?: 'Expertos en Electrodomésticos' }}" required>
+                            <h6><i class="fas fa-heading"></i> Sección Principal</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" name="title" class="form-control" 
+                                       value="{{ $section->title ?: '¿Qué Hacemos?' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea name="content" class="form-control" rows="4" 
+                                          placeholder="Descripción introductoria sobre tus servicios, experiencia y compromiso...">{{ $section->content ?: 'Somos especialistas en reparación, mantenimiento e instalación de electrodomésticos. Con más de 10 años de experiencia, brindamos servicio técnico certificado en toda la ciudad de Quito.' }}</textarea>
+                            </div>
                         </div>
 
                         <div class="field-group">
-                            <h6><i class="fas fa-align-left"></i> Descripción</h6>
-                            <textarea name="content" class="form-control" rows="4" 
-                                      placeholder="Descripción introductoria sobre tus servicios, experiencia y compromiso...">{{ $section->content }}</textarea>
+                            <h6><i class="fas fa-cogs"></i> 3 Servicios Principales (Tarjetas)</h6>
+                            
+                            <!-- Servicio 1: Reparación -->
+                            <div class="service-preview">
+                                <h6 class="text-primary">Servicio 1: Reparación Especializada</h6>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Título</label>
+                                        <input type="text" name="repair_title" class="form-control" 
+                                               value="{{ $section->getCustomData('repair_title', 'Reparación Especializada') }}">
+                                    </div>
+                                    <div class="col-md-8 mb-3">
+                                        <label class="form-label">Descripción</label>
+                                        <textarea name="repair_description" class="form-control" rows="2">{{ $section->getCustomData('repair_description', 'Diagnóstico y reparación de fallas en todos los tipos de electrodomésticos con repuestos originales y garantía.') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 1</label>
+                                        <input type="text" name="repair_feature_1" class="form-control" 
+                                               value="{{ $section->getCustomData('repair_feature_1', 'Diagnóstico gratuito') }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 2</label>
+                                        <input type="text" name="repair_feature_2" class="form-control" 
+                                               value="{{ $section->getCustomData('repair_feature_2', 'Repuestos originales') }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 3</label>
+                                        <input type="text" name="repair_feature_3" class="form-control" 
+                                               value="{{ $section->getCustomData('repair_feature_3', 'Garantía incluida') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Servicio 2: Mantenimiento -->
+                            <div class="service-preview">
+                                <h6 class="text-primary">Servicio 2: Mantenimiento Preventivo</h6>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Título</label>
+                                        <input type="text" name="maintenance_title" class="form-control" 
+                                               value="{{ $section->getCustomData('maintenance_title', 'Mantenimiento Preventivo') }}">
+                                    </div>
+                                    <div class="col-md-8 mb-3">
+                                        <label class="form-label">Descripción</label>
+                                        <textarea name="maintenance_description" class="form-control" rows="2">{{ $section->getCustomData('maintenance_description', 'Servicios de limpieza y mantenimiento programado para prolongar la vida útil de tus electrodomésticos.') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 1</label>
+                                        <input type="text" name="maintenance_feature_1" class="form-control" 
+                                               value="{{ $section->getCustomData('maintenance_feature_1', 'Limpieza profunda') }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 2</label>
+                                        <input type="text" name="maintenance_feature_2" class="form-control" 
+                                               value="{{ $section->getCustomData('maintenance_feature_2', 'Revisión completa') }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 3</label>
+                                        <input type="text" name="maintenance_feature_3" class="form-control" 
+                                               value="{{ $section->getCustomData('maintenance_feature_3', 'Planes de mantenimiento') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Servicio 3: Instalación -->
+                            <div class="service-preview">
+                                <h6 class="text-primary">Servicio 3: Instalación Profesional</h6>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Título</label>
+                                        <input type="text" name="installation_title" class="form-control" 
+                                               value="{{ $section->getCustomData('installation_title', 'Instalación Profesional') }}">
+                                    </div>
+                                    <div class="col-md-8 mb-3">
+                                        <label class="form-label">Descripción</label>
+                                        <textarea name="installation_description" class="form-control" rows="2">{{ $section->getCustomData('installation_description', 'Instalación segura y correcta de electrodomésticos nuevos con conexiones eléctricas y de agua certificadas.') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 1</label>
+                                        <input type="text" name="installation_feature_1" class="form-control" 
+                                               value="{{ $section->getCustomData('installation_feature_1', 'Instalación certificada') }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 2</label>
+                                        <input type="text" name="installation_feature_2" class="form-control" 
+                                               value="{{ $section->getCustomData('installation_feature_2', 'Pruebas de funcionamiento') }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Característica 3</label>
+                                        <input type="text" name="installation_feature_3" class="form-control" 
+                                               value="{{ $section->getCustomData('installation_feature_3', 'Capacitación de uso') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="is_active" value="1">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-save me-2"></i> Guardar Introducción y Servicios
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            {{-- SECCIÓN SERVICES LIST - Electrodomésticos que Reparamos --}}
+            @elseif($section->name === 'services_list')
+            <div class="section-card">
+                <div class="section-header">
+                    <h4><i class="fas fa-wrench me-2"></i> Electrodomésticos que Reparamos <span class="badge badge-services ms-2">Appliances</span></h4>
+                </div>
+                <div class="section-body">
+                    <form action="{{ route('admin.pages.sections.update', [$page->id, $section->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf @method('PUT')
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-heading"></i> Título de Sección</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" name="title" class="form-control" 
+                                       value="{{ $section->title ?: 'Electrodomésticos que Reparamos' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea name="content" class="form-control" rows="3" 
+                                          placeholder="Descripción de los electrodomésticos que reparan">{{ $section->content ?: 'Trabajamos con todas las marcas y modelos de línea blanca. Nuestros técnicos están capacitados para reparar cualquier electrodoméstico del hogar.' }}</textarea>
+                            </div>
                         </div>
 
                         <div class="field-group">
-                            <h6><i class="fas fa-image"></i> Imagen Representativa</h6>
+                            <h6><i class="fas fa-list"></i> 3 Categorías de Electrodomésticos</h6>
+                            
+                            <!-- Categoría 1: Línea Blanca -->
+                            <div class="appliance-preview">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono 1</label>
+                                        <input type="text" name="service_1_icon" class="form-control text-center" 
+                                               value="{{ $section->getCustomData('service_1_icon', '🏠') }}" style="font-size: 1.5rem;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Categoría 1</label>
+                                        <input type="text" name="service_1_title" class="form-control" 
+                                               value="{{ $section->getCustomData('service_1_title', 'Línea Blanca') }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Productos 1</label>
+                                        <textarea name="service_1_desc" class="form-control" rows="2">{{ $section->getCustomData('service_1_desc', 'Lavadoras, secadoras, refrigeradoras, cocinas, microondas, calefones, lavavajillas, aspiradoras') }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Categoría 2: Electrodomésticos Oster -->
+                            <div class="appliance-preview">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono 2</label>
+                                        <input type="text" name="service_2_icon" class="form-control text-center" 
+                                               value="{{ $section->getCustomData('service_2_icon', '⚡') }}" style="font-size: 1.5rem;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Categoría 2</label>
+                                        <input type="text" name="service_2_title" class="form-control" 
+                                               value="{{ $section->getCustomData('service_2_title', 'Electrodomésticos Oster') }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Productos 2</label>
+                                        <textarea name="service_2_desc" class="form-control" rows="2">{{ $section->getCustomData('service_2_desc', 'Licuadoras, freidoras de aire, extractores, sanducheras, procesadores de alimentos') }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Categoría 3: Todas las Marcas -->
+                            <div class="appliance-preview">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono 3</label>
+                                        <input type="text" name="service_3_icon" class="form-control text-center" 
+                                               value="{{ $section->getCustomData('service_3_icon', '🔧') }}" style="font-size: 1.5rem;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Categoría 3</label>
+                                        <input type="text" name="service_3_title" class="form-control" 
+                                               value="{{ $section->getCustomData('service_3_title', 'Todas las Marcas') }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Marcas 3</label>
+                                        <textarea name="service_3_desc" class="form-control" rows="2">{{ $section->getCustomData('service_3_desc', 'LG, Samsung, Whirlpool, Electrolux, Mabe, Indurama, Oster y más') }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-image"></i> Imagen de Electrodomésticos</h6>
                             <div class="row">
                                 <div class="col-md-8">
                                     <input type="file" name="images[]" class="form-control" accept="image/*">
-                                    <small class="text-muted">Imagen del equipo o taller de trabajo</small>
+                                    <small class="text-muted">Imagen de electrodomésticos o técnico trabajando</small>
                                 </div>
                                 <div class="col-md-4">
                                     @if($section->getImagesArray())
                                         <img src="{{ Storage::url($section->getImagesArray()[0]) }}" class="image-preview">
                                         <button type="button" class="btn btn-danger btn-sm mt-1" 
-                                                onclick="deleteImage('intro', {{ $section->id }}, 0)">Cambiar</button>
+                                                onclick="deleteImage('services_list', {{ $section->id }}, 0)">Cambiar</button>
+                                    @else
+                                        <div class="text-center p-3 border rounded">
+                                            <i class="fas fa-image fa-2x text-muted"></i><br>
+                                            <small class="text-muted">Sin imagen</small>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -151,163 +357,7 @@
 
                         <input type="hidden" name="is_active" value="1">
                         <button type="submit" class="btn btn-success btn-lg">
-                            <i class="fas fa-save me-2"></i> Guardar Introducción
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            {{-- SECCIÓN SERVICES LIST - Lista de Servicios --}}
-            @elseif($section->name === 'services_list')
-            <div class="section-card">
-                <div class="section-header">
-                    <h4><i class="fas fa-list me-2"></i> Lista de Servicios <span class="badge badge-services ms-2">Services</span></h4>
-                </div>
-                <div class="section-body">
-                    <form action="{{ route('admin.pages.sections.update', [$page->id, $section->id]) }}" method="POST">
-                        @csrf @method('PUT')
-
-                        <div class="field-group">
-                            <h6><i class="fas fa-heading"></i> Título de Sección</h6>
-                            <input type="text" name="title" class="form-control mb-3" 
-                                   value="{{ $section->title ?: 'Servicios Disponibles' }}" required>
-                            <textarea name="content" class="form-control" rows="2" 
-                                      placeholder="Descripción breve de los servicios">{{ $section->content }}</textarea>
-                        </div>
-
-                        <div class="field-group">
-                            <h6><i class="fas fa-cogs"></i> 6 Servicios Principales</h6>
-                            
-                            <!-- Servicio 1 -->
-                            <div class="service-preview">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 1</label>
-                                        <input type="text" name="service_1_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('service_1_icon', '🔧') }}" style="font-size: 1.5rem;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Servicio 1</label>
-                                        <input type="text" name="service_1_title" class="form-control" 
-                                               value="{{ $section->getCustomData('service_1_title', 'Reparación de Lavadoras') }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 1</label>
-                                        <input type="text" name="service_1_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('service_1_desc', 'Diagnóstico y reparación de todo tipo de lavadoras') }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Servicio 2 -->
-                            <div class="service-preview">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 2</label>
-                                        <input type="text" name="service_2_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('service_2_icon', '❄️') }}" style="font-size: 1.5rem;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Servicio 2</label>
-                                        <input type="text" name="service_2_title" class="form-control" 
-                                               value="{{ $section->getCustomData('service_2_title', 'Reparación de Refrigeradoras') }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 2</label>
-                                        <input type="text" name="service_2_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('service_2_desc', 'Servicio técnico especializado en refrigeración') }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Servicio 3 -->
-                            <div class="service-preview">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 3</label>
-                                        <input type="text" name="service_3_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('service_3_icon', '🍳') }}" style="font-size: 1.5rem;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Servicio 3</label>
-                                        <input type="text" name="service_3_title" class="form-control" 
-                                               value="{{ $section->getCustomData('service_3_title', 'Reparación de Cocinas') }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 3</label>
-                                        <input type="text" name="service_3_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('service_3_desc', 'Mantenimiento y reparación de cocinas eléctricas y gas') }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Servicio 4 -->
-                            <div class="service-preview">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 4</label>
-                                        <input type="text" name="service_4_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('service_4_icon', '🌀') }}" style="font-size: 1.5rem;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Servicio 4</label>
-                                        <input type="text" name="service_4_title" class="form-control" 
-                                               value="{{ $section->getCustomData('service_4_title', 'Reparación de Secadoras') }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 4</label>
-                                        <input type="text" name="service_4_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('service_4_desc', 'Servicio completo para secadoras de ropa') }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Servicio 5 -->
-                            <div class="service-preview">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 5</label>
-                                        <input type="text" name="service_5_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('service_5_icon', '⚡') }}" style="font-size: 1.5rem;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Servicio 5</label>
-                                        <input type="text" name="service_5_title" class="form-control" 
-                                               value="{{ $section->getCustomData('service_5_title', 'Electrodomésticos Oster') }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 5</label>
-                                        <input type="text" name="service_5_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('service_5_desc', 'Reparación especializada en productos Oster') }}">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Servicio 6 -->
-                            <div class="service-preview">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 6</label>
-                                        <input type="text" name="service_6_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('service_6_icon', '🏠') }}" style="font-size: 1.5rem;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Servicio 6</label>
-                                        <input type="text" name="service_6_title" class="form-control" 
-                                               value="{{ $section->getCustomData('service_6_title', 'Servicio a Domicilio') }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 6</label>
-                                        <input type="text" name="service_6_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('service_6_desc', 'Atendemos en tu hogar u oficina') }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="is_active" value="1">
-                        <button type="submit" class="btn btn-success btn-lg">
-                            <i class="fas fa-save me-2"></i> Guardar Lista de Servicios
+                            <i class="fas fa-save me-2"></i> Guardar Electrodomésticos
                         </button>
                     </form>
                 </div>
@@ -325,10 +375,16 @@
 
                         <div class="field-group">
                             <h6><i class="fas fa-heading"></i> Título</h6>
-                            <input type="text" name="title" class="form-control mb-3" 
-                                   value="{{ $section->title ?: 'Nuestro Proceso de Trabajo' }}" required>
-                            <textarea name="content" class="form-control" rows="2" 
-                                      placeholder="Descripción del proceso">{{ $section->content }}</textarea>
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" name="title" class="form-control" 
+                                       value="{{ $section->title ?: '¿Cómo Trabajamos?' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea name="content" class="form-control" rows="2" 
+                                          placeholder="Descripción del proceso">{{ $section->content ?: 'Nuestro proceso es simple, rápido y transparente. Te acompañamos desde el primer contacto hasta que tu electrodoméstico quede funcionando perfectamente.' }}</textarea>
+                            </div>
                         </div>
 
                         <div class="field-group">
@@ -345,12 +401,11 @@
                                     <div class="col-md-4">
                                         <label class="form-label">Título Paso 1</label>
                                         <input type="text" name="step_1_title" class="form-control" 
-                                               value="{{ $section->getCustomData('step_1_title', 'Diagnóstico') }}">
+                                               value="{{ $section->getCustomData('step_1_title', 'Contacto') }}">
                                     </div>
                                     <div class="col-md-7">
                                         <label class="form-label">Descripción Paso 1</label>
-                                        <input type="text" name="step_1_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('step_1_desc', 'Evaluamos el problema y identificamos la solución') }}">
+                                        <textarea name="step_1_desc" class="form-control" rows="2">{{ $section->getCustomData('step_1_desc', 'Llámanos o escríbenos por WhatsApp. Te atendemos inmediatamente y agendamos tu cita.') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -366,12 +421,11 @@
                                     <div class="col-md-4">
                                         <label class="form-label">Título Paso 2</label>
                                         <input type="text" name="step_2_title" class="form-control" 
-                                               value="{{ $section->getCustomData('step_2_title', 'Presupuesto') }}">
+                                               value="{{ $section->getCustomData('step_2_title', 'Diagnóstico') }}">
                                     </div>
                                     <div class="col-md-7">
                                         <label class="form-label">Descripción Paso 2</label>
-                                        <input type="text" name="step_2_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('step_2_desc', 'Te damos un presupuesto claro y sin sorpresas') }}">
+                                        <textarea name="step_2_desc" class="form-control" rows="2">{{ $section->getCustomData('step_2_desc', 'Nuestro técnico visita tu hogar, revisa el electrodoméstico y te da un diagnóstico gratuito.') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -391,8 +445,7 @@
                                     </div>
                                     <div class="col-md-7">
                                         <label class="form-label">Descripción Paso 3</label>
-                                        <input type="text" name="step_3_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('step_3_desc', 'Realizamos la reparación con repuestos originales') }}">
+                                        <textarea name="step_3_desc" class="form-control" rows="2">{{ $section->getCustomData('step_3_desc', 'Una vez aprobado el presupuesto, realizamos la reparación con repuestos originales.') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -412,8 +465,7 @@
                                     </div>
                                     <div class="col-md-7">
                                         <label class="form-label">Descripción Paso 4</label>
-                                        <input type="text" name="step_4_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('step_4_desc', 'Tu electrodoméstico queda con garantía de servicio') }}">
+                                        <textarea name="step_4_desc" class="form-control" rows="2">{{ $section->getCustomData('step_4_desc', 'Tu electrodoméstico queda funcionando perfecto y con garantía por nuestro trabajo.') }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -427,107 +479,244 @@
                 </div>
             </div>
 
-            {{-- SECCIÓN WHY CHOOSE - Por Qué Elegir --}}
-            @elseif($section->name === 'why_choose')
+            {{-- NUEVA SECCIÓN OSTER - Especialistas en Oster --}}
+            @elseif($section->name === 'oster_section')
             <div class="section-card">
                 <div class="section-header">
-                    <h4><i class="fas fa-star me-2"></i> Por Qué Elegirnos <span class="badge badge-why ms-2">Why</span></h4>
+                    <h4><i class="fas fa-star me-2"></i> Sección Oster <span class="badge badge-oster ms-2">Oster</span></h4>
+                </div>
+                <div class="section-body">
+                    <form action="{{ route('admin.pages.sections.update', [$page->id, $section->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf @method('PUT')
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-heading"></i> Título y Descripción</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" name="title" class="form-control" 
+                                       value="{{ $section->title ?: 'Especialistas en Oster' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea name="content" class="form-control" rows="3">{{ $section->content ?: 'Además de nuestro servicio técnico, también vendemos y reparamos la línea completa de electrodomésticos Oster. Somos distribuidores autorizados con repuestos originales.' }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-list"></i> 3 Servicios Oster</h6>
+                            
+                            <!-- Servicio Oster 1 -->
+                            <div class="oster-service-preview">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Servicio 1</label>
+                                        <input type="text" name="oster_service_1_title" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_1_title', 'Venta de Productos Oster') }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="form-label">Descripción 1</label>
+                                        <input type="text" name="oster_service_1_desc" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_1_desc', 'Licuadoras, freidoras de aire, extractores, sanducheras y más') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Servicio Oster 2 -->
+                            <div class="oster-service-preview">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Servicio 2</label>
+                                        <input type="text" name="oster_service_2_title" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_2_title', 'Reparación Especializada Oster') }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="form-label">Descripción 2</label>
+                                        <input type="text" name="oster_service_2_desc" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_2_desc', 'Servicio técnico autorizado con repuestos originales') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Servicio Oster 3 -->
+                            <div class="oster-service-preview">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Servicio 3</label>
+                                        <input type="text" name="oster_service_3_title" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_3_title', 'Garantía Oficial') }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="form-label">Descripción 3</label>
+                                        <input type="text" name="oster_service_3_desc" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_3_desc', 'Respaldamos nuestros productos y servicios con garantía completa') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-link"></i> Botón de Acción</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label">Texto del Botón</label>
+                                    <input type="text" name="button_text" class="form-control" 
+                                           value="{{ $section->getCustomData('button_text', 'Ver Productos Oster') }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">URL del Botón</label>
+                                    <input type="text" name="button_url" class="form-control" 
+                                           value="{{ $section->getCustomData('button_url', route('shop.index')) }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-image"></i> Imagen de Productos Oster</h6>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="file" name="images[]" class="form-control" accept="image/*">
+                                    <small class="text-muted">Imagen de productos Oster</small>
+                                </div>
+                                <div class="col-md-4">
+                                    @if($section->getImagesArray())
+                                        <img src="{{ Storage::url($section->getImagesArray()[0]) }}" class="image-preview">
+                                        <button type="button" class="btn btn-danger btn-sm mt-1">Cambiar</button>
+                                    @else
+                                        <div class="text-center p-3 border rounded">
+                                            <i class="fas fa-image fa-2x text-muted"></i><br>
+                                            <small class="text-muted">Sin imagen</small>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="is_active" value="1">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-save me-2"></i> Guardar Sección Oster
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            {{-- NUEVA SECCIÓN COVERAGE - Zona de Cobertura --}}
+            @elseif($section->name === 'coverage_section')
+            <div class="section-card">
+                <div class="section-header">
+                    <h4><i class="fas fa-map-marker-alt me-2"></i> Zona de Cobertura <span class="badge badge-coverage ms-2">Coverage</span></h4>
                 </div>
                 <div class="section-body">
                     <form action="{{ route('admin.pages.sections.update', [$page->id, $section->id]) }}" method="POST">
                         @csrf @method('PUT')
 
                         <div class="field-group">
-                            <h6><i class="fas fa-heading"></i> Título</h6>
-                            <input type="text" name="title" class="form-control mb-3" 
-                                   value="{{ $section->title ?: 'Por Qué Elegir ElectraHome' }}" required>
-                            <textarea name="content" class="form-control" rows="2" 
-                                      placeholder="Descripción de las ventajas">{{ $section->content }}</textarea>
+                            <h6><i class="fas fa-heading"></i> Título y Descripción</h6>
+                            <div class="mb-3">
+                                <label class="form-label">Título</label>
+                                <input type="text" name="title" class="form-control" 
+                                       value="{{ $section->title ?: 'Zona de Cobertura' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea name="content" class="form-control" rows="2">{{ $section->content ?: 'Brindamos servicio técnico a domicilio en toda la ciudad de Quito y sus valles. No importa dónde estés, llegamos hasta ti.' }}</textarea>
+                            </div>
                         </div>
 
                         <div class="field-group">
-                            <h6><i class="fas fa-thumbs-up"></i> 4 Razones Principales</h6>
+                            <h6><i class="fas fa-map"></i> 6 Zonas de Cobertura</h6>
                             
-                            <!-- Razón 1 -->
-                            <div class="reason-preview">
+                            <!-- Zona 1: Norte de Quito -->
+                            <div class="coverage-preview">
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 1</label>
-                                        <input type="text" name="reason_1_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('reason_1_icon', '⭐') }}" style="font-size: 1.5rem;">
-                                    </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Razón 1</label>
-                                        <input type="text" name="reason_1_title" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_1_title', 'Experiencia Comprobada') }}">
+                                        <label class="form-label">Zona 1</label>
+                                        <input type="text" name="zone_1_title" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_1_title', 'Norte de Quito') }}">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 1</label>
-                                        <input type="text" name="reason_1_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_1_desc', 'Más de 10 años reparando electrodomésticos') }}">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Sectores 1</label>
+                                        <input type="text" name="zone_1_areas" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_1_areas', 'Carcelén, La Delicia, Comité del Pueblo, Carapungo, Calderón') }}">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Razón 2 -->
-                            <div class="reason-preview">
+                            <!-- Zona 2: Centro de Quito -->
+                            <div class="coverage-preview">
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 2</label>
-                                        <input type="text" name="reason_2_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('reason_2_icon', '🛡️') }}" style="font-size: 1.5rem;">
-                                    </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Razón 2</label>
-                                        <input type="text" name="reason_2_title" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_2_title', 'Garantía Completa') }}">
+                                        <label class="form-label">Zona 2</label>
+                                        <input type="text" name="zone_2_title" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_2_title', 'Centro de Quito') }}">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 2</label>
-                                        <input type="text" name="reason_2_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_2_desc', 'Todos nuestros trabajos incluyen garantía') }}">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Sectores 2</label>
+                                        <input type="text" name="zone_2_areas" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_2_areas', 'Centro Histórico, La Mariscal, La Carolina, González Suárez') }}">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Razón 3 -->
-                            <div class="reason-preview">
+                            <!-- Zona 3: Sur de Quito -->
+                            <div class="coverage-preview">
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 3</label>
-                                        <input type="text" name="reason_3_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('reason_3_icon', '⚡') }}" style="font-size: 1.5rem;">
-                                    </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Razón 3</label>
-                                        <input type="text" name="reason_3_title" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_3_title', 'Servicio Rápido') }}">
+                                        <label class="form-label">Zona 3</label>
+                                        <input type="text" name="zone_3_title" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_3_title', 'Sur de Quito') }}">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 3</label>
-                                        <input type="text" name="reason_3_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_3_desc', 'Atención inmediata y respuesta en 24h') }}">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Sectores 3</label>
+                                        <input type="text" name="zone_3_areas" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_3_areas', 'Quitumbe, Solanda, La Magdalena, Chillogallo, Guamaní') }}">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Razón 4 -->
-                            <div class="reason-preview">
+                            <!-- Zona 4: Valles -->
+                            <div class="coverage-preview">
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <label class="form-label">Icono 4</label>
-                                        <input type="text" name="reason_4_icon" class="form-control text-center" 
-                                               value="{{ $section->getCustomData('reason_4_icon', '💰') }}" style="font-size: 1.5rem;">
-                                    </div>
                                     <div class="col-md-4">
-                                        <label class="form-label">Razón 4</label>
-                                        <input type="text" name="reason_4_title" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_4_title', 'Precios Justos') }}">
+                                        <label class="form-label">Zona 4</label>
+                                        <input type="text" name="zone_4_title" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_4_title', 'Valles') }}">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Descripción 4</label>
-                                        <input type="text" name="reason_4_desc" class="form-control" 
-                                               value="{{ $section->getCustomData('reason_4_desc', 'Presupuestos transparentes sin costos ocultos') }}">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Sectores 4</label>
+                                        <input type="text" name="zone_4_areas" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_4_areas', 'Cumbayá, Tumbaco, Conocoto, San Rafael, Sangolquí') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Zona 5: Oeste de Quito -->
+                            <div class="coverage-preview">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Zona 5</label>
+                                        <input type="text" name="zone_5_title" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_5_title', 'Oeste de Quito') }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="form-label">Sectores 5</label>
+                                        <input type="text" name="zone_5_areas" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_5_areas', 'La Mitad del Mundo, Pomasqui, San Antonio, Nayón') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Zona 6: Sectores Especiales -->
+                            <div class="coverage-preview">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Zona 6</label>
+                                        <input type="text" name="zone_6_title" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_6_title', 'Sectores Especiales') }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label class="form-label">Sectores 6</label>
+                                        <input type="text" name="zone_6_areas" class="form-control" 
+                                               value="{{ $section->getCustomData('zone_6_areas', 'Consulta disponibilidad para otras zonas metropolitanas') }}">
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +724,7 @@
 
                         <input type="hidden" name="is_active" value="1">
                         <button type="submit" class="btn btn-success btn-lg">
-                            <i class="fas fa-save me-2"></i> Guardar Razones
+                            <i class="fas fa-save me-2"></i> Guardar Zona de Cobertura
                         </button>
                     </form>
                 </div>
@@ -556,22 +745,55 @@
                             <div class="mb-3">
                                 <label class="form-label">Título de CTA</label>
                                 <input type="text" name="title" class="form-control" 
-                                       value="{{ $section->title ?: 'Solicita tu Servicio Hoy' }}" required>
+                                       value="{{ $section->title ?: '¿Necesitas Ayuda con tus Electrodomésticos?' }}" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Descripción</label>
-                                <textarea name="content" class="form-control" rows="3" 
-                                          placeholder="Texto motivacional para que contacten...">{{ $section->content }}</textarea>
+                                <textarea name="content" class="form-control" rows="3">{{ $section->content ?: 'No esperes más. Contacta a nuestros expertos y recibe atención inmediata. Diagnóstico gratuito y presupuesto sin compromiso.' }}</textarea>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Texto del Botón Principal</label>
-                                <input type="text" name="button_primary_text" class="form-control" 
-                                       value="{{ $section->getCustomData('button_primary_text', 'Contactar Ahora') }}">
+                        </div>
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-mouse-pointer"></i> Botones de Acción</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Texto Botón WhatsApp</label>
+                                    <input type="text" name="button_primary_text" class="form-control" 
+                                           value="{{ $section->getCustomData('button_primary_text', 'WhatsApp') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Texto Botón Secundario</label>
+                                    <input type="text" name="button_secondary_text" class="form-control" 
+                                           value="{{ $section->getCustomData('button_secondary_text', 'Contactar') }}">
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Texto del Botón Secundario</label>
-                                <input type="text" name="button_secondary_text" class="form-control" 
-                                       value="{{ $section->getCustomData('button_secondary_text', 'Ver Más Servicios') }}">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">URL WhatsApp</label>
+                                    <input type="text" name="whatsapp_url" class="form-control" 
+                                           value="{{ $section->getCustomData('whatsapp_url', 'https://wa.me/593987654321') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">URL Contacto</label>
+                                    <input type="text" name="contact_url" class="form-control" 
+                                           value="{{ $section->getCustomData('contact_url', route('contact.index')) }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <h6><i class="fas fa-info-circle"></i> Información de Contacto</h6>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Horarios de Atención</label>
+                                    <input type="text" name="business_hours" class="form-control" 
+                                           value="{{ $section->getCustomData('business_hours', 'Lunes a Viernes: 8:00 AM - 6:00 PM | Sábados: 8:00 AM - 4:00 PM') }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="text" name="phone_number" class="form-control" 
+                                           value="{{ $section->getCustomData('phone_number', '+593 2 234 5678') }}">
+                                </div>
                             </div>
                         </div>
 
@@ -591,6 +813,14 @@
             <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
             <h4 class="text-warning">No hay secciones configuradas</h4>
             <p class="text-light">Las secciones se crearán automáticamente al acceder por primera vez.</p>
+            
+            <!-- Botón para crear secciones automáticamente -->
+            <form action="{{ route('admin.pages.sections.create-default', $page->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-lg mt-3">
+                    <i class="fas fa-plus me-2"></i> Crear Secciones por Defecto
+                </button>
+            </form>
         </div>
         @endif
 
