@@ -36,7 +36,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="mb-1"><i class="fas fa-tools"></i> Editar Página "Servicios"</h2>
-                <p class="text-light mb-0">Gestiona toda la información de servicios y reparaciones</p>
+                <p class="text-light mb-0">Gestiona toda la información de servicios y reparaciones - 100% Editable</p>
             </div>
             <a href="{{ route('admin.pages.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Volver
@@ -81,8 +81,16 @@
                             <h6><i class="fas fa-image"></i> Imagen de Fondo</h6>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="file" name="images[]" class="form-control" accept="image/*">
-                                    <small class="text-muted">Recomendado: 1920x600px. Imagen relacionada con servicios técnicos.</small>
+                                    <div class="mb-3">
+                                        <label class="form-label">Subir Imagen</label>
+                                        <input type="file" name="images[]" class="form-control" accept="image/*">
+                                        <small class="text-muted">Recomendado: 1920x600px. Imagen relacionada con servicios técnicos.</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Texto Alternativo de Imagen (SEO)</label>
+                                        <input type="text" name="image_alt" class="form-control" 
+                                               value="{{ $section->getCustomData('image_alt', 'Servicios ElectraHome') }}">
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     @if($section->getImagesArray())
@@ -135,103 +143,144 @@
                         </div>
 
                         <div class="field-group">
-                            <h6><i class="fas fa-cogs"></i> 3 Servicios Principales (Tarjetas)</h6>
-                            
-                            <!-- Servicio 1: Reparación -->
-                            <div class="service-preview">
-                                <h6 class="text-primary">Servicio 1: Reparación Especializada</h6>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Título</label>
-                                        <input type="text" name="repair_title" class="form-control" 
-                                               value="{{ $section->getCustomData('repair_title', 'Reparación Especializada') }}">
-                                    </div>
-                                    <div class="col-md-8 mb-3">
-                                        <label class="form-label">Descripción</label>
-                                        <textarea name="repair_description" class="form-control" rows="2">{{ $section->getCustomData('repair_description', 'Diagnóstico y reparación de fallas en todos los tipos de electrodomésticos con repuestos originales y garantía.') }}</textarea>
-                                    </div>
+                            <h6><i class="fas fa-cogs"></i> Servicio 1: Reparación Especializada</h6>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Icono Principal</label>
+                                    <input type="text" name="repair_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('repair_icon', 'fas fa-wrench') }}"
+                                           placeholder="fas fa-wrench">
+                                    <small class="text-muted">Ej: fas fa-wrench</small>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 1</label>
-                                        <input type="text" name="repair_feature_1" class="form-control" 
-                                               value="{{ $section->getCustomData('repair_feature_1', 'Diagnóstico gratuito') }}">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 2</label>
-                                        <input type="text" name="repair_feature_2" class="form-control" 
-                                               value="{{ $section->getCustomData('repair_feature_2', 'Repuestos originales') }}">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 3</label>
-                                        <input type="text" name="repair_feature_3" class="form-control" 
-                                               value="{{ $section->getCustomData('repair_feature_3', 'Garantía incluida') }}">
+                                <div class="col-md-9 mb-3">
+                                    <label class="form-label">Título del Servicio</label>
+                                    <input type="text" name="repair_title" class="form-control" 
+                                           value="{{ $section->getCustomData('repair_title', 'Reparación Especializada') }}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción del Servicio</label>
+                                <textarea name="repair_description" class="form-control" rows="2">{{ $section->getCustomData('repair_description', 'Diagnóstico y reparación de fallas en todos los tipos de electrodomésticos con repuestos originales y garantía.') }}</textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Check</label>
+                                    <input type="text" name="repair_check_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('repair_check_icon', 'fas fa-check') }}">
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 1</label>
+                                            <input type="text" name="repair_feature_1" class="form-control" 
+                                                   value="{{ $section->getCustomData('repair_feature_1', 'Diagnóstico gratuito') }}">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 2</label>
+                                            <input type="text" name="repair_feature_2" class="form-control" 
+                                                   value="{{ $section->getCustomData('repair_feature_2', 'Repuestos originales') }}">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 3</label>
+                                            <input type="text" name="repair_feature_3" class="form-control" 
+                                                   value="{{ $section->getCustomData('repair_feature_3', 'Garantía incluida') }}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Servicio 2: Mantenimiento -->
-                            <div class="service-preview">
-                                <h6 class="text-primary">Servicio 2: Mantenimiento Preventivo</h6>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Título</label>
-                                        <input type="text" name="maintenance_title" class="form-control" 
-                                               value="{{ $section->getCustomData('maintenance_title', 'Mantenimiento Preventivo') }}">
-                                    </div>
-                                    <div class="col-md-8 mb-3">
-                                        <label class="form-label">Descripción</label>
-                                        <textarea name="maintenance_description" class="form-control" rows="2">{{ $section->getCustomData('maintenance_description', 'Servicios de limpieza y mantenimiento programado para prolongar la vida útil de tus electrodomésticos.') }}</textarea>
-                                    </div>
+                        <div class="field-group">
+                            <h6><i class="fas fa-cogs"></i> Servicio 2: Mantenimiento Preventivo</h6>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Icono Principal</label>
+                                    <input type="text" name="maintenance_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('maintenance_icon', 'fas fa-cogs') }}"
+                                           placeholder="fas fa-cogs">
+                                    <small class="text-muted">Ej: fas fa-cogs</small>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 1</label>
-                                        <input type="text" name="maintenance_feature_1" class="form-control" 
-                                               value="{{ $section->getCustomData('maintenance_feature_1', 'Limpieza profunda') }}">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 2</label>
-                                        <input type="text" name="maintenance_feature_2" class="form-control" 
-                                               value="{{ $section->getCustomData('maintenance_feature_2', 'Revisión completa') }}">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 3</label>
-                                        <input type="text" name="maintenance_feature_3" class="form-control" 
-                                               value="{{ $section->getCustomData('maintenance_feature_3', 'Planes de mantenimiento') }}">
+                                <div class="col-md-9 mb-3">
+                                    <label class="form-label">Título del Servicio</label>
+                                    <input type="text" name="maintenance_title" class="form-control" 
+                                           value="{{ $section->getCustomData('maintenance_title', 'Mantenimiento Preventivo') }}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción del Servicio</label>
+                                <textarea name="maintenance_description" class="form-control" rows="2">{{ $section->getCustomData('maintenance_description', 'Servicios de limpieza y mantenimiento programado para prolongar la vida útil de tus electrodomésticos.') }}</textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Check</label>
+                                    <input type="text" name="maintenance_check_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('maintenance_check_icon', 'fas fa-check') }}">
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 1</label>
+                                            <input type="text" name="maintenance_feature_1" class="form-control" 
+                                                   value="{{ $section->getCustomData('maintenance_feature_1', 'Limpieza profunda') }}">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 2</label>
+                                            <input type="text" name="maintenance_feature_2" class="form-control" 
+                                                   value="{{ $section->getCustomData('maintenance_feature_2', 'Revisión completa') }}">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 3</label>
+                                            <input type="text" name="maintenance_feature_3" class="form-control" 
+                                                   value="{{ $section->getCustomData('maintenance_feature_3', 'Planes de mantenimiento') }}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <!-- Servicio 3: Instalación -->
-                            <div class="service-preview">
-                                <h6 class="text-primary">Servicio 3: Instalación Profesional</h6>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Título</label>
-                                        <input type="text" name="installation_title" class="form-control" 
-                                               value="{{ $section->getCustomData('installation_title', 'Instalación Profesional') }}">
-                                    </div>
-                                    <div class="col-md-8 mb-3">
-                                        <label class="form-label">Descripción</label>
-                                        <textarea name="installation_description" class="form-control" rows="2">{{ $section->getCustomData('installation_description', 'Instalación segura y correcta de electrodomésticos nuevos con conexiones eléctricas y de agua certificadas.') }}</textarea>
-                                    </div>
+                        <div class="field-group">
+                            <h6><i class="fas fa-tools"></i> Servicio 3: Instalación Profesional</h6>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Icono Principal</label>
+                                    <input type="text" name="installation_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('installation_icon', 'fas fa-tools') }}"
+                                           placeholder="fas fa-tools">
+                                    <small class="text-muted">Ej: fas fa-tools</small>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 1</label>
-                                        <input type="text" name="installation_feature_1" class="form-control" 
-                                               value="{{ $section->getCustomData('installation_feature_1', 'Instalación certificada') }}">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 2</label>
-                                        <input type="text" name="installation_feature_2" class="form-control" 
-                                               value="{{ $section->getCustomData('installation_feature_2', 'Pruebas de funcionamiento') }}">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Característica 3</label>
-                                        <input type="text" name="installation_feature_3" class="form-control" 
-                                               value="{{ $section->getCustomData('installation_feature_3', 'Capacitación de uso') }}">
+                                <div class="col-md-9 mb-3">
+                                    <label class="form-label">Título del Servicio</label>
+                                    <input type="text" name="installation_title" class="form-control" 
+                                           value="{{ $section->getCustomData('installation_title', 'Instalación Profesional') }}">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Descripción del Servicio</label>
+                                <textarea name="installation_description" class="form-control" rows="2">{{ $section->getCustomData('installation_description', 'Instalación segura y correcta de electrodomésticos nuevos con conexiones eléctricas y de agua certificadas.') }}</textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Check</label>
+                                    <input type="text" name="installation_check_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('installation_check_icon', 'fas fa-check') }}">
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 1</label>
+                                            <input type="text" name="installation_feature_1" class="form-control" 
+                                                   value="{{ $section->getCustomData('installation_feature_1', 'Instalación certificada') }}">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 2</label>
+                                            <input type="text" name="installation_feature_2" class="form-control" 
+                                                   value="{{ $section->getCustomData('installation_feature_2', 'Pruebas de funcionamiento') }}">
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Característica 3</label>
+                                            <input type="text" name="installation_feature_3" class="form-control" 
+                                                   value="{{ $section->getCustomData('installation_feature_3', 'Capacitación de uso') }}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -279,6 +328,7 @@
                                         <label class="form-label">Icono 1</label>
                                         <input type="text" name="service_1_icon" class="form-control text-center" 
                                                value="{{ $section->getCustomData('service_1_icon', '🏠') }}" style="font-size: 1.5rem;">
+                                        <small class="text-muted">Emoji o icono</small>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Categoría 1</label>
@@ -299,6 +349,7 @@
                                         <label class="form-label">Icono 2</label>
                                         <input type="text" name="service_2_icon" class="form-control text-center" 
                                                value="{{ $section->getCustomData('service_2_icon', '⚡') }}" style="font-size: 1.5rem;">
+                                        <small class="text-muted">Emoji o icono</small>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Categoría 2</label>
@@ -319,6 +370,7 @@
                                         <label class="form-label">Icono 3</label>
                                         <input type="text" name="service_3_icon" class="form-control text-center" 
                                                value="{{ $section->getCustomData('service_3_icon', '🔧') }}" style="font-size: 1.5rem;">
+                                        <small class="text-muted">Emoji o icono</small>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Categoría 3</label>
@@ -337,8 +389,16 @@
                             <h6><i class="fas fa-image"></i> Imagen de Electrodomésticos</h6>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="file" name="images[]" class="form-control" accept="image/*">
-                                    <small class="text-muted">Imagen de electrodomésticos o técnico trabajando</small>
+                                    <div class="mb-3">
+                                        <label class="form-label">Subir Imagen</label>
+                                        <input type="file" name="images[]" class="form-control" accept="image/*">
+                                        <small class="text-muted">Imagen de electrodomésticos o técnico trabajando</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Texto Alternativo de Imagen (SEO)</label>
+                                        <input type="text" name="image_alt" class="form-control" 
+                                               value="{{ $section->getCustomData('image_alt', 'Reparación de Electrodomésticos') }}">
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     @if($section->getImagesArray())
@@ -394,16 +454,22 @@
                             <div class="process-preview">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <label class="form-label">Paso</label>
+                                        <label class="form-label">Número</label>
                                         <input type="text" name="step_1_number" class="form-control text-center" 
                                                value="{{ $section->getCustomData('step_1_number', '1') }}" readonly>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono</label>
+                                        <input type="text" name="step_1_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('step_1_icon', 'fas fa-phone') }}"
+                                               placeholder="fas fa-phone">
+                                    </div>
+                                    <div class="col-md-3">
                                         <label class="form-label">Título Paso 1</label>
                                         <input type="text" name="step_1_title" class="form-control" 
                                                value="{{ $section->getCustomData('step_1_title', 'Contacto') }}">
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción Paso 1</label>
                                         <textarea name="step_1_desc" class="form-control" rows="2">{{ $section->getCustomData('step_1_desc', 'Llámanos o escríbenos por WhatsApp. Te atendemos inmediatamente y agendamos tu cita.') }}</textarea>
                                     </div>
@@ -414,16 +480,22 @@
                             <div class="process-preview">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <label class="form-label">Paso</label>
+                                        <label class="form-label">Número</label>
                                         <input type="text" name="step_2_number" class="form-control text-center" 
                                                value="{{ $section->getCustomData('step_2_number', '2') }}" readonly>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono</label>
+                                        <input type="text" name="step_2_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('step_2_icon', 'fas fa-search') }}"
+                                               placeholder="fas fa-search">
+                                    </div>
+                                    <div class="col-md-3">
                                         <label class="form-label">Título Paso 2</label>
                                         <input type="text" name="step_2_title" class="form-control" 
                                                value="{{ $section->getCustomData('step_2_title', 'Diagnóstico') }}">
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción Paso 2</label>
                                         <textarea name="step_2_desc" class="form-control" rows="2">{{ $section->getCustomData('step_2_desc', 'Nuestro técnico visita tu hogar, revisa el electrodoméstico y te da un diagnóstico gratuito.') }}</textarea>
                                     </div>
@@ -434,16 +506,22 @@
                             <div class="process-preview">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <label class="form-label">Paso</label>
+                                        <label class="form-label">Número</label>
                                         <input type="text" name="step_3_number" class="form-control text-center" 
                                                value="{{ $section->getCustomData('step_3_number', '3') }}" readonly>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono</label>
+                                        <input type="text" name="step_3_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('step_3_icon', 'fas fa-hammer') }}"
+                                               placeholder="fas fa-hammer">
+                                    </div>
+                                    <div class="col-md-3">
                                         <label class="form-label">Título Paso 3</label>
                                         <input type="text" name="step_3_title" class="form-control" 
                                                value="{{ $section->getCustomData('step_3_title', 'Reparación') }}">
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción Paso 3</label>
                                         <textarea name="step_3_desc" class="form-control" rows="2">{{ $section->getCustomData('step_3_desc', 'Una vez aprobado el presupuesto, realizamos la reparación con repuestos originales.') }}</textarea>
                                     </div>
@@ -454,16 +532,22 @@
                             <div class="process-preview">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <label class="form-label">Paso</label>
+                                        <label class="form-label">Número</label>
                                         <input type="text" name="step_4_number" class="form-control text-center" 
                                                value="{{ $section->getCustomData('step_4_number', '4') }}" readonly>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono</label>
+                                        <input type="text" name="step_4_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('step_4_icon', 'fas fa-shield-check') }}"
+                                               placeholder="fas fa-shield-check">
+                                    </div>
+                                    <div class="col-md-3">
                                         <label class="form-label">Título Paso 4</label>
                                         <input type="text" name="step_4_title" class="form-control" 
                                                value="{{ $section->getCustomData('step_4_title', 'Garantía') }}">
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción Paso 4</label>
                                         <textarea name="step_4_desc" class="form-control" rows="2">{{ $section->getCustomData('step_4_desc', 'Tu electrodoméstico queda funcionando perfecto y con garantía por nuestro trabajo.') }}</textarea>
                                     </div>
@@ -479,7 +563,7 @@
                 </div>
             </div>
 
-            {{-- NUEVA SECCIÓN OSTER - Especialistas en Oster --}}
+            {{-- SECCIÓN OSTER - Especialistas en Oster --}}
             @elseif($section->name === 'oster_section')
             <div class="section-card">
                 <div class="section-header">
@@ -508,12 +592,18 @@
                             <!-- Servicio Oster 1 -->
                             <div class="oster-service-preview">
                                 <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono 1</label>
+                                        <input type="text" name="oster_service_1_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_1_icon', 'fas fa-shopping-cart') }}"
+                                               placeholder="fas fa-shopping-cart">
+                                    </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Servicio 1</label>
                                         <input type="text" name="oster_service_1_title" class="form-control" 
                                                value="{{ $section->getCustomData('oster_service_1_title', 'Venta de Productos Oster') }}">
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción 1</label>
                                         <input type="text" name="oster_service_1_desc" class="form-control" 
                                                value="{{ $section->getCustomData('oster_service_1_desc', 'Licuadoras, freidoras de aire, extractores, sanducheras y más') }}">
@@ -524,12 +614,18 @@
                             <!-- Servicio Oster 2 -->
                             <div class="oster-service-preview">
                                 <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono 2</label>
+                                        <input type="text" name="oster_service_2_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_2_icon', 'fas fa-wrench') }}"
+                                               placeholder="fas fa-wrench">
+                                    </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Servicio 2</label>
                                         <input type="text" name="oster_service_2_title" class="form-control" 
                                                value="{{ $section->getCustomData('oster_service_2_title', 'Reparación Especializada Oster') }}">
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción 2</label>
                                         <input type="text" name="oster_service_2_desc" class="form-control" 
                                                value="{{ $section->getCustomData('oster_service_2_desc', 'Servicio técnico autorizado con repuestos originales') }}">
@@ -540,12 +636,18 @@
                             <!-- Servicio Oster 3 -->
                             <div class="oster-service-preview">
                                 <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="form-label">Icono 3</label>
+                                        <input type="text" name="oster_service_3_icon" class="form-control" 
+                                               value="{{ $section->getCustomData('oster_service_3_icon', 'fas fa-medal') }}"
+                                               placeholder="fas fa-medal">
+                                    </div>
                                     <div class="col-md-4">
                                         <label class="form-label">Servicio 3</label>
                                         <input type="text" name="oster_service_3_title" class="form-control" 
                                                value="{{ $section->getCustomData('oster_service_3_title', 'Garantía Oficial') }}">
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <label class="form-label">Descripción 3</label>
                                         <input type="text" name="oster_service_3_desc" class="form-control" 
                                                value="{{ $section->getCustomData('oster_service_3_desc', 'Respaldamos nuestros productos y servicios con garantía completa') }}">
@@ -557,15 +659,22 @@
                         <div class="field-group">
                             <h6><i class="fas fa-link"></i> Botón de Acción</h6>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Botón</label>
+                                    <input type="text" name="button_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('button_icon', 'fas fa-eye') }}"
+                                           placeholder="fas fa-eye">
+                                </div>
+                                <div class="col-md-4 mb-3">
                                     <label class="form-label">Texto del Botón</label>
                                     <input type="text" name="button_text" class="form-control" 
                                            value="{{ $section->getCustomData('button_text', 'Ver Productos Oster') }}">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 mb-3">
                                     <label class="form-label">URL del Botón</label>
                                     <input type="text" name="button_url" class="form-control" 
-                                           value="{{ $section->getCustomData('button_url', route('shop.index')) }}">
+                                           value="{{ $section->getCustomData('button_url', '#') }}"
+                                           placeholder="https://ejemplo.com/shop">
                                 </div>
                             </div>
                         </div>
@@ -574,8 +683,16 @@
                             <h6><i class="fas fa-image"></i> Imagen de Productos Oster</h6>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <input type="file" name="images[]" class="form-control" accept="image/*">
-                                    <small class="text-muted">Imagen de productos Oster</small>
+                                    <div class="mb-3">
+                                        <label class="form-label">Subir Imagen</label>
+                                        <input type="file" name="images[]" class="form-control" accept="image/*">
+                                        <small class="text-muted">Imagen de productos Oster</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Texto Alternativo de Imagen (SEO)</label>
+                                        <input type="text" name="image_alt" class="form-control" 
+                                               value="{{ $section->getCustomData('image_alt', 'Productos Oster') }}">
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
                                     @if($section->getImagesArray())
@@ -599,7 +716,7 @@
                 </div>
             </div>
 
-            {{-- NUEVA SECCIÓN COVERAGE - Zona de Cobertura --}}
+            {{-- SECCIÓN COVERAGE - Zona de Cobertura --}}
             @elseif($section->name === 'coverage_section')
             <div class="section-card">
                 <div class="section-header">
@@ -620,12 +737,19 @@
                                 <label class="form-label">Descripción</label>
                                 <textarea name="content" class="form-control" rows="2">{{ $section->content ?: 'Brindamos servicio técnico a domicilio en toda la ciudad de Quito y sus valles. No importa dónde estés, llegamos hasta ti.' }}</textarea>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Icono de Zonas</label>
+                                <input type="text" name="zone_icon" class="form-control" 
+                                       value="{{ $section->getCustomData('zone_icon', 'fas fa-map-marker-alt') }}"
+                                       placeholder="fas fa-map-marker-alt">
+                                <small class="text-muted">Este icono se usará en todas las zonas</small>
+                            </div>
                         </div>
 
                         <div class="field-group">
                             <h6><i class="fas fa-map"></i> 6 Zonas de Cobertura</h6>
                             
-                            <!-- Zona 1: Norte de Quito -->
+                            <!-- Zona 1 -->
                             <div class="coverage-preview">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -641,7 +765,7 @@
                                 </div>
                             </div>
 
-                            <!-- Zona 2: Centro de Quito -->
+                            <!-- Zona 2 -->
                             <div class="coverage-preview">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -657,7 +781,7 @@
                                 </div>
                             </div>
 
-                            <!-- Zona 3: Sur de Quito -->
+                            <!-- Zona 3 -->
                             <div class="coverage-preview">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -673,7 +797,7 @@
                                 </div>
                             </div>
 
-                            <!-- Zona 4: Valles -->
+                            <!-- Zona 4 -->
                             <div class="coverage-preview">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -689,7 +813,7 @@
                                 </div>
                             </div>
 
-                            <!-- Zona 5: Oeste de Quito -->
+                            <!-- Zona 5 -->
                             <div class="coverage-preview">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -705,7 +829,7 @@
                                 </div>
                             </div>
 
-                            <!-- Zona 6: Sectores Especiales -->
+                            <!-- Zona 6 -->
                             <div class="coverage-preview">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -756,27 +880,40 @@
                         <div class="field-group">
                             <h6><i class="fas fa-mouse-pointer"></i> Botones de Acción</h6>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono WhatsApp</label>
+                                    <input type="text" name="whatsapp_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('whatsapp_icon', 'fab fa-whatsapp') }}"
+                                           placeholder="fab fa-whatsapp">
+                                </div>
+                                <div class="col-md-4 mb-3">
                                     <label class="form-label">Texto Botón WhatsApp</label>
                                     <input type="text" name="button_primary_text" class="form-control" 
                                            value="{{ $section->getCustomData('button_primary_text', 'WhatsApp') }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Texto Botón Secundario</label>
-                                    <input type="text" name="button_secondary_text" class="form-control" 
-                                           value="{{ $section->getCustomData('button_secondary_text', 'Contactar') }}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
                                     <label class="form-label">URL WhatsApp</label>
                                     <input type="text" name="whatsapp_url" class="form-control" 
                                            value="{{ $section->getCustomData('whatsapp_url', 'https://wa.me/593987654321') }}">
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Contacto</label>
+                                    <input type="text" name="contact_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('contact_icon', 'fas fa-envelope') }}"
+                                           placeholder="fas fa-envelope">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Texto Botón Secundario</label>
+                                    <input type="text" name="button_secondary_text" class="form-control" 
+                                           value="{{ $section->getCustomData('button_secondary_text', 'Contactar') }}">
+                                </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">URL Contacto</label>
                                     <input type="text" name="contact_url" class="form-control" 
-                                           value="{{ $section->getCustomData('contact_url', route('contact.index')) }}">
+                                           value="{{ $section->getCustomData('contact_url', '#') }}"
+                                           placeholder="https://ejemplo.com/contacto">
                                 </div>
                             </div>
                         </div>
@@ -784,12 +921,26 @@
                         <div class="field-group">
                             <h6><i class="fas fa-info-circle"></i> Información de Contacto</h6>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Horario</label>
+                                    <input type="text" name="schedule_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('schedule_icon', 'fas fa-clock') }}"
+                                           placeholder="fas fa-clock">
+                                </div>
+                                <div class="col-md-10 mb-3">
                                     <label class="form-label">Horarios de Atención</label>
                                     <input type="text" name="business_hours" class="form-control" 
                                            value="{{ $section->getCustomData('business_hours', 'Lunes a Viernes: 8:00 AM - 6:00 PM | Sábados: 8:00 AM - 4:00 PM') }}">
                                 </div>
-                                <div class="col-md-6 mb-3">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 mb-3">
+                                    <label class="form-label">Icono Teléfono</label>
+                                    <input type="text" name="phone_icon" class="form-control" 
+                                           value="{{ $section->getCustomData('phone_icon', 'fas fa-phone') }}"
+                                           placeholder="fas fa-phone">
+                                </div>
+                                <div class="col-md-10 mb-3">
                                     <label class="form-label">Teléfono</label>
                                     <input type="text" name="phone_number" class="form-control" 
                                            value="{{ $section->getCustomData('phone_number', '+593 2 234 5678') }}">
@@ -826,7 +977,6 @@
 
     </div>
 </div>
-
 <script>
 // Función para eliminar imagen
 function deleteImage(sectionName, sectionId, imageIndex) {

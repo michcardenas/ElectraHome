@@ -58,56 +58,56 @@
                 </div>
 
                 <div class="row g-4">
-                    <!-- Reparación -->
+                    <!-- Reparación Especializada -->
                     <div class="col-lg-4 col-md-6">
                         <div class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-wrench"></i>
                             </div>
-                            <h3 class="service-title">Reparación Especializada</h3>
+                            <h3 class="service-title">{{ $introSection->getCustomData('repair_title', 'Reparación Especializada') }}</h3>
                             <p class="service-description">
-                                Diagnóstico y reparación de fallas en todos los tipos de electrodomésticos con repuestos originales y garantía.
+                                {{ $introSection->getCustomData('repair_description', 'Diagnóstico y reparación de fallas en todos los tipos de electrodomésticos con repuestos originales y garantía.') }}
                             </p>
                             <ul class="service-features">
-                                <li><i class="fas fa-check"></i>Diagnóstico gratuito</li>
-                                <li><i class="fas fa-check"></i>Repuestos originales</li>
-                                <li><i class="fas fa-check"></i>Garantía incluida</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('repair_feature_1', 'Diagnóstico gratuito') }}</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('repair_feature_2', 'Repuestos originales') }}</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('repair_feature_3', 'Garantía incluida') }}</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Mantenimiento -->
+                    <!-- Mantenimiento Preventivo -->
                     <div class="col-lg-4 col-md-6">
                         <div class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-cogs"></i>
                             </div>
-                            <h3 class="service-title">Mantenimiento Preventivo</h3>
+                            <h3 class="service-title">{{ $introSection->getCustomData('maintenance_title', 'Mantenimiento Preventivo') }}</h3>
                             <p class="service-description">
-                                Servicios de limpieza y mantenimiento programado para prolongar la vida útil de tus electrodomésticos.
+                                {{ $introSection->getCustomData('maintenance_description', 'Servicios de limpieza y mantenimiento programado para prolongar la vida útil de tus electrodomésticos.') }}
                             </p>
                             <ul class="service-features">
-                                <li><i class="fas fa-check"></i>Limpieza profunda</li>
-                                <li><i class="fas fa-check"></i>Revisión completa</li>
-                                <li><i class="fas fa-check"></i>Planes de mantenimiento</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('maintenance_feature_1', 'Limpieza profunda') }}</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('maintenance_feature_2', 'Revisión completa') }}</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('maintenance_feature_3', 'Planes de mantenimiento') }}</li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Instalación -->
+                    <!-- Instalación Profesional -->
                     <div class="col-lg-4 col-md-6">
                         <div class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-tools"></i>
                             </div>
-                            <h3 class="service-title">Instalación Profesional</h3>
+                            <h3 class="service-title">{{ $introSection->getCustomData('installation_title', 'Instalación Profesional') }}</h3>
                             <p class="service-description">
-                                Instalación segura y correcta de electrodomésticos nuevos con conexiones eléctricas y de agua certificadas.
+                                {{ $introSection->getCustomData('installation_description', 'Instalación segura y correcta de electrodomésticos nuevos con conexiones eléctricas y de agua certificadas.') }}
                             </p>
                             <ul class="service-features">
-                                <li><i class="fas fa-check"></i>Instalación certificada</li>
-                                <li><i class="fas fa-check"></i>Pruebas de funcionamiento</li>
-                                <li><i class="fas fa-check"></i>Capacitación de uso</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('installation_feature_1', 'Instalación certificada') }}</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('installation_feature_2', 'Pruebas de funcionamiento') }}</li>
+                                <li><i class="fas fa-check"></i>{{ $introSection->getCustomData('installation_feature_3', 'Capacitación de uso') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -424,117 +424,233 @@
         </section>
     @endif
 
-    <!-- Oster Products Section - Mantenemos estático por ahora -->
-    <section class="oster-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="oster-image">
-                        <img src="{{ asset('images/oster-products.jpg') }}" alt="Productos Oster" class="img-fluid rounded">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <h2 class="section-title">Especialistas en Oster</h2>
-                    <p class="section-description">
-                        Además de nuestro servicio técnico, también vendemos y reparamos la línea completa de 
-                        electrodomésticos Oster. Somos distribuidores autorizados con repuestos originales.
-                    </p>
-
-                    <div class="oster-services">
-                        <div class="oster-service">
-                            <i class="fas fa-shopping-cart"></i>
-                            <div>
-                                <h4>Venta de Productos Oster</h4>
-                                <p>Licuadoras, freidoras de aire, extractores, sanducheras y más</p>
-                            </div>
-                        </div>
-
-                        <div class="oster-service">
-                            <i class="fas fa-wrench"></i>
-                            <div>
-                                <h4>Reparación Especializada Oster</h4>
-                                <p>Servicio técnico autorizado con repuestos originales</p>
-                            </div>
-                        </div>
-
-                        <div class="oster-service">
-                            <i class="fas fa-medal"></i>
-                            <div>
-                                <h4>Garantía Oficial</h4>
-                                <p>Respaldamos nuestros productos y servicios con garantía completa</p>
-                            </div>
+    <!-- Oster Products Section - AHORA DINÁMICO -->
+    @if(isset($sectionsData['oster_section']) && $sectionsData['oster_section'])
+        @php $osterSection = $sectionsData['oster_section']; @endphp
+        <section class="oster-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="oster-image">
+                            @if($osterSection->getImagesArray())
+                                <img src="{{ Storage::url($osterSection->getImagesArray()[0]) }}" alt="Productos Oster" class="img-fluid rounded">
+                            @else
+                                <img src="{{ asset('images/oster-products.jpg') }}" alt="Productos Oster" class="img-fluid rounded">
+                            @endif
                         </div>
                     </div>
 
-                    <a href="{{ route('shop.index') }}" class="btn btn-primary btn-lg mt-4">
-                        <i class="fas fa-eye me-2"></i>Ver Productos Oster
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <div class="col-lg-6">
+                        <h2 class="section-title">{{ $osterSection->title ?? 'Especialistas en Oster' }}</h2>
+                        <p class="section-description">
+                            {{ $osterSection->content ?? 'Además de nuestro servicio técnico, también vendemos y reparamos la línea completa de electrodomésticos Oster. Somos distribuidores autorizados con repuestos originales.' }}
+                        </p>
 
-    <!-- Coverage Area Section - Mantenemos estático por ahora -->
-    <section class="coverage-section">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-lg-8 mx-auto">
-                    <h2 class="section-title">Zona de Cobertura</h2>
-                    <p class="section-description">
-                        Brindamos servicio técnico a domicilio en toda la ciudad de Quito y sus valles. 
-                        No importa dónde estés, llegamos hasta ti.
-                    </p>
-                </div>
-            </div>
+                        <div class="oster-services">
+                            <div class="oster-service">
+                                <i class="fas fa-shopping-cart"></i>
+                                <div>
+                                    <h4>{{ $osterSection->getCustomData('oster_service_1_title', 'Venta de Productos Oster') }}</h4>
+                                    <p>{{ $osterSection->getCustomData('oster_service_1_desc', 'Licuadoras, freidoras de aire, extractores, sanducheras y más') }}</p>
+                                </div>
+                            </div>
 
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="coverage-area">
-                        <h4><i class="fas fa-map-marker-alt me-2"></i>Norte de Quito</h4>
-                        <p>Carcelén, La Delicia, Comité del Pueblo, Carapungo, Calderón</p>
-                    </div>
-                </div>
+                            <div class="oster-service">
+                                <i class="fas fa-wrench"></i>
+                                <div>
+                                    <h4>{{ $osterSection->getCustomData('oster_service_2_title', 'Reparación Especializada Oster') }}</h4>
+                                    <p>{{ $osterSection->getCustomData('oster_service_2_desc', 'Servicio técnico autorizado con repuestos originales') }}</p>
+                                </div>
+                            </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="coverage-area">
-                        <h4><i class="fas fa-map-marker-alt me-2"></i>Centro de Quito</h4>
-                        <p>Centro Histórico, La Mariscal, La Carolina, González Suárez</p>
-                    </div>
-                </div>
+                            <div class="oster-service">
+                                <i class="fas fa-medal"></i>
+                                <div>
+                                    <h4>{{ $osterSection->getCustomData('oster_service_3_title', 'Garantía Oficial') }}</h4>
+                                    <p>{{ $osterSection->getCustomData('oster_service_3_desc', 'Respaldamos nuestros productos y servicios con garantía completa') }}</p>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="col-lg-4 col-md-6">
-                    <div class="coverage-area">
-                        <h4><i class="fas fa-map-marker-alt me-2"></i>Sur de Quito</h4>
-                        <p>Quitumbe, Solanda, La Magdalena, Chillogallo, Guamaní</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="coverage-area">
-                        <h4><i class="fas fa-map-marker-alt me-2"></i>Valles</h4>
-                        <p>Cumbayá, Tumbaco, Conocoto, San Rafael, Sangolquí</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="coverage-area">
-                        <h4><i class="fas fa-map-marker-alt me-2"></i>Oeste de Quito</h4>
-                        <p>La Mitad del Mundo, Pomasqui, San Antonio, Nayón</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="coverage-area">
-                        <h4><i class="fas fa-map-marker-alt me-2"></i>Sectores Especiales</h4>
-                        <p>Consulta disponibilidad para otras zonas metropolitanas</p>
+                        <a href="{{ $osterSection->getCustomData('button_url', route('shop.index')) }}" class="btn btn-primary btn-lg mt-4">
+                            <i class="fas fa-eye me-2"></i>{{ $osterSection->getCustomData('button_text', 'Ver Productos Oster') }}
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @else
+        <section class="oster-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="oster-image">
+                            <img src="{{ asset('images/oster-products.jpg') }}" alt="Productos Oster" class="img-fluid rounded">
+                        </div>
+                    </div>
 
-    <!-- CTA Section -->
+                    <div class="col-lg-6">
+                        <h2 class="section-title">Especialistas en Oster</h2>
+                        <p class="section-description">
+                            Además de nuestro servicio técnico, también vendemos y reparamos la línea completa de 
+                            electrodomésticos Oster. Somos distribuidores autorizados con repuestos originales.
+                        </p>
+
+                        <div class="oster-services">
+                            <div class="oster-service">
+                                <i class="fas fa-shopping-cart"></i>
+                                <div>
+                                    <h4>Venta de Productos Oster</h4>
+                                    <p>Licuadoras, freidoras de aire, extractores, sanducheras y más</p>
+                                </div>
+                            </div>
+
+                            <div class="oster-service">
+                                <i class="fas fa-wrench"></i>
+                                <div>
+                                    <h4>Reparación Especializada Oster</h4>
+                                    <p>Servicio técnico autorizado con repuestos originales</p>
+                                </div>
+                            </div>
+
+                            <div class="oster-service">
+                                <i class="fas fa-medal"></i>
+                                <div>
+                                    <h4>Garantía Oficial</h4>
+                                    <p>Respaldamos nuestros productos y servicios con garantía completa</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="{{ route('shop.index') }}" class="btn btn-primary btn-lg mt-4">
+                            <i class="fas fa-eye me-2"></i>Ver Productos Oster
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <!-- Coverage Area Section - AHORA DINÁMICO -->
+    @if(isset($sectionsData['coverage_section']) && $sectionsData['coverage_section'])
+        @php $coverageSection = $sectionsData['coverage_section']; @endphp
+        <section class="coverage-section">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="section-title">{{ $coverageSection->title ?? 'Zona de Cobertura' }}</h2>
+                        <p class="section-description">
+                            {{ $coverageSection->content ?? 'Brindamos servicio técnico a domicilio en toda la ciudad de Quito y sus valles. No importa dónde estés, llegamos hasta ti.' }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>{{ $coverageSection->getCustomData('zone_1_title', 'Norte de Quito') }}</h4>
+                            <p>{{ $coverageSection->getCustomData('zone_1_areas', 'Carcelén, La Delicia, Comité del Pueblo, Carapungo, Calderón') }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>{{ $coverageSection->getCustomData('zone_2_title', 'Centro de Quito') }}</h4>
+                            <p>{{ $coverageSection->getCustomData('zone_2_areas', 'Centro Histórico, La Mariscal, La Carolina, González Suárez') }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>{{ $coverageSection->getCustomData('zone_3_title', 'Sur de Quito') }}</h4>
+                            <p>{{ $coverageSection->getCustomData('zone_3_areas', 'Quitumbe, Solanda, La Magdalena, Chillogallo, Guamaní') }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>{{ $coverageSection->getCustomData('zone_4_title', 'Valles') }}</h4>
+                            <p>{{ $coverageSection->getCustomData('zone_4_areas', 'Cumbayá, Tumbaco, Conocoto, San Rafael, Sangolquí') }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>{{ $coverageSection->getCustomData('zone_5_title', 'Oeste de Quito') }}</h4>
+                            <p>{{ $coverageSection->getCustomData('zone_5_areas', 'La Mitad del Mundo, Pomasqui, San Antonio, Nayón') }}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>{{ $coverageSection->getCustomData('zone_6_title', 'Sectores Especiales') }}</h4>
+                            <p>{{ $coverageSection->getCustomData('zone_6_areas', 'Consulta disponibilidad para otras zonas metropolitanas') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @else
+        <section class="coverage-section">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-lg-8 mx-auto">
+                        <h2 class="section-title">Zona de Cobertura</h2>
+                        <p class="section-description">
+                            Brindamos servicio técnico a domicilio en toda la ciudad de Quito y sus valles. 
+                            No importa dónde estés, llegamos hasta ti.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>Norte de Quito</h4>
+                            <p>Carcelén, La Delicia, Comité del Pueblo, Carapungo, Calderón</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>Centro de Quito</h4>
+                            <p>Centro Histórico, La Mariscal, La Carolina, González Suárez</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>Sur de Quito</h4>
+                            <p>Quitumbe, Solanda, La Magdalena, Chillogallo, Guamaní</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>Valles</h4>
+                            <p>Cumbayá, Tumbaco, Conocoto, San Rafael, Sangolquí</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>Oeste de Quito</h4>
+                            <p>La Mitad del Mundo, Pomasqui, San Antonio, Nayón</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="coverage-area">
+                            <h4><i class="fas fa-map-marker-alt me-2"></i>Sectores Especiales</h4>
+                            <p>Consulta disponibilidad para otras zonas metropolitanas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <!-- CTA Section - AHORA COMPLETAMENTE DINÁMICO -->
     @if(isset($sectionsData['cta']) && $sectionsData['cta'])
         @php $ctaSection = $sectionsData['cta']; @endphp
         <section class="cta-section">
@@ -547,10 +663,10 @@
                         </p>
                         
                         <div class="cta-buttons">
-                            <a href="https://wa.me/593987654321" target="_blank" class="btn btn-whatsapp btn-lg me-3">
+                            <a href="{{ $ctaSection->getCustomData('whatsapp_url', 'https://wa.me/593987654321') }}" target="_blank" class="btn btn-whatsapp btn-lg me-3">
                                 <i class="fab fa-whatsapp me-2"></i>{{ $ctaSection->getCustomData('button_primary_text', 'WhatsApp') }}
                             </a>
-                            <a href="{{ route('contact.index') }}" class="btn btn-primary btn-lg">
+                            <a href="{{ $ctaSection->getCustomData('contact_url', route('contact.index')) }}" class="btn btn-primary btn-lg">
                                 <i class="fas fa-envelope me-2"></i>{{ $ctaSection->getCustomData('button_secondary_text', 'Contactar') }}
                             </a>
                         </div>
@@ -558,11 +674,11 @@
                         <div class="contact-info mt-4">
                             <div class="contact-item">
                                 <i class="fas fa-clock"></i>
-                                <span>Lunes a Viernes: 8:00 AM - 6:00 PM | Sábados: 8:00 AM - 4:00 PM</span>
+                                <span>{{ $ctaSection->getCustomData('business_hours', 'Lunes a Viernes: 8:00 AM - 6:00 PM | Sábados: 8:00 AM - 4:00 PM') }}</span>
                             </div>
                             <div class="contact-item">
                                 <i class="fas fa-phone"></i>
-                                <span>+593 2 234 5678</span>
+                                <span>{{ $ctaSection->getCustomData('phone_number', '+593 2 234 5678') }}</span>
                             </div>
                         </div>
                     </div>
@@ -605,7 +721,6 @@
         </section>
     @endif
 </div>
-
 <style>
 .services-page {
     font-family: 'Inter', sans-serif;
