@@ -286,143 +286,143 @@
     @endif
 
     <!-- Process Section -->
-    @if(isset($sectionsData['process']) && $sectionsData['process'])
-        @php $processSection = $sectionsData['process']; @endphp
-        <section class="process-section">
-            <div class="container">
-                <div class="row text-center mb-5">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="section-title">{{ $processSection->title ?? '¿Cómo Trabajamos?' }}</h2>
-                        <p class="section-description">
-                            {{ $processSection->content ?? 'Nuestro proceso es simple, rápido y transparente. Te acompañamos desde el primer contacto hasta que tu electrodoméstico quede funcionando perfectamente.' }}
+@if(isset($sectionsData['process']) && $sectionsData['process'])
+    @php $processSection = $sectionsData['process']; @endphp
+    <section class="process-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">{{ $processSection->title ?? '¿Cómo Trabajamos?' }}</h2>
+                    <p class="section-description">
+                        {{ $processSection->content ?? 'Nuestro proceso es simple, rápido y transparente. Te acompañamos desde el primer contacto hasta que tu electrodoméstico quede funcionando perfectamente.' }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">{{ $processSection->getCustomData('step_1_number', '1') }}</div>
+                        <div class="step-icon">
+                            <i class="{{ $processSection->getCustomData('step_1_icon', 'fas fa-phone') }}"></i>
+                        </div>
+                        <h4 class="step-title">{{ $processSection->getCustomData('step_1_title', 'Contacto') }}</h4>
+                        <p class="step-description">
+                            {{ $processSection->getCustomData('step_1_desc', 'Llámanos o escríbenos por WhatsApp. Te atendemos inmediatamente y agendamos tu cita.') }}
                         </p>
                     </div>
                 </div>
 
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">{{ $processSection->getCustomData('step_1_number', '1') }}</div>
-                            <div class="step-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <h4 class="step-title">{{ $processSection->getCustomData('step_1_title', 'Contacto') }}</h4>
-                            <p class="step-description">
-                                {{ $processSection->getCustomData('step_1_desc', 'Llámanos o escríbenos por WhatsApp. Te atendemos inmediatamente y agendamos tu cita.') }}
-                            </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">{{ $processSection->getCustomData('step_2_number', '2') }}</div>
+                        <div class="step-icon">
+                            <i class="{{ $processSection->getCustomData('step_2_icon', 'fas fa-search') }}"></i>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">{{ $processSection->getCustomData('step_2_number', '2') }}</div>
-                            <div class="step-icon">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <h4 class="step-title">{{ $processSection->getCustomData('step_2_title', 'Diagnóstico') }}</h4>
-                            <p class="step-description">
-                                {{ $processSection->getCustomData('step_2_desc', 'Nuestro técnico visita tu hogar, revisa el electrodoméstico y te da un diagnóstico gratuito.') }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">{{ $processSection->getCustomData('step_3_number', '3') }}</div>
-                            <div class="step-icon">
-                                <i class="fas fa-hammer"></i>
-                            </div>
-                            <h4 class="step-title">{{ $processSection->getCustomData('step_3_title', 'Reparación') }}</h4>
-                            <p class="step-description">
-                                {{ $processSection->getCustomData('step_3_desc', 'Una vez aprobado el presupuesto, realizamos la reparación con repuestos originales.') }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">{{ $processSection->getCustomData('step_4_number', '4') }}</div>
-                            <div class="step-icon">
-                                <i class="fas fa-shield-check"></i>
-                            </div>
-                            <h4 class="step-title">{{ $processSection->getCustomData('step_4_title', 'Garantía') }}</h4>
-                            <p class="step-description">
-                                {{ $processSection->getCustomData('step_4_desc', 'Tu electrodoméstico queda funcionando perfecto y con garantía por nuestro trabajo.') }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @else
-        <section class="process-section">
-            <div class="container">
-                <div class="row text-center mb-5">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="section-title">¿Cómo Trabajamos?</h2>
-                        <p class="section-description">
-                            Nuestro proceso es simple, rápido y transparente. Te acompañamos desde el primer contacto hasta 
-                            que tu electrodoméstico quede funcionando perfectamente.
+                        <h4 class="step-title">{{ $processSection->getCustomData('step_2_title', 'Diagnóstico') }}</h4>
+                        <p class="step-description">
+                            {{ $processSection->getCustomData('step_2_desc', 'Nuestro técnico visita tu hogar, revisa el electrodoméstico y te da un diagnóstico gratuito.') }}
                         </p>
                     </div>
                 </div>
 
-                <div class="row g-4">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">1</div>
-                            <div class="step-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <h4 class="step-title">Contacto</h4>
-                            <p class="step-description">
-                                Llámanos o escríbenos por WhatsApp. Te atendemos inmediatamente y agendamos tu cita.
-                            </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">{{ $processSection->getCustomData('step_3_number', '3') }}</div>
+                        <div class="step-icon">
+                            <i class="{{ $processSection->getCustomData('step_3_icon', 'fas fa-hammer') }}"></i>
                         </div>
+                        <h4 class="step-title">{{ $processSection->getCustomData('step_3_title', 'Reparación') }}</h4>
+                        <p class="step-description">
+                            {{ $processSection->getCustomData('step_3_desc', 'Una vez aprobado el presupuesto, realizamos la reparación con repuestos originales.') }}
+                        </p>
                     </div>
+                </div>
 
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">2</div>
-                            <div class="step-icon">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <h4 class="step-title">Diagnóstico</h4>
-                            <p class="step-description">
-                                Nuestro técnico visita tu hogar, revisa el electrodoméstico y te da un diagnóstico gratuito.
-                            </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">{{ $processSection->getCustomData('step_4_number', '4') }}</div>
+                        <div class="step-icon">
+                            <i class="{{ $processSection->getCustomData('step_4_icon', 'fas fa-shield-check') }}"></i>
                         </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">3</div>
-                            <div class="step-icon">
-                                <i class="fas fa-hammer"></i>
-                            </div>
-                            <h4 class="step-title">Reparación</h4>
-                            <p class="step-description">
-                                Una vez aprobado el presupuesto, realizamos la reparación con repuestos originales.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="process-step">
-                            <div class="step-number">4</div>
-                            <div class="step-icon">
-                                <i class="fas fa-shield-check"></i>
-                            </div>
-                            <h4 class="step-title">Garantía</h4>
-                            <p class="step-description">
-                                Tu electrodoméstico queda funcionando perfecto y con garantía por nuestro trabajo.
-                            </p>
-                        </div>
+                        <h4 class="step-title">{{ $processSection->getCustomData('step_4_title', 'Garantía') }}</h4>
+                        <p class="step-description">
+                            {{ $processSection->getCustomData('step_4_desc', 'Tu electrodoméstico queda funcionando perfecto y con garantía por nuestro trabajo.') }}
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
-    @endif
+        </div>
+    </section>
+@else
+    <section class="process-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">¿Cómo Trabajamos?</h2>
+                    <p class="section-description">
+                        Nuestro proceso es simple, rápido y transparente. Te acompañamos desde el primer contacto hasta 
+                        que tu electrodoméstico quede funcionando perfectamente.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4 class="step-title">Contacto</h4>
+                        <p class="step-description">
+                            Llámanos o escríbenos por WhatsApp. Te atendemos inmediatamente y agendamos tu cita.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4 class="step-title">Diagnóstico</h4>
+                        <p class="step-description">
+                            Nuestro técnico visita tu hogar, revisa el electrodoméstico y te da un diagnóstico gratuito.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h4 class="step-title">Reparación</h4>
+                        <p class="step-description">
+                            Una vez aprobado el presupuesto, realizamos la reparación con repuestos originales.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-shield-check"></i>
+                        </div>
+                        <h4 class="step-title">Garantía</h4>
+                        <p class="step-description">
+                            Tu electrodoméstico queda funcionando perfecto y con garantía por nuestro trabajo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endif
 
     <!-- Oster Products Section - AHORA DINÁMICO -->
     @if(isset($sectionsData['oster_section']) && $sectionsData['oster_section'])
