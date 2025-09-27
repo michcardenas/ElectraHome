@@ -5,44 +5,7 @@
 
 @section('content')
 <div class="about-page">
-    {{-- HERO SECTION - Dinámico --}}
-    {{-- DEBUG LEGACY SECTION - Agregar antes del LEGACY SECTION --}}
-@if(isset($sectionsData['legacy']))
-    <div style="background: orange; padding: 15px; margin: 10px; font-family: monospace; border: 2px solid red;">
-        <h3>🐛 DEBUG LEGACY SECTION</h3>
-        <p><strong>Section exists:</strong> {{ $sectionsData['legacy'] ? 'YES' : 'NO' }}</p>
-        @if($sectionsData['legacy'])
-            <p><strong>Section name:</strong> {{ $sectionsData['legacy']->name ?? 'NULL' }}</p>
-            <p><strong>Images field raw:</strong> {{ $sectionsData['legacy']->images ?? 'NULL' }}</p>
-            <p><strong>Images field length:</strong> {{ strlen($sectionsData['legacy']->images ?? '') }}</p>
-            
-            {{-- Intentar llamar getImagesArray() --}}
-            @php
-                try {
-                    $imagesArray = $sectionsData['legacy']->getImagesArray();
-                    $imagesArrayJson = json_encode($imagesArray);
-                    $hasImages = !empty($imagesArray);
-                } catch (Exception $e) {
-                    $imagesArrayJson = 'ERROR: ' . $e->getMessage();
-                    $hasImages = false;
-                }
-            @endphp
-            
-            <p><strong>getImagesArray() result:</strong> {{ $imagesArrayJson }}</p>
-            <p><strong>Has images:</strong> {{ $hasImages ? 'YES' : 'NO' }}</p>
-            
-            {{-- Método manual --}}
-            @if($sectionsData['legacy']->images)
-                @php
-                    $manualImages = array_filter(explode(',', $sectionsData['legacy']->images));
-                    $manualImages = array_map('trim', $manualImages);
-                @endphp
-                <p><strong>Manual split result:</strong> {{ json_encode($manualImages) }}</p>
-                <p><strong>First manual image:</strong> {{ $manualImages[0] ?? 'NO IMAGE' }}</p>
-            @endif
-        @endif
-    </div>
-@endif
+
     @if(isset($sectionsData['hero']) && $sectionsData['hero'])
     @php $heroSection = $sectionsData['hero']; @endphp
     <section class="about-hero">

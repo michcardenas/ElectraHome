@@ -14,23 +14,21 @@ class Section extends Model
         'content',
         'images',
         'videos',
-        'custom_data', // Nuevo campo para datos específicos
+        'custom_data', 
         'order',
         'is_active'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'custom_data' => 'array' // Cast automático a array
+        'custom_data' => 'array'
     ];
 
-    // Relación con Page
     public function page()
     {
         return $this->belongsTo(Page::class);
     }
 
-    // Métodos existentes para imágenes y videos
     public function getImagesArray()
     {
         if (empty($this->images)) return [];
@@ -53,7 +51,6 @@ class Section extends Model
         $this->videos = empty($videos) ? null : implode(',', $videos);
     }
 
-    // NUEVOS MÉTODOS para datos específicos
     public function getCustomData($key = null, $default = null)
     {
         if (is_null($key)) {
@@ -75,7 +72,6 @@ class Section extends Model
         $this->custom_data = $data;
     }
 
-    // Scopes existentes
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

@@ -870,31 +870,84 @@ footer::before {
     <!-- Footer -->
    <!-- Footer -->
 <!-- Footer -->
+@php
+    $footerPage = \App\Models\Page::where('slug', 'footer')->with('activeSections')->first();
+
+    // Obtener secciones específicas
+    $socialSection = $footerPage?->getSection('social_links');
+    $contactSection = $footerPage?->getSection('contact_info');
+    $servicesSection = $footerPage?->getSection('services_links');
+    $legalSection = $footerPage?->getSection('legal_info');
+
+    // Extraer datos con valores por defecto
+    $company_name = $socialSection?->getCustomData('company_name') ?? 'ElectraHome';
+    $company_description = $footerPage?->content ?? 'Tu tienda especializada en electrodomésticos de calidad. Ofrecemos las mejores marcas con garantía, servicio técnico especializado y atención personalizada.';
+    $facebook_url = $socialSection?->getCustomData('facebook_url');
+    $instagram_url = $socialSection?->getCustomData('instagram_url');
+    $whatsapp_number = $socialSection?->getCustomData('whatsapp_number');
+    $main_email = $socialSection?->getCustomData('main_email') ?? 'info@electrahome.com';
+
+    // Enlaces de navegación
+    $nav_inicio = $servicesSection?->getCustomData('nav_inicio') ?? 'Inicio';
+    $nav_productos = $servicesSection?->getCustomData('nav_productos') ?? 'Productos';
+    $nav_about = $servicesSection?->getCustomData('nav_about') ?? 'Quiénes Somos';
+    $nav_contacto = $servicesSection?->getCustomData('nav_contacto') ?? 'Contacto';
+    $nav_servicios = $servicesSection?->getCustomData('nav_servicios') ?? 'Servicios';
+
+    // Categorías
+    $cat_licuadoras = $servicesSection?->getCustomData('cat_licuadoras') ?? 'Licuadoras';
+    $cat_freidoras = $servicesSection?->getCustomData('cat_freidoras') ?? 'Freidoras de Aire';
+    $cat_sanducheras = $servicesSection?->getCustomData('cat_sanducheras') ?? 'Sanducheras';
+    $cat_pequenos = $servicesSection?->getCustomData('cat_pequenos') ?? 'Pequeños Electrodomésticos';
+
+    // Información de contacto
+    $contact_email = $contactSection?->getCustomData('contact_email') ?? 'info@electrahome.com';
+    $contact_phone = $contactSection?->getCustomData('contact_phone') ?? '+58 (412) 123-4567';
+    $contact_address = $contactSection?->getCustomData('contact_address');
+    $hours_weekdays = $contactSection?->getCustomData('hours_weekdays') ?? '8:00 AM - 6:00 PM';
+    $hours_saturday = $contactSection?->getCustomData('hours_saturday') ?? '8:00 AM - 4:00 PM';
+    $hours_sunday = $contactSection?->getCustomData('hours_sunday') ?? 'Cerrado';
+
+    // Información legal
+    $copyright_text = $legalSection?->getCustomData('copyright_text') ?? 'ElectraHome. Todos los derechos reservados.';
+    $cert_warranty = $legalSection?->getCustomData('cert_warranty') ?? 'Garantía Oficial';
+    $cert_service = $legalSection?->getCustomData('cert_service') ?? 'Servicio Técnico';
+    $cert_quality = $legalSection?->getCustomData('cert_quality') ?? 'Calidad Certificada';
+@endphp
+
 <footer class="text-white pt-5 pb-4">
     <div class="container">
         <div class="row">
             <!-- Logo & descripción -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="footer-logo mb-3">
-                    <img src="{{ asset('images/logo.png') }}" alt="ElectraHome Logo" style="height: 50px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ $company_name }} Logo" style="height: 50px;">
                 </div>
-                <h4 class="fw-bold mb-3">ElectraHome</h4>
+                <h4 class="fw-bold mb-3">{{ $company_name }}</h4>
                 <p class="text-white small mb-3">
-                    Tu tienda especializada en electrodomésticos de calidad. Ofrecemos las mejores marcas con garantía, servicio técnico especializado y atención personalizada.
+                    {{ $company_description }}
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-link me-3" title="Facebook">
-                        <i class="fab fa-facebook fa-lg"></i>
-                    </a>
-                    <a href="#" class="social-link me-3" title="Instagram">
-                        <i class="fab fa-instagram fa-lg"></i>
-                    </a>
-                    <a href="#" class="social-link me-3" title="WhatsApp">
-                        <i class="fab fa-whatsapp fa-lg"></i>
-                    </a>
-                    <a href="mailto:info@electrahome.com" class="social-link" title="Email">
-                        <i class="fas fa-envelope fa-lg"></i>
-                    </a>
+                    @if($facebook_url && $facebook_url !== '#')
+                        <a href="{{ $facebook_url }}" class="social-link me-3" title="Facebook" target="_blank">
+                            <i class="fab fa-facebook fa-lg"></i>
+                        </a>
+                    @endif
+                    @if($instagram_url && $instagram_url !== '#')
+                        <a href="{{ $instagram_url }}" class="social-link me-3" title="Instagram" target="_blank">
+                            <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+                    @endif
+                    @if($whatsapp_number)
+                        <a href="https://wa.me/{{ str_replace(['+', ' ', '(', ')', '-'], '', $whatsapp_number) }}" class="social-link me-3" title="WhatsApp" target="_blank">
+                            <i class="fab fa-whatsapp fa-lg"></i>
+                        </a>
+                    @endif
+                    @if($main_email)
+                        <a href="mailto:{{ $main_email }}" class="social-link" title="Email">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
 
@@ -902,11 +955,11 @@ footer::before {
             <div class="col-lg-2 col-md-6 mb-4">
                 <h5 class="text-uppercase fw-semibold mb-3">Navegación</h5>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="{{ route('home') }}" class="footer-link">Inicio</a></li>
-                    <li><a href="{{ route('shop.index') }}" class="footer-link">Productos</a></li>
-                    <li><a href="{{ route('about') }}" class="footer-link">Quiénes Somos</a></li>
-                    <li><a href="{{ route('partner.chefs') }}" class="footer-link">Contacto</a></li>
-                    <li><a href="{{ route('recipes') }}" class="footer-link">Servicios</a></li>
+                    <li><a href="{{ route('home') }}" class="footer-link">{{ $nav_inicio }}</a></li>
+                    <li><a href="{{ route('shop.index') }}" class="footer-link">{{ $nav_productos }}</a></li>
+                    <li><a href="{{ route('about') }}" class="footer-link">{{ $nav_about }}</a></li>
+                    <li><a href="{{ route('partner.chefs') }}" class="footer-link">{{ $nav_contacto }}</a></li>
+                    <li><a href="{{ route('recipes') }}" class="footer-link">{{ $nav_servicios }}</a></li>
                 </ul>
             </div>
 
@@ -914,30 +967,32 @@ footer::before {
             <div class="col-lg-2 col-md-6 mb-4">
                 <h5 class="text-uppercase fw-semibold mb-3">Categorías</h5>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="{{ route('shop.index', ['category' => 'licuadoras']) }}" class="footer-link">Licuadoras</a></li>
-                    <li><a href="{{ route('shop.index', ['category' => 'freidoras']) }}" class="footer-link">Freidoras de Aire</a></li>
-                    <li><a href="{{ route('shop.index', ['category' => 'sanducheras']) }}" class="footer-link">Sanducheras</a></li>
-                    <li><a href="{{ route('shop.index', ['category' => 'pequenos']) }}" class="footer-link">Pequeños Electrodomésticos</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'licuadoras']) }}" class="footer-link">{{ $cat_licuadoras }}</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'freidoras']) }}" class="footer-link">{{ $cat_freidoras }}</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'sanducheras']) }}" class="footer-link">{{ $cat_sanducheras }}</a></li>
+                    <li><a href="{{ route('shop.index', ['category' => 'pequenos']) }}" class="footer-link">{{ $cat_pequenos }}</a></li>
                 </ul>
             </div>
 
             <!-- Contact Info -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <h5 class="text-uppercase fw-semibold mb-3">Información de Contacto</h5>
-                
+
                 <div class="contact-info">
                     <p class="text-white small mb-2">
                         <i class="fas fa-envelope me-2 text-info"></i>
-                        <a href="mailto:info@electrahome.com" class="footer-link">info@electrahome.com</a>
+                        <a href="mailto:{{ $contact_email }}" class="footer-link">{{ $contact_email }}</a>
                     </p>
                     <p class="text-white small mb-2">
                         <i class="fas fa-phone me-2 text-info"></i>
-                        <a href="tel:+584121234567" class="footer-link">+58 (412) 123-4567</a>
+                        <a href="tel:{{ str_replace([' ', '(', ')', '-'], '', $contact_phone) }}" class="footer-link">{{ $contact_phone }}</a>
                     </p>
-                    <p class="text-white small mb-3">
-                        <i class="fas fa-map-marker-alt me-2 text-info"></i>
-                        <span class="text-white"></span>
-                    </p>
+                    @if($contact_address)
+                        <p class="text-white small mb-3">
+                            <i class="fas fa-map-marker-alt me-2 text-info"></i>
+                            <span class="text-white">{{ $contact_address }}</span>
+                        </p>
+                    @endif
                 </div>
 
                 <!-- Horarios de Atención -->
@@ -946,9 +1001,9 @@ footer::before {
                         <i class="fas fa-clock me-2 text-warning"></i>
                         Horarios de Atención
                     </h6>
-                    <p class="text-white small mb-1">Lunes a Viernes: 8:00 AM - 6:00 PM</p>
-                    <p class="text-white small mb-1">Sábados: 8:00 AM - 4:00 PM</p>
-                    <p class="text-white small">Domingos: Cerrado</p>
+                    <p class="text-white small mb-1">Lunes a Viernes: {{ $hours_weekdays }}</p>
+                    <p class="text-white small mb-1">Sábados: {{ $hours_saturday }}</p>
+                    <p class="text-white small">Domingos: {{ $hours_sunday }}</p>
                 </div>
             </div>
         </div>
@@ -960,22 +1015,22 @@ footer::before {
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="text-white small">
-                    &copy; {{ date('Y') }} ElectraHome. Todos los derechos reservados.
+                    &copy; {{ date('Y') }} {{ $copyright_text }}
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="footer-certifications text-md-end">
                     <span class="certification-badge me-2">
                         <i class="fas fa-shield-check me-1"></i>
-                        <small>Garantía Oficial</small>
+                        <small>{{ $cert_warranty }}</small>
                     </span>
                     <span class="certification-badge me-2">
                         <i class="fas fa-tools me-1"></i>
-                        <small>Servicio Técnico</small>
+                        <small>{{ $cert_service }}</small>
                     </span>
                     <span class="certification-badge">
                         <i class="fas fa-star me-1"></i>
-                        <small>Calidad Certificada</small>
+                        <small>{{ $cert_quality }}</small>
                     </span>
                 </div>
             </div>

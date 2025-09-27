@@ -113,6 +113,10 @@ Route::prefix('admin')->group(function () {
     // Página CONTACTO
     Route::get('pages/contacto/edit', [App\Http\Controllers\Admin\PageController::class, 'editContacto'])->name('admin.pages.edit-contacto');
     Route::put('pages/contacto', [App\Http\Controllers\Admin\PageController::class, 'updateContacto'])->name('admin.pages.update-contacto');
+
+    // Página FOOTER
+    Route::get('pages/footer/edit', [App\Http\Controllers\Admin\PageController::class, 'editFooter'])->name('admin.pages.edit-footer');
+    Route::put('pages/footer', [App\Http\Controllers\Admin\PageController::class, 'updateFooter'])->name('admin.pages.update-footer');
     
     // Eliminar imágenes (funciona para todas las páginas)
     Route::delete('pages/{page}/image', [App\Http\Controllers\Admin\PageController::class, 'deleteImage'])->name('admin.pages.delete-image');
@@ -155,6 +159,7 @@ Route::prefix('admin/pages')->name('admin.pages.')->group(function () {
     Route::get('/quienes-somos/edit', [App\Http\Controllers\Admin\PageController::class, 'editQuienesSomos'])->name('edit-quienes-somos');
     Route::get('/servicios/edit', [App\Http\Controllers\Admin\PageController::class, 'editServicios'])->name('edit-servicios');
     Route::get('/contacto/edit', [App\Http\Controllers\Admin\PageController::class, 'editContacto'])->name('edit-contacto');
+    Route::get('/footer/edit', [App\Http\Controllers\Admin\PageController::class, 'editFooter'])->name('edit-footer');
     
     // NUEVAS RUTAS PARA SECCIONES
     Route::get('/{page}/sections', [App\Http\Controllers\Admin\PageController::class, 'manageSections'])->name('sections');

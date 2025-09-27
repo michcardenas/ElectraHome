@@ -744,6 +744,132 @@ public function updateContacto(Request $request)
     return $this->updatePage($request, $page, 'admin.pages.edit-contacto');
 }
 
+// Página de FOOTER
+public function editFooter()
+{
+    $page = Page::where('slug', 'footer')->with(['sections' => function($query) {
+        $query->orderBy('order');
+    }])->first();
+
+    // Si no existe la página, crearla con secciones por defecto
+    if (!$page) {
+        $page = Page::create([
+            'slug' => 'footer',
+            'title' => 'Footer',
+            'content' => 'Pie de página de ElectraHome'
+        ]);
+
+        // Crear secciones por defecto para footer
+        $sectionsData = [
+            [
+                'name' => 'contact_info',
+                'title' => 'Información de Contacto',
+                'content' => 'Teléfonos, direcciones, horarios de atención',
+                'order' => 1
+            ],
+            [
+                'name' => 'social_links',
+                'title' => 'Redes Sociales',
+                'content' => 'Enlaces a redes sociales de la empresa',
+                'order' => 2
+            ],
+            [
+                'name' => 'services_links',
+                'title' => 'Enlaces de Servicios',
+                'content' => 'Links rápidos a servicios principales',
+                'order' => 3
+            ],
+            [
+                'name' => 'legal_info',
+                'title' => 'Información Legal',
+                'content' => 'Políticas, términos y condiciones',
+                'order' => 4
+            ]
+        ];
+
+        foreach ($sectionsData as $sectionData) {
+            $page->sections()->create($sectionData);
+        }
+    }
+
+    return view('admin.pages.edit-footer', compact('page'));
+}
+
+public function updateFooter(Request $request)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'nullable|string',
+        'section' => 'nullable|string|max:255',
+        'sections' => 'nullable|array',
+        'sections.*.title' => 'nullable|string|max:255',
+        'sections.*.content' => 'nullable|string',
+        'sections.*.order' => 'nullable|integer|min:1',
+        'sections.*.is_active' => 'nullable',
+        'sections.*.custom_data' => 'nullable|array',
+        'sections.*.images.*' => 'nullable|image|max:2048'
+    ]);
+
+    $page = Page::where('slug', 'footer')->firstOrFail();
+
+    // Actualizar campos básicos de la página
+    $page->update([
+        'title' => $request->title,
+        'content' => $request->content,
+        'section' => $request->section
+    ]);
+
+    // Procesar las secciones
+    if ($request->has('sections')) {
+        foreach ($request->sections as $sectionId => $sectionData) {
+            $section = Section::find($sectionId);
+
+            if ($section && $section->page_id == $page->id) {
+                // Actualizar datos básicos de la sección
+                $section->update([
+                    'title' => $sectionData['title'] ?? $section->title,
+                    'content' => $sectionData['content'] ?? $section->content,
+                    'order' => $sectionData['order'] ?? $section->order,
+                    'is_active' => isset($sectionData['is_active']) ? true : false
+                ]);
+
+                // Actualizar custom_data si existe
+                if (isset($sectionData['custom_data']) && is_array($sectionData['custom_data'])) {
+                    $section->setCustomDataArray($sectionData['custom_data']);
+                    $section->save();
+                }
+
+                // Manejar imágenes nuevas
+                if (isset($sectionData['images'])) {
+                    $this->handleSectionImages($section, $sectionData['images']);
+                }
+            }
+        }
+    }
+
+    return redirect()->route('admin.pages.edit-footer')
+                   ->with('success', '¡Footer actualizado correctamente!');
+}
+
+private function handleSectionImages($section, $images)
+{
+    $currentImages = $section->getImagesArray();
+    $newImagePaths = [];
+
+    foreach ($images as $image) {
+        if ($image->isValid()) {
+            $path = $image->store('pages/sections', 'public');
+            $newImagePaths[] = $path;
+        }
+    }
+
+    if (!empty($newImagePaths)) {
+        $allImages = array_merge($currentImages, $newImagePaths);
+        $section->setImagesArray($allImages);
+        $section->save();
+    }
+}
+
 
 public function editServicios()
 {
