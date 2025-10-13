@@ -532,7 +532,7 @@
     @endif
 
     <!-- Coverage Area Section - AHORA DINÁMICO -->
-    @if(isset($sectionsData['coverage_section']) && $sectionsData['coverage_section'])
+    <!-- @if(isset($sectionsData['coverage_section']) && $sectionsData['coverage_section'])
         @php $coverageSection = $sectionsData['coverage_section']; @endphp
         <section class="coverage-section">
             <div class="container">
@@ -648,7 +648,7 @@
                 </div>
             </div>
         </section>
-    @endif
+    @endif -->
 
     <!-- CTA Section - AHORA COMPLETAMENTE DINÁMICO -->
     @if(isset($sectionsData['cta']) && $sectionsData['cta'])
