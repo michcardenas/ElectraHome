@@ -80,7 +80,7 @@
 
           <div class="description mb-4">
     <h5>Description</h5>
-    <div class="text-white">{!! $product->description !!}</div>
+    <div class="text-dark">{!! $product->description !!}</div>
 </div>
 
 
