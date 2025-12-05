@@ -498,15 +498,32 @@ public function updateSection(Request $request, $pageId, $sectionId)
             // ===== OTRAS SECCIONES: SOLO IMÁGENES NORMALES =====
             if ($request->hasFile('images')) {
                 \Log::info('Processing regular images for section: ' . $section->name);
-                
-                // Agregar a las imágenes existentes
-                $currentImages = $section->getImagesArray();
-                foreach ($request->file('images') as $image) {
-                    $imagePath = $image->store('sections/images', 'public');
-                    $currentImages[] = $imagePath;
+
+                // Secciones que solo permiten UNA imagen (reemplazar en lugar de agregar)
+                $singleImageSections = ['oster_section', 'services_list'];
+
+                if (in_array($section->name, $singleImageSections)) {
+                    // Reemplazar imagen existente (solo 1 imagen permitida)
+                    $currentImages = $section->getImagesArray();
+                    if (!empty($currentImages)) {
+                        foreach ($currentImages as $oldImage) {
+                            \Storage::disk('public')->delete($oldImage);
+                            \Log::info('Deleted old image: ' . $oldImage);
+                        }
+                    }
+                    $imagePath = $request->file('images')[0]->store('sections/images', 'public');
+                    $section->setImagesArray([$imagePath]);
+                    \Log::info('Image replaced for section: ' . $section->name . ' - New image: ' . $imagePath);
+                } else {
+                    // Agregar a las imágenes existentes (para secciones que permiten múltiples imágenes)
+                    $currentImages = $section->getImagesArray();
+                    foreach ($request->file('images') as $image) {
+                        $imagePath = $image->store('sections/images', 'public');
+                        $currentImages[] = $imagePath;
+                    }
+                    $section->setImagesArray($currentImages);
+                    \Log::info('Images added to section');
                 }
-                $section->setImagesArray($currentImages);
-                \Log::info('Images added to section');
             }
         }
     }
